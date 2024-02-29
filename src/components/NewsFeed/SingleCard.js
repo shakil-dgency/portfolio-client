@@ -12,6 +12,7 @@ import Link from "next/link";
 
 function SingleCard({ data }) {
 	const [likeCount, setLikeCount] = useState(17);
+	const [likeStatus, setLikeStatus] = useState(false);
 
 	const handleLike = (id) => {
 		let isLike = localStorage.getItem("likeId");
@@ -23,9 +24,21 @@ function SingleCard({ data }) {
 		console.log(id);
 	};
 
-	const handleStorage = (id) => {
-		return window && localStorage.getItem("likeId" + id);
-	};
+	useEffect(() => {
+		const handleStorage = (id) => {
+			const storageValue = localStorage.getItem("likeId" + id);
+			return storageValue ? JSON.parse(storageValue) : false;
+		};
+
+		setLikeStatus(handleStorage(data.id));
+	});
+
+	// const handleStorage = (id) => {
+	// 	if (typeof window !== "undefined") {
+	// 		return localStorage.getItem("likeId" + id);
+	// 	}
+	// 	return true;
+	// };
 
 	const handleSlug = (title, date) => {
 		const titleToSlug = title.toLowerCase().replace(/ /g, "-");
@@ -69,7 +82,7 @@ function SingleCard({ data }) {
 						</div>
 						<div className="h-[1px] w-[full] bg-[#efefef] my-2"></div>
 						<div className="flex items-center justify-between">
-							<button className={`flex items-center ${handleStorage(data.id) ? "text-[#717171]" : ""}`} onClick={() => handleLike(data.id)}>
+							<button className={`flex items-center ${likeStatus ? "text-[#717171]" : ""}`} onClick={() => handleLike(data.id)}>
 								<BiSolidLike className="text-[20px]" />
 								<span className="ml-1 font-[500]">Like</span>
 							</button>
