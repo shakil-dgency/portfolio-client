@@ -8,7 +8,9 @@ function NavBar() {
 		<div className="bg-[#FAFAFA] text-[#222222] relative">
 			<div className="g__body-container flex justify-between py-2.5">
 				<div className="logo italic font-[700]">
-					<Image src={logo} alt="" className="w-[250px]" />
+					<Link href={"/"}>
+						<Image src={logo} alt="" className="w-[250px]" />
+					</Link>
 				</div>
 				<div className="">
 					<ul className="flex gap-5">

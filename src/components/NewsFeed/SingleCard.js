@@ -1,16 +1,12 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import story from "../../../public/newsFeed/story.jpg";
-import story2 from "../../../public/newsFeed/story2.jpeg";
 
 import { BiLike } from "react-icons/bi";
 import { BiSolidLike } from "react-icons/bi";
 import { CiLinkedin } from "react-icons/ci";
 import { LiaFacebookSquare } from "react-icons/lia";
 import { LiaTwitterSquare } from "react-icons/lia";
-
-import ReactPlayer from "react-player";
 import { FacebookShareButton, TwitterShareButton, LinkedinShareButton } from "react-share";
 import Link from "next/link";
 
