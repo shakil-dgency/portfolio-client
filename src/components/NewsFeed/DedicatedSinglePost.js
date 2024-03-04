@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import SearchComponent from "./SearchComponent";
 import SingleCard from "./SingleCard";
+import NewsFeedCard from "./NewsFeedCard";
 
 function DedicatedSinglePost({ feedData }) {
 	const navigate = usePathname();
@@ -21,22 +22,16 @@ function DedicatedSinglePost({ feedData }) {
 
 	return (
 		<div>
-			<div className="g__body-container flex justify-between">
-				<SearchComponent />
+			<div className="g__body-container">
+				{/* <SearchComponent /> */}
 
 				<div className="mt-10">
-					{filteredData &&
+					{/* {filteredData &&
 						filteredData.map((data) => {
 							return <SingleCard data={data} />;
-						})}
+						})} */}
 
-					{filteredData && (
-						<div className="flex justify-center gap-10 mt-16">
-							<button className="bg-black text-white font-[700] rounded-md px-[38px] py-2">BACK</button>
-							<button className="bg-black text-white font-[700] rounded-md px-6 py-2">RANDOM</button>
-							<button className="bg-black text-white font-[700] rounded-md px-[38px] py-2">NEXT</button>
-						</div>
-					)}
+					<NewsFeedCard feedData={filteredData} singleNews="true" />
 				</div>
 			</div>
 		</div>

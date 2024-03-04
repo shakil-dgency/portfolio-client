@@ -3,7 +3,9 @@ import SearchComponent from "@/components/NewsFeed/SearchComponent";
 import React from "react";
 
 async function getNewsFeeds() {
-	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/news-feeds?populate=*`);
+	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/news-feeds?populate=*`, {
+		next: { revalidate: 3 },
+	});
 	const newsfeeds = await res.json();
 
 	return newsfeeds;
@@ -14,9 +16,7 @@ export default async function page() {
 
 	return (
 		<div>
-			<div className="g__body-container flex justify-between">
-				<SearchComponent />
-
+			<div className="">
 				<MonthlyPost postData={newsFeeds} />
 			</div>
 		</div>

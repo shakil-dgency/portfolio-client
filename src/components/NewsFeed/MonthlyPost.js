@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import SingleCard from "./SingleCard";
+import NewsFeedCard from "./NewsFeedCard";
 
 function MonthlyPost({ postData }) {
 	const navigate = usePathname();
@@ -25,11 +26,15 @@ function MonthlyPost({ postData }) {
 	}, []);
 
 	return (
-		<div className="mt-10">
-			{filteredData &&
+		<div className="g__body-container">
+			<div className="mt-10">
+				{/* {filteredData &&
 				filteredData.map((data) => {
 					return <SingleCard data={data} key={data.id} />;
-				})}
+				})} */}
+
+				<NewsFeedCard feedData={filteredData} />
+			</div>
 		</div>
 	);
 }

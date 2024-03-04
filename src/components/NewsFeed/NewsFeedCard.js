@@ -4,15 +4,15 @@ import React, { useEffect, useState } from "react";
 import SingleCard from "./SingleCard";
 import SearchComponent from "./SearchComponent";
 
-function NewsFeedCard({ feedData }) {
+function NewsFeedCard({ feedData, singleNews }) {
 	const [sortedData, setSortedData] = useState();
 	const [search, setSearch] = useState("");
 
-	console.log(search);
+	console.log(search.toLowerCase());
 
 	useEffect(() => {
 		if (feedData) {
-			let finalData = feedData.data.reduce(function (accumulator, currentValue) {
+			let finalData = feedData.reduce(function (accumulator, currentValue) {
 				if (typeof currentValue.id === "number") {
 					// Insert currentValue into the correct position in the accumulator array
 					const index = accumulator.findIndex((item) => item.id <= currentValue.id);
@@ -28,7 +28,7 @@ function NewsFeedCard({ feedData }) {
 		}
 	}, [feedData]);
 	return (
-		<div className="mb-20 flex justify-between">
+		<div className=" flex justify-between">
 			<SearchComponent search={search} setSearch={setSearch} />
 			<div className="">
 				<div className="max-w-[768px] mx-auto   py-4">
@@ -39,11 +39,20 @@ function NewsFeedCard({ feedData }) {
 						.filter((item) => {
 							return search.toLowerCase() === ""
 								? item
-								: item.attributes.feed_title.toLowerCase().includes(search) || item.attributes.feed_description.toLowerCase().includes(search);
+								: item.attributes.feed_title.toLowerCase().includes(search.toLowerCase()) ||
+										item.attributes.feed_description.toLowerCase().includes(search.toLowerCase());
 						})
 						.map((data) => {
-							return <SingleCard data={data} key={data.id} />;
+							return <SingleCard data={data} key={data.id} highlightedSearch={search.toLowerCase()} />;
 						})}
+
+				{singleNews && (
+					<div className="flex justify-center gap-10 my-16 ">
+						<button className="bg-black text-white font-[700] rounded-md px-[38px] py-2">BACK</button>
+						<button className="bg-black text-white font-[700] rounded-md px-6 py-2">RANDOM</button>
+						<button className="bg-black text-white font-[700] rounded-md px-[38px] py-2">NEXT</button>
+					</div>
+				)}
 			</div>
 		</div>
 	);

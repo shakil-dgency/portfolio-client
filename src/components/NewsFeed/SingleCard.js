@@ -11,20 +11,9 @@ import { FacebookShareButton, TwitterShareButton, LinkedinShareButton } from "re
 import Link from "next/link";
 import LikeCount from "./LikeCount";
 
-function SingleCard({ data }) {
-	const [likeCount, setLikeCount] = useState(data.attributes.like_count);
+function SingleCard({ data, highlightedSearch }) {
+	const [likeCount, setLikeCount] = useState();
 	const [likeStatus, setLikeStatus] = useState(false);
-
-	// const handleLike = (id) => {
-	// 	let isLike = localStorage.getItem("likeId");
-
-	// 	if (!localStorage.getItem("likeId" + id)) {
-	// 		setLikeCount(likeCount + 1);
-	// 		localStorage.setItem("likeId" + id, id);
-	// 	}
-	// 	console.log(id);
-	// };
-	// console.log(data.attributes.titlel);
 
 	useEffect(() => {
 		const handleStorage = (id) => {
@@ -35,13 +24,22 @@ function SingleCard({ data }) {
 		setLikeStatus(handleStorage(data.id));
 	});
 
-	// const handleStorage = (id) => {
-	// 	if (typeof window !== "undefined") {
-	// 		return localStorage.getItem("likeId" + id);
-	// 	}
-	// 	return true;
-	// };
+	useEffect(() => {
+		const fetchLikeCount = async () => {
+			try {
+				const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/news-feeds/${data.id}`);
+				const like = await res.json();
 
+				setLikeCount(like.data.attributes.like_count);
+
+				console.log();
+			} catch (error) {}
+		};
+
+		fetchLikeCount();
+	}, []);
+
+	// Function for structure the slug
 	const handleSlug = (title, date) => {
 		// const titleToSlug = title.toLowerCase().replace(/ /g, "-");
 		const createdAtDate = new Date(date);
@@ -52,6 +50,7 @@ function SingleCard({ data }) {
 		return `${formattedDate}/${title}`;
 	};
 
+	//Function for format the date
 	const handleFormatedDate = (dateString) => {
 		const date = new Date(dateString);
 		const day = date.getDate();
@@ -81,13 +80,14 @@ function SingleCard({ data }) {
 		return `${day}${daySuffix} ${month} ${year}`;
 	};
 
+	//Function for count the like and update the like count
 	async function handleLike(id) {
 		let isLike = localStorage.getItem("likeId");
 
 		if (!localStorage.getItem("likeId" + id)) {
 			localStorage.setItem("likeId" + id, id);
 
-			let stringToInt = parseInt(data.attributes.like_count) + 1;
+			let stringToInt = parseInt(likeCount) + 1;
 			let count = stringToInt.toString();
 			console.log(count);
 
@@ -117,21 +117,46 @@ function SingleCard({ data }) {
 		console.log(id);
 	}
 
+	//Function for highlight the text which is searched
+
+	const highlightSearchKeyword = (text, search) => {
+		const parts = text.split(new RegExp(`(${search})`, "gi"));
+		return parts.map((part, index) =>
+			part.toLowerCase() === search.toLowerCase() ? (
+				<span key={index} style={{ backgroundColor: "yellow" }}>
+					{part}
+				</span>
+			) : (
+				part
+			)
+		);
+	};
+
+	// Function to parse HTML content to text and apply highlighting to text nodes
+	const parseAndHighlightHTML = (html, search) => {
+		const tempDiv = document.createElement("div");
+		tempDiv.innerHTML = html;
+		const nodes = tempDiv.childNodes;
+		const highlightedNodes = Array.from(nodes).map((node) => {
+			if (node.nodeType === Node.TEXT_NODE) {
+				return highlightSearchKeyword(node.textContent, search);
+			} else {
+				return React.createElement(node.tagName.toLowerCase(), { ...node.attributes }, parseAndHighlightHTML(node.innerHTML, search));
+			}
+		});
+		return highlightedNodes;
+	};
+
 	return (
 		<div>
 			<div className="max-w-[640px] mx-auto bg-[#ffffff] rounded-md mb-5 ">
 				<div className="px-6 py-6">
 					<Link href={handleSlug(data.attributes.slug, data.attributes.createdAt)} className="text-[22px] font-[500] hover:underline">
-						{data.attributes.feed_title}
+						{highlightSearchKeyword(data.attributes.feed_title, highlightedSearch)}
 					</Link>
 					<p className="text-[13px] text-[#606060] pt-1">{handleFormatedDate(data.attributes.createdAt)}</p>
 					<div className="caption mt-3 mb-7">
-						<div
-							className="text-[#191919]"
-							dangerouslySetInnerHTML={{
-								__html: data && data.attributes.feed_description,
-							}}
-						/>
+						<div className="text-[#191919]">{parseAndHighlightHTML(data.attributes.feed_description, highlightedSearch)}</div>
 					</div>
 
 					<div className="image_video">

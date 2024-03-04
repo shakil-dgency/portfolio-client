@@ -1,4 +1,5 @@
 import DedicatedSinglePost from "@/components/NewsFeed/DedicatedSinglePost";
+import NewsFeedCard from "@/components/NewsFeed/NewsFeedCard";
 import Head from "next/head";
 import React from "react";
 
@@ -10,7 +11,9 @@ export const metadata = {
 };
 
 async function getNewsFeeds() {
-	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/news-feeds?populate=*`);
+	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/news-feeds?populate=*`, {
+		next: { revalidate: 3 },
+	});
 	const newsfeeds = await res.json();
 
 	return newsfeeds;
@@ -20,8 +23,9 @@ export default async function page() {
 	const newsFeeds = await getNewsFeeds();
 
 	return (
-		<div>
+		<div className="">
 			<DedicatedSinglePost feedData={newsFeeds} />
+			{/* <NewsFeedCard feedData={newsFeeds} /> */}
 		</div>
 	);
 }
