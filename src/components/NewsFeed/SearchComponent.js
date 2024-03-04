@@ -1,13 +1,17 @@
 import React from "react";
 import { IoIosSearch } from "react-icons/io";
 
-function SearchComponent() {
+function SearchComponent({ search, setSearch }) {
 	return (
 		<div>
 			<div className="sticky top-8">
 				<p className="mt-8 mb-2 font-[700]">Search</p>
 				<div className="relative flex max-w-[280px]">
-					<input type="text" className="text-[15px] outline-none px-2 py-[6px] w-full rounded-l-md border-[1px] border-black bg-transparent" />
+					<input
+						type="text"
+						onChange={(e) => setSearch(e.target.value)}
+						className="text-[15px] outline-none px-2 py-[6px] w-full rounded-l-md border-[1px] border-black bg-transparent"
+					/>
 					<button className=" bg-black text-white px-2 rounded-r-md w-[90px] flex justify-center items-center">
 						<IoIosSearch className="text-[26px]" />
 					</button>

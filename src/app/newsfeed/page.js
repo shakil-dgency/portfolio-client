@@ -2,15 +2,21 @@ import NewsFeedCard from "@/components/NewsFeed/NewsFeedCard";
 import SearchComponent from "@/components/NewsFeed/SearchComponent";
 import React from "react";
 
-function page() {
+async function getNewsFeeds() {
+	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/news-feeds?populate=*`, { cache: "no-store" });
+	const newsfeeds = await res.json();
+
+	return newsfeeds;
+}
+
+export default async function page() {
+	const newsFeeds = await getNewsFeeds();
+
 	return (
 		<div>
-			<div className="g__body-container flex justify-between">
-				<SearchComponent />
-				<NewsFeedCard />
+			<div className="g__body-container ">
+				<NewsFeedCard feedData={newsFeeds} />
 			</div>
 		</div>
 	);
 }
-
-export default page;

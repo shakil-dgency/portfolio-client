@@ -8,8 +8,8 @@ function MonthlyPost({ postData }) {
 	const [filteredData, setFilteredData] = useState();
 
 	useEffect(() => {
-		const newData = postData.filter((item) => {
-			const createdAtDate = new Date(item.createdAt);
+		const newData = postData.data.filter((item) => {
+			const createdAtDate = new Date(item.attributes.createdAt);
 			const year = createdAtDate.getFullYear();
 			const month = createdAtDate.getMonth() + 1;
 			const formattedDate = `/${year}/${month < 10 ? "0" + month : month}`;

@@ -1,54 +1,50 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import SingleCard from "./SingleCard";
+import SearchComponent from "./SearchComponent";
 
-function NewsFeedCard() {
-	const feedData = [
-		{
-			id: 1,
-			title: "Beauty of eyes",
-			date: "19th December 2023",
-			caption:
-				"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum, numquam quae a quos, velit omnis sapiente similique officia itaque assumenda temporibus soluta eligendi quod architecto inventore nobis doloremque eos at.",
-			image: "/newsFeed/story.jpg",
-			video: "",
-			url: "https://escaperoommarketer.com/23-smart-landing-page-trends-and-over-60-examples",
-			createdAt: "2023-12-19T16:40:23.978Z",
-		},
-		{
-			id: 2,
-			title: "The Color of City Life",
-			date: "19th December 2023",
-			caption:
-				"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum, numquam quae a quos, velit omnis sapiente similique officia itaque assumenda temporibus soluta eligendi quod architecto inventore nobis doloremque eos at.",
-			image: "",
-			video: "https://www.youtube.com/embed/SMKPKGW083c",
-			url: "https://www.youtube.com/watch?v=3UvI0k_KUIo",
-			createdAt: "2023-12-19T16:40:23.978Z",
-		},
-		{
-			id: 3,
-			title: "Corporate Lifestyle",
-			date: "19th February 2024",
-			caption:
-				"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum, numquam quae a quos, velit omnis sapiente similique officia itaque assumenda temporibus soluta eligendi quod architecto inventore nobis doloremque eos at.",
-			image: "",
-			video: "",
-			url: "https://escaperoommarketer.com/another-blog",
-			createdAt: "2024-02-19T16:40:23.978Z",
-		},
-	];
+function NewsFeedCard({ feedData }) {
+	const [sortedData, setSortedData] = useState();
+	const [search, setSearch] = useState("");
 
+	console.log(search);
+
+	useEffect(() => {
+		if (feedData) {
+			let finalData = feedData.data.reduce(function (accumulator, currentValue) {
+				if (typeof currentValue.id === "number") {
+					// Insert currentValue into the correct position in the accumulator array
+					const index = accumulator.findIndex((item) => item.id <= currentValue.id);
+					if (index === -1) {
+						accumulator.push(currentValue);
+					} else {
+						accumulator.splice(index, 0, currentValue);
+					}
+				}
+				return accumulator;
+			}, []);
+			setSortedData(finalData);
+		}
+	}, [feedData]);
 	return (
-		<div className="mb-20">
-			<div className="max-w-[768px] mx-auto   py-4">
-				<h1 className="text-[32px] font-[700] ">News Feed</h1>
+		<div className="mb-20 flex justify-between">
+			<SearchComponent search={search} setSearch={setSearch} />
+			<div className="">
+				<div className="max-w-[768px] mx-auto   py-4">
+					<h1 className="text-[32px] font-[700] ">News Feed</h1>
+				</div>
+				{sortedData &&
+					sortedData
+						.filter((item) => {
+							return search.toLowerCase() === ""
+								? item
+								: item.attributes.feed_title.toLowerCase().includes(search) || item.attributes.feed_description.toLowerCase().includes(search);
+						})
+						.map((data) => {
+							return <SingleCard data={data} key={data.id} />;
+						})}
 			</div>
-			{feedData &&
-				feedData.map((data) => {
-					return <SingleCard data={data} key={data.id} />;
-				})}
 		</div>
 	);
 }

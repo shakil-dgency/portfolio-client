@@ -8,8 +8,8 @@ function YearlyPost({ postData }) {
 	const [filteredData, setFilteredData] = useState();
 
 	useEffect(() => {
-		const newData = postData.filter((item) => {
-			const createdAtDate = new Date(item.createdAt);
+		const newData = postData.data.filter((item) => {
+			const createdAtDate = new Date(item.attributes.createdAt);
 
 			return createdAtDate.getFullYear().toString() === navigate.replace("/", "");
 		});
