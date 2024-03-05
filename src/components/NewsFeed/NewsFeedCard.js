@@ -3,12 +3,13 @@ import React, { useEffect, useState } from "react";
 
 import SingleCard from "./SingleCard";
 import SearchComponent from "./SearchComponent";
+import Link from "next/link";
 
-function NewsFeedCard({ feedData, singleNews }) {
+function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed }) {
 	const [sortedData, setSortedData] = useState();
 	const [search, setSearch] = useState("");
 
-	console.log(search.toLowerCase());
+	// console.log(newFunction);
 
 	useEffect(() => {
 		if (feedData) {
@@ -22,11 +23,15 @@ function NewsFeedCard({ feedData, singleNews }) {
 						accumulator.splice(index, 0, currentValue);
 					}
 				}
+
 				return accumulator;
 			}, []);
 			setSortedData(finalData);
 		}
 	}, [feedData]);
+
+	// setNextData(sortedData && sortedData);
+
 	return (
 		<div className=" flex justify-between">
 			<SearchComponent search={search} setSearch={setSearch} />
@@ -43,16 +48,18 @@ function NewsFeedCard({ feedData, singleNews }) {
 										item.attributes.feed_description.toLowerCase().includes(search.toLowerCase());
 						})
 						.map((data) => {
-							return <SingleCard data={data} key={data.id} highlightedSearch={search.toLowerCase()} />;
+							return (
+								<SingleCard
+									data={data}
+									key={data.id}
+									highlightedSearch={search.toLowerCase()}
+									singleNews={singleNews}
+									previousData={previousData}
+									nextData={nextData}
+									randomFeed={randomFeed}
+								/>
+							);
 						})}
-
-				{singleNews && (
-					<div className="flex justify-center gap-10 my-16 ">
-						<button className="bg-black text-white font-[700] rounded-md px-[38px] py-2">BACK</button>
-						<button className="bg-black text-white font-[700] rounded-md px-6 py-2">RANDOM</button>
-						<button className="bg-black text-white font-[700] rounded-md px-[38px] py-2">NEXT</button>
-					</div>
-				)}
 			</div>
 		</div>
 	);

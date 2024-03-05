@@ -10,8 +10,9 @@ import { LiaTwitterSquare } from "react-icons/lia";
 import { FacebookShareButton, TwitterShareButton, LinkedinShareButton } from "react-share";
 import Link from "next/link";
 import LikeCount from "./LikeCount";
+import next from "next";
 
-function SingleCard({ data, highlightedSearch }) {
+function SingleCard({ data, highlightedSearch, singleNews, previousData, nextData, randomFeed }) {
 	const [likeCount, setLikeCount] = useState();
 	const [likeStatus, setLikeStatus] = useState(false);
 
@@ -23,6 +24,8 @@ function SingleCard({ data, highlightedSearch }) {
 
 		setLikeStatus(handleStorage(data.id));
 	});
+
+	// console.log(previousNextData && previousNextData);
 
 	useEffect(() => {
 		const fetchLikeCount = async () => {
@@ -137,11 +140,11 @@ function SingleCard({ data, highlightedSearch }) {
 		const tempDiv = document.createElement("div");
 		tempDiv.innerHTML = html;
 		const nodes = tempDiv.childNodes;
-		const highlightedNodes = Array.from(nodes).map((node) => {
+		const highlightedNodes = Array.from(nodes).map((node, index) => {
 			if (node.nodeType === Node.TEXT_NODE) {
 				return highlightSearchKeyword(node.textContent, search);
 			} else {
-				return React.createElement(node.tagName.toLowerCase(), { ...node.attributes }, parseAndHighlightHTML(node.innerHTML, search));
+				return React.createElement(node.tagName.toLowerCase(), { key: index, ...node.attributes }, parseAndHighlightHTML(node.innerHTML, search));
 			}
 		});
 		return highlightedNodes;
@@ -161,13 +164,7 @@ function SingleCard({ data, highlightedSearch }) {
 
 					<div className="image_video">
 						{data.attributes.image.data !== null && (
-							<Image
-								src={`${process.env.NEXT_PUBLIC_API_URL}` + data.attributes.image.data?.attributes.url}
-								height={400}
-								width={650}
-								alt=""
-								className="w-full"
-							/>
+							<Image src={data.attributes.image.data?.attributes.url} height={400} width={650} alt="" className="w-full" />
 						)}
 						{data.attributes.video_url && (
 							<iframe
@@ -212,6 +209,32 @@ function SingleCard({ data, highlightedSearch }) {
 					</div>
 				</div>
 			</div>
+			{singleNews && (
+				<div className="flex justify-center gap-10 my-16 ">
+					{previousData && (
+						<Link
+							href={handleSlug(previousData && previousData.attributes.slug, previousData && previousData.attributes.createdAt)}
+							className="bg-black text-white font-[700] rounded-md px-[38px] py-2"
+						>
+							BACK
+						</Link>
+					)}
+					<Link
+						href={handleSlug(randomFeed && randomFeed.attributes.slug, randomFeed && randomFeed.attributes.createdAt)}
+						className="bg-black text-white font-[700] rounded-md px-6 py-2"
+					>
+						RANDOM
+					</Link>
+					{nextData && (
+						<Link
+							href={handleSlug(nextData && nextData.attributes.slug, nextData && nextData.attributes.createdAt)}
+							className="bg-black text-white font-[700] rounded-md px-[38px] py-2"
+						>
+							NEXT
+						</Link>
+					)}
+				</div>
+			)}
 		</div>
 	);
 }
