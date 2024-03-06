@@ -42,7 +42,7 @@ function NavBar() {
 	});
 
 	return (
-		<div className="navbar bg-[#FAFAFA]  backdrop-blur-[25px] text-[#222222]  sticky top-0 z-50 ">
+		<div className="navbar bg-[#FAFAFA]  backdrop-blur-[25px] text-[#222222]  sticky top-0 z-50 w-full ">
 			<div className="g__body-container flex justify-between py-2.5">
 				<div className="logo italic font-[700]">
 					<Link href={"/"}>

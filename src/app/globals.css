@@ -17,6 +17,22 @@
 	}
 }
 
+/* -----------custom scroll bar----------- */
+
+::-webkit-scrollbar {
+	width: 0.575rem;
+}
+
+::-webkit-scrollbar-track {
+	background: rgba(0, 0, 0, 0.2);
+	backdrop-filter: blur(25px);
+	/* #ff9279 */
+}
+
+::-webkit-scrollbar-thumb {
+	background: #5c5c5c;
+}
+
 body {
 	background-color: #f3f3f3;
 }
