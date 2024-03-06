@@ -182,6 +182,8 @@ function SingleCard({ data, highlightedSearch, singleNews, previousData, nextDat
 							// 	}}
 							// />
 						)}
+
+						{data.attributes.gif_file && <img src={data.attributes.gif_file} className="w-full h-[350px] object-contain bg-black" />}
 					</div>
 					<div className="">
 						<div className="flex items-center mt-3 gap-2">
