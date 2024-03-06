@@ -3,7 +3,7 @@ import React from "react";
 
 function page() {
 	return (
-		<div>
+		<div className="h-[100vh]">
 			<Hero />
 		</div>
 	);

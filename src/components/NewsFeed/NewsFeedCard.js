@@ -33,7 +33,7 @@ function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed
 	// setNextData(sortedData && sortedData);
 
 	return (
-		<div className=" flex justify-between">
+		<div className=" flex justify-between mb-10">
 			<SearchComponent search={search} setSearch={setSearch} />
 			<div className="">
 				<div className="max-w-[768px] mx-auto   py-4">
