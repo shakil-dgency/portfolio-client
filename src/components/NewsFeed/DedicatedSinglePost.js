@@ -7,7 +7,7 @@ import NewsFeedCard from "./NewsFeedCard";
 
 function DedicatedSinglePost({ feedData }) {
 	const navigate = usePathname();
-	const [filteredData, setFilteredData] = useState();
+	const [filteredData, setFilteredData] = useState(null);
 	const [previousData, setPreviousData] = useState();
 	const [nextData, setNextData] = useState();
 	const [randomFeed, setRandomFeed] = useState();
@@ -74,11 +74,11 @@ function DedicatedSinglePost({ feedData }) {
 	}, []);
 
 	return (
-		<div>
-			<div className="g__body-container">
+		<div className={`${filteredData === null ? "h-[100vh]" : ""}`}>
+			<div className=" ">
 				{/* <SearchComponent /> */}
 
-				<div className="mt-10">
+				<div className="">
 					{/* {filteredData &&
 						filteredData.map((data) => {
 							return <SingleCard data={data} />;

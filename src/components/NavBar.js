@@ -3,8 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import logo from "../../public/H M Hamiduzjaman - Logo.svg";
+import SearchComponent from "./NewsFeed/SearchComponent";
 
-function NavBar() {
+function NavBar({ search, setSearch, isSearch }) {
 	useEffect(() => {
 		let lastScrollTop = 0;
 		let navBar = document.querySelector(".navbar");
@@ -43,7 +44,7 @@ function NavBar() {
 
 	return (
 		<div className="navbar bg-[#FAFAFA]  backdrop-blur-[25px] text-[#222222]  sticky top-0 z-50 w-full ">
-			<div className="g__body-container flex justify-between py-2.5">
+			<div className="g__body-container  flex justify-between py-2.5">
 				<div className="logo italic font-[700]">
 					<Link href={"/"}>
 						<Image src={logo} alt="" className="w-[250px]" />
@@ -59,6 +60,7 @@ function NavBar() {
 						<li className="cursor-pointer">Contact</li>
 
 						{/* <li className="">NewsFeed</li> */}
+						{isSearch && <SearchComponent search={search} setSearch={setSearch} />}
 					</ul>
 				</div>
 			</div>

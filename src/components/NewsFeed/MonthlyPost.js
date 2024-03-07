@@ -6,7 +6,7 @@ import NewsFeedCard from "./NewsFeedCard";
 
 function MonthlyPost({ postData }) {
 	const navigate = usePathname();
-	const [filteredData, setFilteredData] = useState();
+	const [filteredData, setFilteredData] = useState(null);
 
 	useEffect(() => {
 		const newData = postData.data.filter((item) => {
@@ -15,25 +15,23 @@ function MonthlyPost({ postData }) {
 			const month = createdAtDate.getMonth() + 1;
 			const formattedDate = `/${year}/${month < 10 ? "0" + month : month}`;
 
-			console.log();
-
 			return formattedDate === navigate;
 		});
-
-		console.log(newData);
 
 		setFilteredData(newData);
 	}, []);
 
 	return (
-		<div className="g__body-container">
-			<div className="mt-10">
-				{/* {filteredData &&
+		<div className={`${filteredData === null ? "h-[200vh]" : ""}`}>
+			<div className="">
+				<div className="">
+					{/* {filteredData &&
 				filteredData.map((data) => {
 					return <SingleCard data={data} key={data.id} />;
 				})} */}
 
-				<NewsFeedCard feedData={filteredData} />
+					<NewsFeedCard feedData={filteredData} />
+				</div>
 			</div>
 		</div>
 	);

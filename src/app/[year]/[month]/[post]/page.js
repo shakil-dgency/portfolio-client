@@ -10,20 +10,27 @@ export const metadata = {
 	},
 };
 
-async function getNewsFeeds() {
+// export async function generateMetadata({ params, searchParams }) {
+// 	return {
+// 		title: "...",
+// 	};
+// }
+
+async function getNewsFeeds(t) {
+	// console.log(t);
 	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/news-feeds?populate=*`, {
-		next: { revalidate: 3 },
+		next: { revalidate: 10 },
 	});
 	const newsfeeds = await res.json();
 
 	return newsfeeds;
 }
 
-export default async function page() {
-	const newsFeeds = await getNewsFeeds();
+export default async function page({ params }) {
+	const newsFeeds = await getNewsFeeds(params);
 
 	return (
-		<div className="">
+		<div className={``}>
 			<DedicatedSinglePost feedData={newsFeeds} />
 			{/* <NewsFeedCard feedData={newsFeeds} /> */}
 		</div>

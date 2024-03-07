@@ -1,10 +1,11 @@
+import NavBar from "@/components/NavBar";
 import NewsFeedCard from "@/components/NewsFeed/NewsFeedCard";
 import SearchComponent from "@/components/NewsFeed/SearchComponent";
 import React from "react";
 
 async function getNewsFeeds() {
 	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/news-feeds?populate=*`, {
-		next: { revalidate: 3 },
+		next: { revalidate: 10 },
 	});
 	const newsfeeds = await res.json();
 
@@ -16,7 +17,7 @@ export default async function page() {
 
 	return (
 		<div>
-			<div className="g__body-container ">
+			<div className=" ">
 				<NewsFeedCard feedData={newsFeeds.data} />
 			</div>
 		</div>

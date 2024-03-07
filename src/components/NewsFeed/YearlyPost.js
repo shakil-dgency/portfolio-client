@@ -6,7 +6,7 @@ import NewsFeedCard from "./NewsFeedCard";
 
 function YearlyPost({ postData }) {
 	const navigate = usePathname();
-	const [filteredData, setFilteredData] = useState();
+	const [filteredData, setFilteredData] = useState(null);
 
 	useEffect(() => {
 		const newData = postData.data.filter((item) => {
@@ -21,9 +21,11 @@ function YearlyPost({ postData }) {
 	console.log(filteredData);
 
 	return (
-		<div className="g__body-container">
-			<div className="mt-10">
-				<NewsFeedCard feedData={filteredData} />
+		<div className={`${filteredData === null ? "h-[200vh]" : ""}`}>
+			<div className="">
+				<div className="">
+					<NewsFeedCard feedData={filteredData} />
+				</div>
 			</div>
 		</div>
 	);
