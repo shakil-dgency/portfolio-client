@@ -1,11 +1,16 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../public/H M Hamiduzjaman - Logo.svg";
 import SearchComponent from "./NewsFeed/SearchComponent";
 
+import { HiMiniBars3BottomLeft } from "react-icons/hi2";
+import { RxCross2 } from "react-icons/rx";
+
 function NavBar({ search, setSearch, isSearch }) {
+	const [screen, setScreen] = useState(null);
+	const [sideBarOpen, setSideBarOpen] = useState(false);
 	// useEffect(() => {
 	// 	let lastScrollTop = 0;
 	// 	let navBar = document.querySelector(".navbar");
@@ -42,27 +47,88 @@ function NavBar({ search, setSearch, isSearch }) {
 	// 	});
 	// });
 
+	useEffect(() => {
+		let screenSize = window.screen;
+		setScreen(screenSize.width);
+		window.addEventListener("resize", function () {
+			setScreen(screenSize.width);
+		});
+	});
+
+	const handleOpenSideBar = () => {
+		let navBar = document.querySelector(".sidebar");
+		navBar.classList.remove("hidden");
+		setSideBarOpen(true);
+		document.body.classList.add("overflow-hidden");
+		setTimeout(() => {
+			navBar.classList.remove("right-[-120%]");
+			navBar.classList.add("right-[0]");
+			// document.body.classList.add("sidebar_shadow");
+		}, 50);
+		console.log("clicked");
+	};
+
+	const handleClose = () => {
+		let navBar = document.querySelector(".sidebar");
+		navBar.classList.remove("right-[0]");
+		navBar.classList.add("right-[-120%]");
+		setSideBarOpen(false);
+		setTimeout(() => {
+			document.body.classList.remove("overflow-hidden");
+			navBar.classList.add("hidden");
+			// setSearch("");
+		}, 100);
+	};
+
 	return (
-		<div className="navbar bg-[#FAFAFA]  backdrop-blur-[25px] text-[#222222]  sticky top-0 z-50 w-full ">
-			<div className="g__body-container  flex justify-between py-2.5">
-				<div className="logo italic font-[700]">
+		<div className="navbar bg-[#FAFAFA]  backdrop-blur-[25px] text-[#222222] sticky z-40  top-0 w-full ">
+			<div className="g__body-container px-2.5  flex justify-between py-3 sm:py-2.5 relative ">
+				<div className={`logo italic font-[700] relative ${sideBarOpen ? "-z-10" : "z-[inherit]"} `}>
 					<Link href={"/"}>
-						<Image src={logo} alt="" className="w-[250px]" />
+						<Image src={logo} alt="" className="w-[180px] sm:w-[250px]" />
 					</Link>
 				</div>
-				<div className="">
-					<ul className="flex gap-4 font-[500]">
-						<li className=" cursor-pointer">Home</li>
+
+				<div className={`${screen < 768 && screen !== null ? "" : ""} flex gap-10 ${sideBarOpen ? "-z-10" : "z-[inherit]"}`}>
+					{isSearch && (
+						<div className={`${screen > 767 && screen !== null ? "block" : "hidden"}`}>
+							<SearchComponent search={search} setSearch={setSearch} screen={screen} />
+						</div>
+					)}
+					<HiMiniBars3BottomLeft className="text-[24px] cursor-pointer" onClick={handleOpenSideBar} />
+				</div>
+			</div>
+			<div
+				className={`${screen > 640 ? "sidebar_shadow" : ""} ${
+					sideBarOpen ? "" : ""
+				} sidebar  hidden  duration-300 absolute md:relativ right-[-120%]  bg-[#fafafa] md:bg-inher px-10 py-14  top-0 md:top-[inher] shadow  w-full sm:w-[50%] lg:w-[30%]  md:w-[inher] h-[100vh] md:h-[inher]`}
+			>
+				<ul className="flex flex-col-reverse gap-6 font-[600] mt-8 md:mt-0">
+					<div className="flex flex-col gap-4">
+						<li className=" cursor-pointer">
+							<Link href={"/"} onClick={handleClose} className="hover:text-[#9900CC]">
+								Home
+							</Link>
+						</li>
 						<li className="">
-							<Link href={"/profile"}>Profile</Link>
+							<Link href={"/profile"} onClick={handleClose} className="hover:text-[#8C00BF]">
+								Profile
+							</Link>
 						</li>
 						{/* <li className="cursor-pointer">About</li> */}
 						<li className="cursor-pointer">Contact</li>
+					</div>
 
-						{/* <li className="">NewsFeed</li> */}
-						{isSearch && <SearchComponent search={search} setSearch={setSearch} />}
-					</ul>
-				</div>
+					{isSearch && (
+						<div className={`${screen < 768 && screen !== null ? "block" : "hidden"}`}>
+							<SearchComponent search={search} setSearch={setSearch} screen={screen} handleSearchClose={handleClose} />
+						</div>
+					)}
+				</ul>
+				<RxCross2
+					onClick={handleClose}
+					className={`${screen < 768 && screen !== null ? "" : ""} absolute right-5 top-4 text-[28px] cursor-pointer hover:animate-spin`}
+				/>
 			</div>
 		</div>
 	);

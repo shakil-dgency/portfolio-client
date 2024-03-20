@@ -17,9 +17,10 @@ export default async function page() {
 
 	return (
 		<div>
-			<div className=" ">
+			<div className="">
 				<NewsFeedCard feedData={newsFeeds.data} />
 			</div>
 		</div>
+		// feedData={newsFeeds.data}
 	);
 }

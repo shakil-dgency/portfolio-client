@@ -1,20 +1,30 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import Lottie from "lottie-react";
+import animationData from "../../../public/newsFeed/like animation.json";
 
-import { BiLike } from "react-icons/bi";
-import { BiSolidLike } from "react-icons/bi";
 import { CiLinkedin } from "react-icons/ci";
 import { LiaFacebookSquare } from "react-icons/lia";
 import { LiaTwitterSquare } from "react-icons/lia";
 import { FacebookShareButton, TwitterShareButton, LinkedinShareButton } from "react-share";
+import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
+import { LiaRandomSolid } from "react-icons/lia";
+import { FaRandom } from "react-icons/fa";
 import Link from "next/link";
-import LikeCount from "./LikeCount";
-import next from "next";
+import like from "../../../public/newsFeed/like.svg";
+import dolike from "../../../public/newsFeed/dolike.svg";
+import likeOut from "../../../public/newsFeed/likeOutline.svg";
+import linkedIn from "../../../public/newsFeed/linkedin.svg";
+import facebook from "../../../public/newsFeed/facebook.svg";
+import twitter from "../../../public/newsFeed/twitter.svg";
+import linkCopy from "../../../public/newsFeed/link.svg";
+import random from "../../../public/Random.svg";
 
 function SingleCard({ data, highlightedSearch, singleNews, previousData, nextData, randomFeed }) {
 	const [likeCount, setLikeCount] = useState();
 	const [likeStatus, setLikeStatus] = useState(false);
+	const [likeAnim, setLikeAnim] = useState(false);
 
 	useEffect(() => {
 		const handleStorage = (id) => {
@@ -86,13 +96,19 @@ function SingleCard({ data, highlightedSearch, singleNews, previousData, nextDat
 	//Function for count the like and update the like count
 	async function handleLike(id) {
 		let isLike = localStorage.getItem("likeId");
+		// const likeBtn = document.querySelector(".like_btn");
 
 		if (!localStorage.getItem("likeId" + id)) {
 			localStorage.setItem("likeId" + id, id);
 
 			let stringToInt = parseInt(likeCount) + 1;
 			let count = stringToInt.toString();
-			console.log(count);
+
+			setLikeAnim(true);
+
+			// setTimeout(() => {
+			// 	likeBtn.classList.add("like_anim");
+			// }, 100);
 
 			const dataToUpdate = {
 				data: {
@@ -150,16 +166,32 @@ function SingleCard({ data, highlightedSearch, singleNews, previousData, nextDat
 		return highlightedNodes;
 	};
 
+	const handleCopyUrl = (e) => {
+		let linkBtn = document.querySelector(".link_copy");
+		const url = handleSlug(data.attributes.slug, data.attributes.createdAt);
+		const completeUrl = "https://hamiduzjaman.com" + url;
+		navigator.clipboard.writeText(completeUrl);
+		e.target.classList.add("bg-[#BFFF00]");
+		setTimeout(() => {
+			e.target.classList.remove("bg-[#BFFF00]");
+		}, 700);
+	};
+
 	return (
 		<div>
-			<div className="max-w-[640px] mx-auto bg-[#ffffff] rounded-md mb-5 ">
-				<div className="px-6 py-6">
-					<Link href={handleSlug(data.attributes.slug, data.attributes.createdAt)} className="text-[22px] font-[500] hover:underline">
+			<div className="max-w-[672px] mx-auto bg-[#ffffff] sm:rounded-md mb-7 md:mb-[30px] ">
+				<div className="px-[16px] py-[24px] sm:px-[30px] sm:py-[30px]">
+					<Link
+						href={handleSlug(data.attributes.slug, data.attributes.createdAt)}
+						className="post_title text-[18px] leading-[30.8px] md:leading-[inherit] sm:text-[22px] text-[#222222] font-[500] hover:underline"
+					>
 						{highlightSearchKeyword(data.attributes.feed_title, highlightedSearch)}
 					</Link>
-					<p className="text-[13px] text-[#606060] pt-1">{handleFormatedDate(data.attributes.createdAt)}</p>
-					<div className="caption mt-3 mb-7">
-						<div className="text-[#191919]">{parseAndHighlightHTML(data.attributes.feed_description, highlightedSearch)}</div>
+					<p className="text-[14px] text-[#ADB5BD] pt-1 font-[400]">{handleFormatedDate(data.attributes.createdAt)}</p>
+					<div className="caption my-[14px] ">
+						<div className="text-[#2C3E50] text-[14px] sm:text-[16px] font-[400]">
+							{parseAndHighlightHTML(data.attributes.feed_description, highlightedSearch)}
+						</div>
 					</div>
 
 					<div className="image_video">
@@ -171,7 +203,7 @@ function SingleCard({ data, highlightedSearch, singleNews, previousData, nextDat
 								src={data.attributes.video_url + "?rel=0&controls=0"}
 								title="YouTube video"
 								allowFullScreen
-								className="w-full h-[350px]"
+								className="w-full h-[200px] sm:h-[350px]"
 							></iframe>
 							// <ReactPlayer
 							// 	url={data.video}
@@ -183,56 +215,78 @@ function SingleCard({ data, highlightedSearch, singleNews, previousData, nextDat
 							// />
 						)}
 
-						{data.attributes.gif_file && <img src={data.attributes.gif_file} className="w-full h-[350px] object-contain bg-black" />}
+						{data.attributes.gif_file && <img src={data.attributes.gif_file} className="w-full sm:h-[350px] object-contain bg-black" />}
 					</div>
 					<div className="">
-						<div className="flex items-center mt-3 gap-2">
-							<BiLike />
-							<p className="text-[14px]">{likeCount} people liked it</p>
+						<div className="flex items-center mt-[14px] gap-2">
+							{/* <BiLike /> */}
+							<Image src={like} alt="" className="w-[25px] h-[25px]" />
+							<p className="text-[14px]">
+								{likeStatus && <span>You and</span>} {likeCount} others liked it
+							</p>
 						</div>
-						<div className="h-[1px] w-[full] bg-[#efefef] my-2"></div>
+						<div className="h-[1px] w-[full] bg-[#ADB5BD] mt-[10px] mb-[14px]"></div>
 						<div className="flex items-center justify-between">
-							<button className={`flex items-center ${likeStatus ? "text-[#717171]" : ""}`} onClick={() => handleLike(data.id)}>
-								<BiSolidLike className="text-[20px]" />
-								<span className="ml-1 font-[500]">Like</span>
-							</button>
+							<div className={`flex items-center ${likeStatus ? "text-[#717171]" : ""}`} onClick={() => handleLike(data.id)}>
+								{/* <BiSolidLike className="text-[20px]" /> */}
+								{likeStatus ? (
+									<div className="">
+										<Image src={dolike} alt="" className={`${likeAnim ? "like_anim" : ""} w-[26px] h-[26px]`} />
+										{/* <Lottie animationData={animationData} className=" absolute top-0 left-0" loop={true} /> */}
+									</div>
+								) : (
+									// <BiSolidLike className="text-[20px]" />
+									<Image src={likeOut} alt="" className=" w-[29px] h-[26px]" />
+								)}
+								<p className="ml-[10px] mt-1 font-[500]">Like</p>
+							</div>
 							<div className="flex gap-3 text-[24px]">
 								<LinkedinShareButton>
-									<CiLinkedin />
+									<Image src={linkedIn} alt="" className=" w-[20px] h-[20px]" />
 								</LinkedinShareButton>
 								<FacebookShareButton url={"https://hamiduzjaman.com/2023/12/beauty-of-eyes"}>
-									<LiaFacebookSquare />
+									<Image src={facebook} alt="" className=" w-[20px] h-[20px]" />
 								</FacebookShareButton>
 								<TwitterShareButton>
-									<LiaTwitterSquare />
+									<Image src={twitter} alt="" className=" w-[20px] h-[20px]" />
 								</TwitterShareButton>
+								<Image
+									src={linkCopy}
+									alt=""
+									className="link_copy w-[20px] h-[20px] rounded-tl-md rounded-br-md cursor-pointer"
+									onClick={(Event) => handleCopyUrl(Event)}
+								/>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			{singleNews && (
-				<div className="flex justify-center gap-10 my-16 ">
+				<div className="flex justify-center gap-4 sm:gap-10">
 					{previousData && (
 						<Link
 							href={handleSlug(previousData && previousData.attributes.slug, previousData && previousData.attributes.createdAt)}
-							className="bg-black text-white font-[700] rounded-md px-[38px] py-2"
+							className="flex items-center rounded-[5px] text-[14px] sm:text-[16px] border-[#495057] border-[1px] py-[7px] px-[10px] sm:py-[15px] sm:px-[25px]"
 						>
-							BACK
+							<BiChevronLeft className="text-2xl -ml-[6px]" />
+							Previous
 						</Link>
 					)}
 					<Link
 						href={handleSlug(randomFeed && randomFeed.attributes.slug, randomFeed && randomFeed.attributes.createdAt)}
-						className="bg-black text-white font-[700] rounded-md px-6 py-2"
+						className="flex items-center gap-2 rounded-[5px] text-[14px] sm:text-[16px] border-[#495057] border-[1px] py-[7px] px-[9px] sm:py-[15px] sm:px-[22px]"
 					>
-						RANDOM
+						{/* <LiaRandomSolid /> */}
+						<Image src={random} alt="" className=" w-[18px] h-[18px]" />
+						Random
 					</Link>
 					{nextData && (
 						<Link
 							href={handleSlug(nextData && nextData.attributes.slug, nextData && nextData.attributes.createdAt)}
-							className="bg-black text-white font-[700] rounded-md px-[38px] py-2"
+							className=" flex items-center rounded-[5px] text-[14px] sm:text-[16px] border-[#495057] border-[1px] py-[7px] px-[20px] sm:py-[15px] sm:px-[40px]"
 						>
-							NEXT
+							Next
+							<BiChevronRight className="text-2xl -mr-[6px]" />
 						</Link>
 					)}
 				</div>

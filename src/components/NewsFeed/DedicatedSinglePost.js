@@ -74,7 +74,7 @@ function DedicatedSinglePost({ feedData }) {
 	}, []);
 
 	return (
-		<div className={`${filteredData === null ? "h-[100vh]" : ""}`}>
+		<div className={`${filteredData === null ? "h-[100vh]" : "h-[100%]"}`}>
 			<div className=" ">
 				{/* <SearchComponent /> */}
 

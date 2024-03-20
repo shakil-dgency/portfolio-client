@@ -8,7 +8,7 @@ function Footer() {
 	return (
 		<div>
 			{navigate !== "/" && (
-				<div className="bg-[#222222] py-16  w-full">
+				<div className="bg-[#222222] py-16  w-full block">
 					<div className=" g__body-container flex justify-between">
 						<ul>
 							<li className="text-[rgb(120,120,120)] text-[12px]">SITEMAP</li>

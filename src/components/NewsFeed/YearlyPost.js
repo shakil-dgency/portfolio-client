@@ -21,7 +21,7 @@ function YearlyPost({ postData }) {
 	console.log(filteredData);
 
 	return (
-		<div className={`${filteredData === null ? "h-[200vh]" : ""}`}>
+		<div className={`${filteredData === null ? "h-[200vh]" : "h-full"}`}>
 			<div className="">
 				<div className="">
 					<NewsFeedCard feedData={filteredData} />
