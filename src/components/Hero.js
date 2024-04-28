@@ -93,9 +93,12 @@ function Hero() {
 							</div>
 						</div>
 						<div className=" self-center mt-6 md:mt-5 pr-[20px] lg:pr-[50px]">
-							<button className=" bg-[#633ABD] text-white text-[16px] font-[500] md:text-[14px] px-8 py-3 lg:px-[25px] lg:py-[15px] rounded-md translate-x-0 ">
+							<Link
+								href={"/schedule-call"}
+								className=" bg-[#633ABD] text-white text-[16px] font-[500] md:text-[14px] px-8 py-3 lg:px-[25px] lg:py-[15px] rounded-md translate-x-0 "
+							>
 								Schedule a Call
-							</button>
+							</Link>
 						</div>
 					</div>
 					<div className="h-[1px] w-[full] mt-5 bg-[#ADB5BD] mx-[16px] md:mx-[30px] lg:mx-[50px]"></div>
