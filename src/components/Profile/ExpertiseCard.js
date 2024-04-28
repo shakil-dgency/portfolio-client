@@ -7,24 +7,21 @@ import Image from "next/image";
 
 function ExpertiseCard({ title, image }) {
 	return (
-		<div className="mb-14">
+		<div className="">
 			<div className={styles.card}>
-				<div className="">
+				<div className="w-full ">
 					<div className={styles.wrapper}>
 						<Image className={styles.cover_image} src={image} />
 						{/* <Image className={styles.character} src={google} /> */}
 					</div>
 				</div>
 				<div className={styles.title}>
-					<div className="px-2">
+					<div className="">
 						<h3 className="">{title}</h3>
-						<p className="pt-3 pb-3 ">
-							Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos illo omnis ut praesentium, nobis aliquam?Lorem ipsum, dolor sit
-							amet consectetur adipisicing elit
+						<p className=" pt-2.5 sm:pt-[15px] pb-3 text-[var(--para-text)] text-[16px] font-[400] leading-[1.5]">
+							AdVenture shortlisted for best digital campaign in sports and fitness for Slinger Bag performance strategy. Principles of Marketing
+							Micro Business General Commercial Law Business Communication Principles and Practices of Accounting.
 						</p>
-						<button className="border-[1px] border-[#383838] bg-transparent px-2 py-1 rounded-md mt-2 hover:bg-[#383838] hover:text-white">
-							Learn More
-						</button>
 					</div>
 				</div>
 			</div>

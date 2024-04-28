@@ -1,0 +1,81 @@
+.contact {
+	background-image: url(/contact-hero.svg);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+.contactus_main {
+	position: relative;
+	overflow: hidden;
+	/* max-width: 400px; */
+}
+
+.contactus_main::before {
+	content: "";
+	position: absolute;
+	top: -10px;
+	left: 0;
+	bottom: 0;
+	/* width: 370px; */
+	height: 100%;
+	/* background-color: #222; */
+
+	z-index: 1;
+	background-image: url(/contact-bg.svg); /*Put your image url*/
+	background-size: cover;
+	background-position: center;
+	opacity: 0.6;
+}
+
+.contactus_main::after {
+	content: "";
+	position: absolute;
+	top: -10px;
+	right: 0;
+	bottom: 0;
+	width: 370px;
+	height: 100%;
+	/* background-color: #222; */
+
+	z-index: 10;
+	background-image: url(/contactus/contactRight.svg); /*Put your image url*/
+	background-size: cover;
+	background-position: center;
+	opacity: 0.6;
+}
+
+@media only screen and (max-width: 1280px) {
+	.contactus_main::before {
+		width: 180px;
+		/* left: -100px; */
+	}
+
+	.contactus_main::after {
+		width: 180px;
+	}
+}
+@media only screen and (max-width: 768px) {
+	.contactus_main::before {
+		width: 130px;
+		/* left: -100px; */
+	}
+
+	.contactus_main::after {
+		width: 130px;
+	}
+
+	.form_size {
+		max-width: 480px;
+		margin: 0 auto;
+	}
+}
+@media only screen and (max-width: 480px) {
+	.contactus_main::before {
+		width: 80px;
+		/* left: -100px; */
+	}
+
+	.contactus_main::after {
+		width: 80px;
+	}
+}

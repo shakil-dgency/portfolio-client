@@ -59,13 +59,16 @@ function NavBar({ search, setSearch, isSearch }) {
 		let navBar = document.querySelector(".sidebar");
 		navBar.classList.remove("hidden");
 		setSideBarOpen(true);
+		if (screen > 768) {
+			document.body.classList.add("mr-[0.560rem]");
+		}
 		document.body.classList.add("overflow-hidden");
 		setTimeout(() => {
 			navBar.classList.remove("right-[-120%]");
 			navBar.classList.add("right-[0]");
 			// document.body.classList.add("sidebar_shadow");
 		}, 50);
-		console.log("clicked");
+		console.log(screen);
 	};
 
 	const handleClose = () => {
@@ -74,6 +77,9 @@ function NavBar({ search, setSearch, isSearch }) {
 		navBar.classList.add("right-[-120%]");
 		setSideBarOpen(false);
 		setTimeout(() => {
+			if (screen > 768) {
+				document.body.classList.remove("mr-[0.560rem]");
+			}
 			document.body.classList.remove("overflow-hidden");
 			navBar.classList.add("hidden");
 			// setSearch("");
@@ -81,8 +87,8 @@ function NavBar({ search, setSearch, isSearch }) {
 	};
 
 	return (
-		<div className="navbar bg-[#FAFAFA]  backdrop-blur-[25px] text-[#222222] sticky z-40  top-0 w-full ">
-			<div className="g__body-container px-2.5  flex justify-between py-3 sm:py-2.5 relative ">
+		<div className="navbar bg-[#ffffff]  backdrop-blur-[25px] text-[#222222] sticky z-40  top-0 w-full ">
+			<div className="max-w-[1224px] mx-auto px-2.5 sm:px-[16px] mxl:px-0  flex justify-between py-3 sm:py-2.5 relative ">
 				<div className={`logo italic font-[700] relative ${sideBarOpen ? "-z-10" : "z-[inherit]"} `}>
 					<Link href={"/"}>
 						<Image src={logo} alt="" className="w-[180px] sm:w-[250px]" />
@@ -116,7 +122,11 @@ function NavBar({ search, setSearch, isSearch }) {
 							</Link>
 						</li>
 						{/* <li className="cursor-pointer">About</li> */}
-						<li className="cursor-pointer">Contact</li>
+						<li className="">
+							<Link href={"/contact"} onClick={handleClose} className="hover:text-[#8C00BF]">
+								Contact
+							</Link>
+						</li>
 					</div>
 
 					{isSearch && (

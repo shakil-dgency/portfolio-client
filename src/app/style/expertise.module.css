@@ -4,29 +4,24 @@
 	/* width: calc(300px / 1.5); */
 	/* height: 300px; */
 	/* position: relative; */
-	max-width: 800px;
-	height: 280px;
+	max-width: 892px;
+	/* height: 280px; */
 	/* box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.2); */
 
 	display: flex;
 	gap: 30px;
 	align-items: center;
-
-	/* display: flex;
-	justify-content: center;
-	align-items: flex-end; */
-	/* padding: 0 36px; */
-	/* perspective: 2500px; */
-	/* margin: 0 50px; */
+	padding: 30px 40px;
 	perspective: 2500px;
-	background: #fafafa;
-	box-shadow: 0px 4px 6px -1px rgb(0, 0, 0, 0.1);
+	background: #fbfffd20;
+	/* box-shadow: 0px 4px 6px -1px rgb(0, 0, 0, 0.1); */
+	border: 1px solid #00000010;
 	transition: all 0.5s;
 }
 
 .cover_image {
-	width: 100%;
-	height: 100%;
+	width: auto;
+	height: 95px;
 	object-fit: cover;
 	opacity: 1;
 	transition: all 0.5s;
@@ -37,9 +32,15 @@
 	position: relative;
 	/* width: 100%; */
 	/* z-index: -1; */
-	width: 250px;
-	padding: 15px;
+	width: 210px;
+	height: 150px;
+	background: #e9ebef80;
+	border: 1px solid #00000010;
+	/* padding: 15px; */
 	perspective: 1000px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 /* .wrapper::before,
@@ -67,7 +68,7 @@
 
 .title {
 	/* width: 100%; */
-	margin-top: 15px;
+	/* margin-top: 15px; */
 	transition: transform 0.5s;
 }
 
@@ -81,18 +82,32 @@
 }
 
 .card:hover {
-	transform: perspective(900px) translateY(-2%) rotateX(15deg) translateZ(0);
-	box-shadow: 0px 15px 12px -4px rgb(0, 0, 0, 0.25);
+	/* transform: perspective(900px) translateY(-5%) rotateX(5deg) translateZ(0); */
+	box-shadow: 0px 5px 12px -4px rgb(0, 0, 0, 0.1);
 }
 
 .card:hover .cover_image {
 	/* opacity: 0; */
 	opacity: 1;
-	transform: translate3d(0%, -15%, 100px);
+	/* transform: translate3d(0%, -25%, 200px); */
+	animation: like 0.7s ease-out;
+}
+
+@keyframes like {
+	0% {
+		transform: rotateY(0);
+	}
+	100% {
+		transform: rotateY(360deg);
+	}
 }
 
 .card:hover .title {
-	transform: translate3d(0%, -8%, 30px);
+	/* transform: translate3d(0%, -5%, 10px); */
+}
+
+.card:hover .wrapper {
+	/* transform: perspective(900px) translateY(-5%) rotateX(25deg) translateZ(0); */
 }
 
 /* .card:hover .wrapper::after,
@@ -110,5 +125,24 @@
 
 .card:hover .character {
 	opacity: 1;
-	transform: translate3d(0%, -30%, -100px);
+	/* transform: translate3d(0%, -30%, -100px); */
+}
+
+@media only screen and (max-width: 640px) {
+	.card {
+		flex-direction: column;
+		gap: 20px;
+		max-width: 640px;
+		margin: auto;
+		align-items: start;
+		padding: 25px 20px;
+	}
+
+	.wrapper {
+		width: 100%;
+		height: 210px;
+	}
+	.cover_image {
+		height: 150px;
+	}
 }

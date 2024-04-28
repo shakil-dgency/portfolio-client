@@ -1,18 +1,21 @@
 import React from "react";
 import ExpertiseCard from "./ExpertiseCard";
-import google from "../../../public/google.svg";
-import design from "../../../public/design.png";
+import google from "../../../public/profile/google-ads.svg";
+import design from "../../../public/profile/microsoft-clarity.svg";
+import GlobalSectionStarter from "./GlobalSectionStarter";
 
 function Expertise() {
 	return (
 		<div className="">
 			<div className="g__body-container ">
-				<div className="mt-28 mb-16">
-					<h2 className="">My Expertise and Working Areas</h2>
-					<p className="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident, numquam.</p>
+				<GlobalSectionStarter
+					title="Expertise"
+					description="Everyone has the right to freedom of thought, conscience and religion freedom to change his religion or belief, and freedom, either alone. "
+				/>
+				<div className="grid grid-cols-1 gap-[40px]">
+					<ExpertiseCard image={google} title="Google Ads" />
+					<ExpertiseCard image={design} title="Microsoft Clarity" />
 				</div>
-				<ExpertiseCard image={google} title="Google Marketing" />
-				<ExpertiseCard image={design} title="Design Stratigist" />
 			</div>
 		</div>
 	);
