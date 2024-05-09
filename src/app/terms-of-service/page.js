@@ -14,6 +14,7 @@ async function getTermsData() {
 
 async function page() {
 	const termsData = await getTermsData();
+	console.log(termsData?.data?.attributes.terms_data);
 	return (
 		<div>
 			<NavBar />

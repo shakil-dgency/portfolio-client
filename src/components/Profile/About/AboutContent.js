@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import hamid from "../../../../public/profile/hamid.svg";
 import signature from "../../../../public/profile/signature.svg";

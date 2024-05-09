@@ -201,132 +201,130 @@ function SingleCard({ data, highlightedSearch, singleNews, previousData, nextDat
 
 	return (
 		<div>
-			{data ? (
-				<div>
-					<div className="max-w-[672px] mx-auto bg-[#ffffff] sm:rounded-md mb-7 md:mb-[30px] ">
-						<div className="px-[16px] py-[24px] sm:px-[30px] sm:py-[30px]">
-							<Link
-								href={handleSlug(data.attributes.slug, data.attributes.createdAt)}
-								className="post_title text-[18px] leading-[30.8px] md:leading-[inherit] sm:text-[22px] text-[var(--bold-text)] font-[500] hover:underline"
-							>
-								{highlightSearchKeyword(data.attributes.feed_title, highlightedSearch)}
-							</Link>
-							<p className="text-[14px] text-[#ADB5BD] pt-1 font-[400]">{handleFormatedDate(data.attributes.createdAt)}</p>
-							<div className="caption my-[14px] ">
-								<div className="text-[var(--para-text)] text-[14px] sm:text-[16px] font-[400]">
-									{parseAndHighlightHTML(data.attributes.feed_description, highlightedSearch)}
-								</div>
+			(
+			<div>
+				<div className="max-w-[672px] mx-auto bg-[#ffffff] sm:rounded-md mb-7 md:mb-[30px] ">
+					<div className="px-[16px] py-[24px] sm:px-[30px] sm:py-[30px]">
+						<Link
+							href={handleSlug(data.attributes.slug, data.attributes.createdAt)}
+							className="post_title text-[18px] leading-[30.8px] md:leading-[inherit] sm:text-[22px] text-[var(--bold-text)] font-[500] hover:underline"
+						>
+							{highlightSearchKeyword(data.attributes.feed_title, highlightedSearch)}
+						</Link>
+						<p className="text-[14px] text-[#ADB5BD] pt-1 font-[400]">{handleFormatedDate(data.attributes.createdAt)}</p>
+						<div className="caption my-[14px] ">
+							<div className="text-[var(--para-text)] text-[14px] sm:text-[16px] font-[400]">
+								{parseAndHighlightHTML(data.attributes.feed_description, highlightedSearch)}
 							</div>
+						</div>
 
-							<div className="image_video">
-								{data.attributes.image.data !== null && (
-									<Image src={data.attributes.image.data?.attributes.url} height={400} width={650} alt="" className="w-full" />
-								)}
-								{data.attributes.video_url && (
-									<iframe
-										src={data.attributes.video_url + "?rel=0&controls=0"}
-										title="YouTube video"
-										allowFullScreen
-										className="w-full h-[200px] sm:h-[350px]"
-									></iframe>
-									// <ReactPlayer
-									// 	url={data.video}
-									// 	config={{
-									// 		youtube: {
-									// 			playerVars: { showinfo: 0 },
-									// 		},
-									// 	}}
-									// />
-								)}
-
-								{data.attributes.gif_file && <img src={data.attributes.gif_file} className="w-full sm:h-[350px] object-contain bg-black" />}
-							</div>
-							{data.attributes.feed_description_down && (
-								<div className="caption my-[14px] pb-2">
-									<div className="text-[var(--para-text)] text-[14px] sm:text-[16px] font-[400]">
-										{parseAndHighlightHTML(data.attributes.feed_description_down, highlightedSearch)}
-									</div>
-								</div>
+						<div className="image_video">
+							{data.attributes.image.data !== null && (
+								<Image src={data.attributes.image.data?.attributes.url} height={400} width={650} alt="" className="w-full" />
+							)}
+							{data.attributes.video_url && (
+								<iframe
+									src={data.attributes.video_url + "?rel=0&controls=0"}
+									title="YouTube video"
+									allowFullScreen
+									className="w-full h-[200px] sm:h-[350px]"
+								></iframe>
+								// <ReactPlayer
+								// 	url={data.video}
+								// 	config={{
+								// 		youtube: {
+								// 			playerVars: { showinfo: 0 },
+								// 		},
+								// 	}}
+								// />
 							)}
 
-							<div className="">
-								<div className="flex items-center mt-[14px] gap-2">
-									{/* <BiLike /> */}
-									<Image src={like} alt="" className="w-[25px] h-[25px]" />
-									<p className="text-[14px] text-[var(--para-text)]">
-										{likeStatus && <span>You and</span>} {likeCount} others liked it
-									</p>
+							{data.attributes.gif_file && <img src={data.attributes.gif_file} className="w-full sm:h-[350px] object-contain bg-black" />}
+						</div>
+						{data.attributes.feed_description_down && (
+							<div className="caption my-[14px] pb-2">
+								<div className="text-[var(--para-text)] text-[14px] sm:text-[16px] font-[400]">
+									{parseAndHighlightHTML(data.attributes.feed_description_down, highlightedSearch)}
 								</div>
-								<div className="h-[1px] w-[full] bg-[#ADB5BD] mt-[10px] mb-[14px]"></div>
-								<div className="flex items-center justify-between">
-									<div className={`flex items-center ${likeStatus ? "text-[#717171]" : ""}`} onClick={() => handleLike(data.id)}>
-										{/* <BiSolidLike className="text-[20px]" /> */}
-										{likeStatus ? (
-											<div className="">
-												<Image src={dolike} alt="" className={`${likeAnim ? "like_anim" : ""} w-[26px] h-[26px]`} />
-												{/* <Lottie animationData={animationData} className=" absolute top-0 left-0" loop={true} /> */}
-											</div>
-										) : (
-											// <BiSolidLike className="text-[20px]" />
-											<Image src={likeOut} alt="" className=" w-[29px] h-[26px] hover:cursor-pointer" />
-										)}
-										<p className="ml-[10px] mt-1 font-[500] text-[var(--bold-text)]">Like</p>
-									</div>
-									<div className="flex gap-3 text-[24px]">
-										<LinkedinShareButton url={`https://hamiduzjaman.com${handleSlug(data.attributes.slug, data.attributes.createdAt)}`}>
-											<Image src={linkedIn} alt="" className=" w-[20px] h-[20px]" />
-										</LinkedinShareButton>
-										<FacebookShareButton url={`https://hamiduzjaman.com${handleSlug(data.attributes.slug, data.attributes.createdAt)}`}>
-											<Image src={facebook} alt="" className=" w-[20px] h-[20px]" />
-										</FacebookShareButton>
-										<TwitterShareButton url={`https://hamiduzjaman.com${handleSlug(data.attributes.slug, data.attributes.createdAt)}`}>
-											<Image src={twitter} alt="" className=" w-[20px] h-[20px]" />
-										</TwitterShareButton>
-										<Image
-											src={linkCopy}
-											alt=""
-											className="link_copy w-[20px] h-[20px] rounded-tl-md rounded-br-md cursor-pointer"
-											onClick={(Event) => handleCopyUrl(Event)}
-										/>
-									</div>
+							</div>
+						)}
+
+						<div className="">
+							<div className="flex items-center mt-[14px] gap-2">
+								{/* <BiLike /> */}
+								<Image src={like} alt="" className="w-[25px] h-[25px]" />
+								<p className="text-[14px] text-[var(--para-text)]">
+									{likeStatus && <span>You and</span>} {likeCount} others liked it
+								</p>
+							</div>
+							<div className="h-[1px] w-[full] bg-[#ADB5BD] mt-[10px] mb-[14px]"></div>
+							<div className="flex items-center justify-between">
+								<div className={`flex items-center ${likeStatus ? "text-[#717171]" : ""}`} onClick={() => handleLike(data.id)}>
+									{/* <BiSolidLike className="text-[20px]" /> */}
+									{likeStatus ? (
+										<div className="">
+											<Image src={dolike} alt="" className={`${likeAnim ? "like_anim" : ""} w-[26px] h-[26px]`} />
+											{/* <Lottie animationData={animationData} className=" absolute top-0 left-0" loop={true} /> */}
+										</div>
+									) : (
+										// <BiSolidLike className="text-[20px]" />
+										<Image src={likeOut} alt="" className=" w-[29px] h-[26px] hover:cursor-pointer" />
+									)}
+									<p className="ml-[10px] mt-1 font-[500] text-[var(--bold-text)]">Like</p>
+								</div>
+								<div className="flex gap-3 text-[24px]">
+									<LinkedinShareButton url={`https://hamiduzjaman.com${handleSlug(data.attributes.slug, data.attributes.createdAt)}`}>
+										<Image src={linkedIn} alt="" className=" w-[20px] h-[20px]" />
+									</LinkedinShareButton>
+									<FacebookShareButton url={`https://hamiduzjaman.com${handleSlug(data.attributes.slug, data.attributes.createdAt)}`}>
+										<Image src={facebook} alt="" className=" w-[20px] h-[20px]" />
+									</FacebookShareButton>
+									<TwitterShareButton url={`https://hamiduzjaman.com${handleSlug(data.attributes.slug, data.attributes.createdAt)}`}>
+										<Image src={twitter} alt="" className=" w-[20px] h-[20px]" />
+									</TwitterShareButton>
+									<Image
+										src={linkCopy}
+										alt=""
+										className="link_copy w-[20px] h-[20px] rounded-tl-md rounded-br-md cursor-pointer"
+										onClick={(Event) => handleCopyUrl(Event)}
+									/>
 								</div>
 							</div>
 						</div>
 					</div>
-					{singleNews && (
-						<div className="flex justify-center gap-4 sm:gap-10">
-							{previousData && (
-								<Link
-									href={handleSlug(previousData && previousData.attributes.slug, previousData && previousData.attributes.createdAt)}
-									className="flex items-center rounded-[5px] text-[14px] sm:text-[16px] text-[var(--bold-text)] border-[var(--para-text)] border-[1px] py-[7px] px-[10px] sm:py-[15px] sm:px-[25px]"
-								>
-									<BiChevronLeft className="text-2xl -ml-[6px]" />
-									Previous
-								</Link>
-							)}
-							<Link
-								href={handleSlug(randomFeed && randomFeed.attributes.slug, randomFeed && randomFeed.attributes.createdAt)}
-								className="flex items-center gap-2 rounded-[5px] text-[14px] sm:text-[16px] text-[var(--bold-text)] border-[var(--para-text)] border-[1px] py-[7px] px-[9px] sm:py-[15px] sm:px-[22px]"
-							>
-								{/* <LiaRandomSolid /> */}
-								<Image src={random} alt="" className=" w-[18px] h-[18px]" />
-								Random
-							</Link>
-							{nextData && (
-								<Link
-									href={handleSlug(nextData && nextData.attributes.slug, nextData && nextData.attributes.createdAt)}
-									className=" flex items-center rounded-[5px] text-[14px] sm:text-[16px] text-[var(--bold-text)] border-[var(--para-text)] border-[1px] py-[7px] px-[20px] sm:py-[15px] sm:px-[40px]"
-								>
-									Next
-									<BiChevronRight className="text-2xl -mr-[6px]" />
-								</Link>
-							)}
-						</div>
-					)}
 				</div>
-			) : (
-				<h1>No data</h1>
-			)}
+				{singleNews && (
+					<div className="flex justify-center gap-4 sm:gap-10">
+						{previousData && (
+							<Link
+								href={handleSlug(previousData && previousData.attributes.slug, previousData && previousData.attributes.createdAt)}
+								className="flex items-center rounded-[5px] text-[14px] sm:text-[16px] text-[var(--bold-text)] border-[var(--para-text)] border-[1px] py-[7px] px-[10px] sm:py-[15px] sm:px-[25px]"
+							>
+								<BiChevronLeft className="text-2xl -ml-[6px]" />
+								Previous
+							</Link>
+						)}
+						<Link
+							href={handleSlug(randomFeed && randomFeed.attributes.slug, randomFeed && randomFeed.attributes.createdAt)}
+							className="flex items-center gap-2 rounded-[5px] text-[14px] sm:text-[16px] text-[var(--bold-text)] border-[var(--para-text)] border-[1px] py-[7px] px-[9px] sm:py-[15px] sm:px-[22px]"
+						>
+							{/* <LiaRandomSolid /> */}
+							<Image src={random} alt="" className=" w-[18px] h-[18px]" />
+							Random
+						</Link>
+						{nextData && (
+							<Link
+								href={handleSlug(nextData && nextData.attributes.slug, nextData && nextData.attributes.createdAt)}
+								className=" flex items-center rounded-[5px] text-[14px] sm:text-[16px] text-[var(--bold-text)] border-[var(--para-text)] border-[1px] py-[7px] px-[20px] sm:py-[15px] sm:px-[40px]"
+							>
+								Next
+								<BiChevronRight className="text-2xl -mr-[6px]" />
+							</Link>
+						)}
+					</div>
+				)}
+			</div>
+			)
 		</div>
 	);
 }
