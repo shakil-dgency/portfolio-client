@@ -19,9 +19,9 @@ async function EducationSection() {
 	return (
 		<div>
 			<div id="education" className="g__body-container ">
-				<GlobalSectionStarter data={educationData?.data.attributes.education.section_head} />
+				<GlobalSectionStarter data={educationData?.data?.attributes.education.section_head} />
 				<div className="flex flex-col gap-6">
-					{educationData?.data.attributes.education.education_card?.map((item) => {
+					{educationData?.data?.attributes.education.education_card?.map((item) => {
 						return <EducationItem data={item} key={item.id} />;
 					})}
 				</div>

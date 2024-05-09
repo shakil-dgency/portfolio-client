@@ -19,8 +19,8 @@ async function MentorsSection() {
 	return (
 		<div>
 			<div id="mentors" className="g__body-container ">
-				<GlobalSectionStarter data={mentorsData?.data.attributes.mentors.section_head} />
-				<CaruselStructure mentor={true} data={mentorsData?.data.attributes.mentors.mentors_card} />
+				<GlobalSectionStarter data={mentorsData?.data?.attributes.mentors.section_head} />
+				<CaruselStructure mentor={true} data={mentorsData?.data?.attributes.mentors.mentors_card} />
 			</div>
 		</div>
 	);

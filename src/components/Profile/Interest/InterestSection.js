@@ -16,8 +16,8 @@ async function InterestSection() {
 	return (
 		<div>
 			<div id="interest" className="g__body-container ">
-				<GlobalSectionStarter data={interestData?.data.attributes.interest.section_head} />
-				<InterestArea data={interestData?.data.attributes.interest.interest_list} />
+				<GlobalSectionStarter data={interestData?.data?.attributes.interest.section_head} />
+				<InterestArea data={interestData?.data?.attributes.interest.interest_list} />
 			</div>
 		</div>
 	);

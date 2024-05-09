@@ -35,7 +35,7 @@ function GalleryItem({ data }) {
 	// console.log(image);
 
 	useEffect(() => {
-		data.forEach((item, i) => {
+		data?.forEach((item, i) => {
 			if (item.attributes.height < item.attributes.width) {
 				coverImage.push(i);
 			} else {
@@ -57,9 +57,10 @@ function GalleryItem({ data }) {
 		<div className="">
 			<div className="hidden sm:block">
 				<div style={{ height: imageCount }} className={`grid mb1:grid-cols-2 sm:grid-cols-3 gap-5 mb1:gap-3 mb3:gap-5 overflow-hidden`}>
-					{data?.map((item, i) => {
-						return <SingleImage image={item.attributes} id={item.id} key={item.id} />;
-					})}
+					{data &&
+						data.map((item, i) => {
+							return <SingleImage image={item?.attributes} id={item.id} key={item.id} />;
+						})}
 				</div>
 				<div className="flex justify-center mt-5">
 					{view < totalView ? (
@@ -89,7 +90,7 @@ function GalleryItem({ data }) {
 						data.map((item) => {
 							return (
 								<SwiperSlide key={item.id}>
-									<SingleImage image={item.attributes} />
+									<SingleImage image={item?.attributes} />
 								</SwiperSlide>
 							);
 						})}

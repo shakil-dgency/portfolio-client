@@ -23,8 +23,8 @@ async function GallerySection() {
 	return (
 		<div>
 			<div id="gallery" className="g__body-container ">
-				<GlobalSectionStarter data={galleryData?.data.attributes.gallery.section_head} />
-				<GalleryItem data={galleryData?.data.attributes.gallery.images.data} />
+				<GlobalSectionStarter data={galleryData?.data?.attributes.gallery.section_head} />
+				<GalleryItem data={galleryData?.data?.attributes.gallery.images.data} />
 			</div>
 		</div>
 	);

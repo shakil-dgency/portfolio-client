@@ -26,11 +26,11 @@ async function Tools() {
 	return (
 		<div id="tools">
 			<div className="g__body-container ">
-				<GlobalSectionStarter data={toolsData?.data.attributes.tools.section_head} />
+				<GlobalSectionStarter data={toolsData?.data?.attributes.tools.section_head} />
 				<div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-6 gap-y-[30px] sm:gap-y-[50px] gap-x-[30px] sm:gap-x-[50px] justify-items-center">
-					{toolsData?.data.attributes.tools.images.data?.map((item) => {
+					{toolsData?.data?.attributes.tools.images.data?.map((item) => {
 						return (
-							<Image src={item.attributes.url} height={100} width={200} alt="" className="h-[40px] w-[inherit] custom-grayscale" key={item.id} />
+							<Image src={item?.attributes.url} height={100} width={200} alt="" className="h-[40px] w-[inherit] custom-grayscale" key={item.id} />
 						);
 					})}
 				</div>

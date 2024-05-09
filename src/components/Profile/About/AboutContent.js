@@ -8,7 +8,7 @@ function AboutContent({ data }) {
 		<div>
 			<div className="-mt-3 flex gap-6">
 				<div className="text-[var(--para-text)] text-[16px] font-[400] max-w-[695px] lg:max-w-[495px] ">
-					<div dangerouslySetInnerHTML={{ __html: data?.about_description }} />
+					<div dangerouslySetInnerHTML={{ __html: data && data.about_description }} />
 					{/* <p className="leading-[1.6]">
 						The people I’ve the great fortune to work with every single day are the main reason for our ongoing business success. And hopefully
 						continued…
@@ -27,12 +27,12 @@ function AboutContent({ data }) {
 						<p className="text-[15px] text-[#555555] ">Founder and CEO</p>
 					</div>
 					<div className="mt-10 relative block lg:hidden">
-						<Image src={data?.image.data.attributes.url} height={300} width={500} alt="" className=" lg:h-[580px] w-[inherit] " />
+						<Image src={data?.image.data?.attributes.url} height={300} width={500} alt="" className=" lg:h-[580px] w-[inherit] " />
 						<div className="h-[35px] w-full bg-gradient-to-t from-[#fdfdfd] to-transparent absolute bottom-0 "></div>
 					</div>
 				</div>
 				<div className="flex- -mt-[90px] relative hidden lg:block">
-					<Image src={data?.image.data.attributes.url} height={300} width={500} alt="" className=" h-[580px] w-[inherit] " />
+					<Image src={data?.image.data?.attributes.url} height={300} width={500} alt="" className=" h-[580px] w-[inherit] " />
 					<div className="h-[35px] w-full bg-gradient-to-t from-[#fdfdfd] to-transparent absolute bottom-0 "></div>
 				</div>
 			</div>

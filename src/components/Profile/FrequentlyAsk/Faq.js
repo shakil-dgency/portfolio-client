@@ -18,13 +18,14 @@ function Faq({ data }) {
 	return (
 		<div className=" ">
 			<Accordion className="flex flex-col ">
-				{data.map((item) => {
-					return (
-						<AccordianItem value={item?.faq_id} trigger={item?.question} key={item?.id}>
-							{item?.answer}
-						</AccordianItem>
-					);
-				})}
+				{data &&
+					data.map((item) => {
+						return (
+							<AccordianItem value={item?.faq_id} trigger={item?.question} key={item?.id}>
+								{item?.answer}
+							</AccordianItem>
+						);
+					})}
 			</Accordion>
 		</div>
 	);

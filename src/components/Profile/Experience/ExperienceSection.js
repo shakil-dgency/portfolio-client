@@ -19,9 +19,9 @@ async function ExperienceSection() {
 	return (
 		<div>
 			<div id="experience" className="g__body-container ">
-				<GlobalSectionStarter data={experienceData?.data.attributes.experience.section_head} />
+				<GlobalSectionStarter data={experienceData?.data?.attributes.experience.section_head} />
 				<div className="grid grid-cols-1 gap-[40px]">
-					{experienceData?.data.attributes.experience.experience_list?.map((item) => {
+					{experienceData?.data?.attributes.experience.experience_list?.map((item) => {
 						return <ExperienceItems data={item} key={item.id} />;
 					})}
 				</div>

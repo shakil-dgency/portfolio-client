@@ -19,10 +19,10 @@ async function CertificationsSection() {
 	return (
 		<div>
 			<div id="certifications" className="g__body-container ">
-				<GlobalSectionStarter data={certificationsData?.data.attributes.certifications.section_head} />
+				<GlobalSectionStarter data={certificationsData?.data?.attributes.certifications.section_head} />
 
 				<div className="flex flex-col gap-6">
-					{certificationsData?.data.attributes.certifications.certifications_list?.map((item) => {
+					{certificationsData?.data?.attributes.certifications.certifications_list?.map((item) => {
 						return <CertificationItem data={item} key={item.id} />;
 					})}
 				</div>

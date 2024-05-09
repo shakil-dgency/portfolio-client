@@ -55,7 +55,7 @@ function EducationItem({ data }) {
 					<p className="text-[var(--bold-text)] text-[16px] font-[400] py-1">{data?.subject}</p>
 					<p className="text-[#7a7a7a] text-[15px] ">{data?.duration}</p>
 					<div className="text-[var(--para-text)] text-[14px] mt-2 leading-[1.6] relative ">
-						<div className="courses" dangerouslySetInnerHTML={{ __html: data?.courses.slice(0, loadText) }} />
+						<div className="courses" dangerouslySetInnerHTML={{ __html: data && data.courses.slice(0, loadText) }} />
 
 						{/* <span className="absolut right-14 bottom-0">See More</span> */}
 						{/* {index !== data.length - 1 && <span className="">.</span>} */}

@@ -8,7 +8,7 @@ function MembershipItem({ data }) {
 		<div>
 			<div className="flex gap-5 lg:gap-[30px]">
 				<div className="img min-w-[60px]">
-					<Image src={data?.image.data.attributes.url} height={100} width={200} alt="" className="h-[60px] w-[inherit] mt-2" />
+					<Image src={data?.image.data?.attributes.url} height={100} width={200} alt="" className="h-[60px] w-[inherit] mt-2" />
 				</div>
 				<div className="max-w-[655px]">
 					<a {...attributes} target="_blank">

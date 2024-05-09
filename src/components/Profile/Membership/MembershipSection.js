@@ -19,9 +19,9 @@ async function MembershipSection() {
 	return (
 		<div>
 			<div id="membership" className="g__body-container ">
-				<GlobalSectionStarter data={membershipData?.data.attributes.membership.section_head} />
+				<GlobalSectionStarter data={membershipData?.data?.attributes.membership.section_head} />
 				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-6">
-					{membershipData?.data.attributes.membership.membership_list.map((item) => {
+					{membershipData?.data?.attributes.membership.membership_list.map((item) => {
 						return <MembershipItem data={item} key={item.id} />;
 					})}
 				</div>

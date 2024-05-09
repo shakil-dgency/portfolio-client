@@ -12,9 +12,9 @@ function IndustriesExpertise({ data }) {
 	return (
 		<div>
 			<div id="industries" className="g__body-container ">
-				<GlobalSectionStarter data={data?.data.attributes.industries.section_head} />
+				<GlobalSectionStarter data={data?.data?.attributes.industries.section_head} />
 
-				<CaruselStructure data={data?.data.attributes.industries.industries_card} />
+				<CaruselStructure data={data?.data?.attributes.industries.industries_card} />
 			</div>
 		</div>
 	);

@@ -100,7 +100,7 @@ function ContactForm({ data }) {
 								</div>
 							</div>
 						</div>
-						<div className="text-[var(--bold-text)] text-[14px] pt-[30px]" dangerouslySetInnerHTML={{ __html: data?.form_note }} />
+						<div className="text-[var(--bold-text)] text-[14px] pt-[30px]" dangerouslySetInnerHTML={{ __html: data && data.form_note }} />
 					</div>
 				</div>
 			</div>

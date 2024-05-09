@@ -23,9 +23,9 @@ async function ServicesSection() {
 	return (
 		<div>
 			<div id="services" className="g__body-container ">
-				<GlobalSectionStarter data={servicesData?.data.attributes.services.section_head} />
+				<GlobalSectionStarter data={servicesData?.data?.attributes.services.section_head} />
 				<div className="grid grid-cols-1 sm:grid-cols-2 gap-x-[25px] gap-y-[30px]">
-					{servicesData?.data.attributes.services.services_card?.map((item) => {
+					{servicesData?.data?.attributes.services.services_card?.map((item) => {
 						return <ServiceCard data={item} key={item.id} />;
 					})}
 				</div>

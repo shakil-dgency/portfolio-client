@@ -16,9 +16,9 @@ async function FrequentlyAsk() {
 	return (
 		<div>
 			<div id="FrequentlyAsk" className="g__body-container ">
-				<GlobalSectionStarter data={faqData?.data.attributes.faq.section_head} />
+				<GlobalSectionStarter data={faqData?.data?.attributes.faq.section_head} />
 				<div className="">
-					<Faq data={faqData?.data.attributes.faq.faq_item} />
+					<Faq data={faqData?.data?.attributes.faq.faq_item} />
 				</div>
 			</div>
 		</div>

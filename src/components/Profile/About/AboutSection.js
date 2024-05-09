@@ -16,8 +16,8 @@ async function AboutSection() {
 	return (
 		<div>
 			<div id="about" className="g__body-container ">
-				<GlobalSectionStarter data={aboutData?.data.attributes.about} />
-				<AboutContent data={aboutData?.data.attributes.about} />
+				<GlobalSectionStarter data={aboutData?.data?.attributes.about} />
+				<AboutContent data={aboutData?.data?.attributes.about} />
 			</div>
 		</div>
 	);

@@ -19,8 +19,8 @@ async function TestimonialsSection() {
 	return (
 		<div>
 			<div id="testimonials" className="g__body-container ">
-				<GlobalSectionStarter data={testimonialsData?.data.attributes.testimonials.section_head} />
-				<TestimonialSCarusel data={testimonialsData?.data.attributes.testimonials.testimonials_card} />
+				<GlobalSectionStarter data={testimonialsData?.data?.attributes.testimonials.section_head} />
+				<TestimonialSCarusel data={testimonialsData?.data?.attributes.testimonials.testimonials_card} />
 			</div>
 		</div>
 	);

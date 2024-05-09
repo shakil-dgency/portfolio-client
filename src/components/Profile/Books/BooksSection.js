@@ -16,8 +16,8 @@ async function BooksSection() {
 	return (
 		<div>
 			<div id="books" className="g__body-container ">
-				<GlobalSectionStarter data={booksData?.data.attributes.books.section_head} />
-				<CaruselStructure books={true} data={booksData?.data.attributes.books.books_card} />
+				<GlobalSectionStarter data={booksData?.data?.attributes.books.section_head} />
+				<CaruselStructure books={true} data={booksData?.data?.attributes.books.books_card} />
 			</div>
 		</div>
 	);
