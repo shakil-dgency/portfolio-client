@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 import Link from "next/link";
 import Script from "next/script";
@@ -28,7 +29,10 @@ function ScheduleCallBody({ data }) {
 						<div className=" grid grid-cols-1 sm:grid-cols-3  gap-5">
 							{data?.cards.map((item) => {
 								return (
-									<div className=" max-w-[400px] sm:max-w-none mx-auto bg-[#ffffff] text-center rounded-lg shadow px-3 py-6 flex flex-col items-center">
+									<div
+										className=" max-w-[400px] sm:max-w-none mx-auto bg-[#ffffff] text-center rounded-lg shadow px-3 py-6 flex flex-col items-center"
+										key={item.id}
+									>
 										<Image src={item?.icon.data?.attributes.url} height={100} width={200} alt="" className="h-[70px] " />
 										<h3 className="text-[18px] font-[500] text-[var(--bold-text)] mt-5 mb-3">{item?.title}</h3>
 										<p className="text-[15px] text-[var(--para-text)]">{item?.description}</p>
