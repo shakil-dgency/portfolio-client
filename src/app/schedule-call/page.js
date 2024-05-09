@@ -18,8 +18,8 @@ async function page() {
 	return (
 		<div>
 			<NavBar />
-			<ContactHero data={scheduleData?.data.attributes.schedule_hero} />
-			<ScheduleCallBody data={scheduleData?.data.attributes} />
+			<ContactHero data={scheduleData?.data?.attributes.schedule_hero} />
+			<ScheduleCallBody data={scheduleData?.data?.attributes} />
 			<div className="pt-[80px] md:pt-[150px]">
 				<Footer />
 			</div>

@@ -18,9 +18,9 @@ async function page() {
 		<div>
 			<NavBar />
 			<div className="g__body-container px-[16px] pt-16 pb-[150px]">
-				<h1 className="text-[36px] text-[var(--bold-text)] text-center mb-8">{policyData?.data.attributes.title}</h1>
+				<h1 className="text-[36px] text-[var(--bold-text)] text-center mb-8">{policyData?.data?.attributes.title}</h1>
 				<div className={`${styles.text_area}`}>
-					<div dangerouslySetInnerHTML={{ __html: policyData?.data.attributes.policy_data }} />
+					<div dangerouslySetInnerHTML={{ __html: policyData?.data?.attributes.policy_data }} />
 				</div>
 			</div>
 			<Footer />

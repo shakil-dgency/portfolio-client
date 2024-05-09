@@ -31,7 +31,7 @@ function Hero({ data }) {
 					<div className="relative">
 						<div className="h-[200px] md:h-[370px] overflow-hidden lg:rounded-b-lg ">
 							<Image
-								src={data?.data.attributes.hero.cover_image?.data?.attributes.url}
+								src={data?.data?.attributes?.hero.cover_image?.data?.attributes?.url}
 								alt="this is img"
 								height={523}
 								width={1000}
@@ -53,7 +53,7 @@ function Hero({ data }) {
 								<div className=" overflow-hidden ">
 									{/* <div className="relative h-[166px] w-[166px] bg-[#f3f3f3] rounded-full flex justify-center items-center border-[3.5px] border-[#0866FF]  overflow-hidden "> */}
 									<Image
-										src={data?.data.attributes.hero.profile_image?.data?.attributes.url}
+										src={data?.data?.attributes?.hero.profile_image?.data?.attributes?.url}
 										height={200}
 										width={200}
 										alt="this is img"
@@ -69,15 +69,15 @@ function Hero({ data }) {
 							</div>
 							<div className=" md:max-w-[400px] lg:max-w-[500px] md:flex-[2]">
 								<h1 className="text-center md:text-start text-[30px] md:text-[32px] lg:text-[40px] font-[600] mt-2.5 md:mt-[16px] text-[var(--bold-text)]">
-									{data?.data.attributes.hero.name}
+									{data?.data?.attributes?.hero.name}
 								</h1>
 								<div className="max-w-[500px] md:max-w-none mt-[5px] md:mt-0 text-[15px] text-[var(--para-text)] text-center md:text-start">
-									{data?.data.attributes.hero.tags?.map((item, i) => {
+									{data?.data?.attributes?.hero.tags?.map((item, i) => {
 										return (
 											<span className="" key={item.id}>
 												<span dangerouslySetInnerHTML={{ __html: item.tag }} />
 												{}
-												{i !== data?.data.attributes.hero.tags.length - 1 && (
+												{i !== data?.data?.attributes?.hero.tags.length - 1 && (
 													<div className="mx-2 mb-[2px] h-[4px] w-[4px] bg-[#495057] rounded-full inline-block"></div>
 												)}
 											</span>
@@ -88,10 +88,10 @@ function Hero({ data }) {
 						</div>
 						<div className=" self-center my-6 md:mt-5 pr-[16px] lg:pr-[50px]">
 							<Link
-								href={`${data?.data.attributes.hero.cta_slug ? data?.data.attributes.hero.cta_slug : "/schedule-call"}`}
+								href={`${data?.data?.attributes?.hero.cta_slug ? data?.data?.attributes?.hero.cta_slug : "/schedule-call"}`}
 								className=" bg-[#633ABD] text-white text-[16px] font-[500] md:text-[14px] px-8 md:px-3 py-3 lg:px-[25px] lg:py-[15px] rounded-md translate-x-0 "
 							>
-								{data?.data.attributes.hero.cta}
+								{data?.data?.attributes?.hero.cta}
 							</Link>
 						</div>
 					</div>
