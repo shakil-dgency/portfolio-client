@@ -4,17 +4,15 @@ import google from "../../../public/profile/google-ads.svg";
 import design from "../../../public/profile/microsoft-clarity.svg";
 import GlobalSectionStarter from "./GlobalSectionStarter";
 
-function Expertise() {
+function Expertise({ data }) {
 	return (
-		<div className="">
+		<div id="expertise" className="">
 			<div className="g__body-container ">
-				<GlobalSectionStarter
-					title="Expertise"
-					description="Everyone has the right to freedom of thought, conscience and religion freedom to change his religion or belief, and freedom, either alone. "
-				/>
+				<GlobalSectionStarter data={data?.data?.attributes.expertise.section_head} />
 				<div className="grid grid-cols-1 gap-[40px]">
-					<ExpertiseCard image={google} title="Google Ads" />
-					<ExpertiseCard image={design} title="Microsoft Clarity" />
+					{data?.data?.attributes.expertise.espertise_card?.map((item) => {
+						return <ExpertiseCard data={item} key={item.id} />;
+					})}
 				</div>
 			</div>
 		</div>

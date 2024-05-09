@@ -9,26 +9,30 @@ import img6 from "../../../../public/profile/tools/samrush.svg";
 
 import Image from "next/image";
 
-function Tools() {
+async function getToolsData() {
+	const res = await fetch(
+		`${process.env.NEXT_PUBLIC_API_URL}/api/profile?populate[0]=tools&populate[1]=tools.section_head&populate[2]=tools.images`,
+		{
+			next: { revalidate: 10 },
+		}
+	);
+
+	const toolsData = await res.json();
+	return toolsData;
+}
+
+async function Tools() {
+	const toolsData = await getToolsData();
 	return (
 		<div id="tools">
 			<div className="g__body-container ">
-				<GlobalSectionStarter
-					title="Tools "
-					description="Everyone has the right to freedom of thought, conscience and religion freedom to change his religion or belief, and freedom, either alone. "
-				/>
+				<GlobalSectionStarter data={toolsData?.data.attributes.tools.section_head} />
 				<div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-6 gap-y-[30px] sm:gap-y-[50px] gap-x-[30px] sm:gap-x-[50px] justify-items-center">
-					<Image src={img2} height={100} width={200} alt="" className="h-[40px] w-[inherit] custom-grayscale" />
-					<Image src={img5} height={100} width={200} alt="" className="h-[40px] w-[inherit] custom-grayscale" />
-					<Image src={img1} height={100} width={200} alt="" className="h-[40px] w-[inherit] custom-grayscale" />
-					<Image src={img6} height={100} width={200} alt="" className="h-[40px] w-[inherit] custom-grayscale" />
-					<Image src={img1} height={100} width={200} alt="" className="h-[40px] w-[inherit] custom-grayscale" />
-					<Image src={img3} height={100} width={200} alt="" className="h-[40px] w-[inherit] custom-grayscale" />
-					<Image src={img4} height={100} width={200} alt="" className="h-[40px] w-[inherit] custom-grayscale" />
-					<Image src={img5} height={100} width={200} alt="" className="h-[40px] w-[inherit] custom-grayscale" />
-					<Image src={img6} height={100} width={200} alt="" className="h-[40px] w-[inherit] custom-grayscale" />
-					<Image src={img3} height={100} width={200} alt="" className="h-[40px] w-[inherit] custom-grayscale" />
-					<Image src={img4} height={100} width={200} alt="" className="h-[40px] w-[inherit] custom-grayscale" />
+					{toolsData?.data.attributes.tools.images.data?.map((item) => {
+						return (
+							<Image src={item.attributes.url} height={100} width={200} alt="" className="h-[40px] w-[inherit] custom-grayscale" key={item.id} />
+						);
+					})}
 				</div>
 			</div>
 		</div>

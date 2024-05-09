@@ -4,6 +4,10 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
+import Head from "next/head";
+
+import Image from "next/image";
+import RocketTop from "@/components/RocketTop";
 
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -17,6 +21,13 @@ export const metadata = {
 	title: "H M Hamiduzjaman",
 	description: "Portfolio application",
 };
+export const viewport = {
+	width: "device-width",
+	minimumScale: 1,
+
+	// Also supported by less commonly used
+	// interactiveWidget: 'resizes-visual',
+};
 
 export default function RootLayout({ children }) {
 	return (
@@ -25,6 +36,7 @@ export default function RootLayout({ children }) {
 				{/* {<NavBar />} */}
 				{children}
 				{/* <Footer /> */}
+				<RocketTop />
 			</body>
 		</html>
 	);

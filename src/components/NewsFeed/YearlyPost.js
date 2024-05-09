@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import SingleCard from "./SingleCard";
 import NewsFeedCard from "./NewsFeedCard";
+import NotFound from "@/app/not-found";
 
 function YearlyPost({ postData }) {
 	const navigate = usePathname();
@@ -18,15 +19,19 @@ function YearlyPost({ postData }) {
 		setFilteredData(newData);
 	}, []);
 
-	console.log(filteredData);
-
 	return (
-		<div className={`${filteredData === null ? "h-[200vh]" : "h-full"}`}>
-			<div className="">
-				<div className="">
-					<NewsFeedCard feedData={filteredData} />
+		<div>
+			{filteredData?.length !== 0 ? (
+				<div className={`${filteredData === null ? "h-[200vh]" : "h-full"}`}>
+					<div className="">
+						<div className="">
+							<NewsFeedCard feedData={filteredData} />
+						</div>
+					</div>
 				</div>
-			</div>
+			) : (
+				<NotFound />
+			)}
 		</div>
 	);
 }

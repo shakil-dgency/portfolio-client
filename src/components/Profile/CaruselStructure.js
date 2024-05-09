@@ -16,7 +16,7 @@ import Card from "./IndustriesExpertise/Card";
 import MentorCard from "./Mentors/MentorCard";
 import BooksCard from "./Books/BooksCard";
 
-function CaruselStructure({ mentor, books }) {
+function CaruselStructure({ data, mentor, books }) {
 	return (
 		<div className="] md:-mt-[110px]">
 			<Swiper
@@ -46,16 +46,17 @@ function CaruselStructure({ mentor, books }) {
 				}}
 				speed={1000}
 				pagination={{
-					clickable: true,
+					dynamicBullets: true,
 				}}
 				navigation={true}
 				modules={[Navigation, Pagination]}
 				className="mySwiper"
 			>
-				<SwiperSlide>{mentor ? <MentorCard /> : books ? <BooksCard /> : <Card />}</SwiperSlide>
-				<SwiperSlide>{mentor ? <MentorCard /> : books ? <BooksCard /> : <Card />}</SwiperSlide>
-				<SwiperSlide>{mentor ? <MentorCard /> : books ? <BooksCard /> : <Card />}</SwiperSlide>
-				<SwiperSlide>{mentor ? <MentorCard /> : books ? <BooksCard /> : <Card />}</SwiperSlide>
+				{data?.map((item) => {
+					return (
+						<SwiperSlide key={item.id}>{mentor ? <MentorCard data={item} /> : books ? <BooksCard data={item} /> : <Card data={item} />}</SwiperSlide>
+					);
+				})}
 			</Swiper>
 		</div>
 	);

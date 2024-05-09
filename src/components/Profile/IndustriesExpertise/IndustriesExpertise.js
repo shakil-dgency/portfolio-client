@@ -8,16 +8,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 
-function IndustriesExpertise() {
+function IndustriesExpertise({ data }) {
 	return (
 		<div>
-			<div className="g__body-container ">
-				<GlobalSectionStarter
-					title="Industries"
-					description="Everyone has the right to freedom of thought, conscience and religion freedom to change his religion or belief, and freedom, either alone. "
-				/>
+			<div id="industries" className="g__body-container ">
+				<GlobalSectionStarter data={data?.data.attributes.industries.section_head} />
 
-				<CaruselStructure />
+				<CaruselStructure data={data?.data.attributes.industries.industries_card} />
 			</div>
 		</div>
 	);

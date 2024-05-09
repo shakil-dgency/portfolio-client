@@ -6,31 +6,28 @@ import img2 from "../../../../public/profile/services/ui-ux.svg";
 import img3 from "../../../../public/profile/services/web-development.svg";
 import img4 from "../../../../public/profile/services/product-design.svg";
 
-function ServicesSection() {
+async function getServicesData() {
+	const res = await fetch(
+		`${process.env.NEXT_PUBLIC_API_URL}/api/profile?populate[0]=services&populate[1]=services.section_head&populate[2]=services.services_card.icon`,
+		{
+			next: { revalidate: 10 },
+		}
+	);
+
+	const servicesData = await res.json();
+	return servicesData;
+}
+
+async function ServicesSection() {
+	const servicesData = await getServicesData();
 	return (
 		<div>
-			<div className="g__body-container ">
-				<GlobalSectionStarter
-					title="Services"
-					description="Everyone has the right to freedom of thought, conscience and religion freedom to change his religion or belief, and freedom, either alone. "
-				/>
+			<div id="services" className="g__body-container ">
+				<GlobalSectionStarter data={servicesData?.data.attributes.services.section_head} />
 				<div className="grid grid-cols-1 sm:grid-cols-2 gap-x-[25px] gap-y-[30px]">
-					<ServiceCard img={img1} title="Digital Marketing" description="It is a involves the systematic analysis" />
-					<ServiceCard
-						img={img2}
-						title="UI/UX Design"
-						description="It is a involves the systematic analysis of data to gain valuable insights into the various type aspects of a business."
-					/>
-					<ServiceCard
-						img={img3}
-						title="Web Developments"
-						description="It is a involves the systematic analysis of data to gain valuable insights into the various type aspects of a business."
-					/>
-					<ServiceCard
-						img={img4}
-						title="Product Design"
-						description="It is a involves the systematic analysis of data to gain valuable insights into the various type aspects of a business."
-					/>
+					{servicesData?.data.attributes.services.services_card?.map((item) => {
+						return <ServiceCard data={item} key={item.id} />;
+					})}
 				</div>
 			</div>
 		</div>

@@ -15,6 +15,7 @@ function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed
 	const [search, setSearch] = useState("");
 	const [count, setCount] = useState(2);
 	const [dataLength, setdataLength] = useState(1);
+	const [noData, setNoData] = useState();
 
 	// console.log(newFunction);
 
@@ -35,7 +36,16 @@ function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed
 			setSortedData(finalData);
 			setdataLength(feedData.length);
 		}
-	}, [feedData]);
+
+		const foundData = sortedData?.filter((item) => {
+			return search.toLowerCase() === ""
+				? item
+				: item.attributes.feed_title.toLowerCase().includes(search.toLowerCase()) ||
+						item.attributes.feed_description.toLowerCase().includes(search.toLowerCase());
+		});
+
+		setNoData(foundData?.length);
+	}, [feedData, search]);
 
 	// setNextData(sortedData && sortedData);
 
@@ -55,14 +65,16 @@ function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed
 						<div className="h-[inherit] sm:h-[68px] self-start sm:self-auto sm:flex sm:items-center pt-[15px] sm:pt-0 ml-2.5 md:ml-0 mb-[20px] sm:mb-0">
 							<Link
 								href="/"
-								className="text-[#2C3E50] text-center font-[500] text-[12px] md:text-[14px] flex items-center decoration-[1px]  underline underline-offset-4 "
+								className="text-[var(--bold-text)] text-center font-[500] text-[12px] md:text-[14px] flex items-center decoration-[1px]  underline underline-offset-4 "
 							>
 								<BiChevronLeft className="text-2xl" /> BACK TO All DAILY DIGEST
 							</Link>
 						</div>
 					) : (
 						<div className="h-[inherit] sm:h-[68px] sm:ml-2.5 md:ml-0 mb-[15px] sm:mb-0 pt-[25px] sm:pt-0">
-							<h1 className="text-[26px] sm:text-[32px] font-[600] text-center sm:text-left">DAILY DIGEST</h1>
+							<h1 className="text-[26px] sm:text-[32px] font-[600] text-center sm:text-left cursor-pointer" onClick={() => window.location.reload()}>
+								DAILY DIGEST
+							</h1>
 							<p className="text-[14px] font-[400] text-[ #2C3E50]">Cutting-edge trends and timeless truths.</p>
 						</div>
 					)}
@@ -75,33 +87,39 @@ function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed
 							/>
 							<button className=" bg-[#222222] text-white px-[15px] rounded-r-[5px] text-[13px]  ml-[-10px] ">Subscribe</button>
 						</div>
-						<p className="text-[14px] text-[#ADB5BD] text-center pt-2 sm:pt-1">Email Terms & Privacy</p>
+						<p className="text-[14px] text-[var(--para-text)] text-center pt-2 sm:pt-1">Email Terms & Privacy</p>
 					</div>
 				</div>
-				<InfiniteScroll dataLength={count} next={handleLoad} hasMore={count <= dataLength} loader={<Spinner />}>
-					{sortedData &&
-						sortedData
-							.filter((item) => {
-								return search.toLowerCase() === ""
-									? item
-									: item.attributes.feed_title.toLowerCase().includes(search.toLowerCase()) ||
-											item.attributes.feed_description.toLowerCase().includes(search.toLowerCase());
-							})
-							.slice(0, count)
-							.map((data) => {
-								return (
-									<SingleCard
-										data={data}
-										key={data.id}
-										highlightedSearch={search.toLowerCase()}
-										singleNews={singleNews}
-										previousData={previousData}
-										nextData={nextData}
-										randomFeed={randomFeed}
-									/>
-								);
-							})}
-				</InfiniteScroll>
+				{noData !== 0 ? (
+					<InfiniteScroll dataLength={count} next={handleLoad} hasMore={count <= dataLength} loader={<Spinner />}>
+						{sortedData &&
+							sortedData
+								.filter((item) => {
+									return search.toLowerCase() === ""
+										? item
+										: item.attributes.feed_title.toLowerCase().includes(search.toLowerCase()) ||
+												item.attributes.feed_description.toLowerCase().includes(search.toLowerCase());
+								})
+								.slice(0, count)
+								.map((data) => {
+									return (
+										<SingleCard
+											data={data ? data : "No data"}
+											key={data.id}
+											highlightedSearch={search.toLowerCase()}
+											singleNews={singleNews}
+											previousData={previousData}
+											nextData={nextData}
+											randomFeed={randomFeed}
+										/>
+									);
+								})}
+					</InfiniteScroll>
+				) : (
+					<div>
+						<p className="text-center text-[24px] pt-8">No data Found</p>
+					</div>
+				)}
 			</div>
 		</div>
 	);

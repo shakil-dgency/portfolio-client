@@ -4,6 +4,8 @@ import { usePathname } from "next/navigation";
 import SearchComponent from "./SearchComponent";
 import SingleCard from "./SingleCard";
 import NewsFeedCard from "./NewsFeedCard";
+import NotFound from "@/app/not-found";
+import Footer from "../Footer";
 
 function DedicatedSinglePost({ feedData }) {
 	const navigate = usePathname();
@@ -74,19 +76,28 @@ function DedicatedSinglePost({ feedData }) {
 	}, []);
 
 	return (
-		<div className={`${filteredData === null ? "h-[100vh]" : "h-[100%]"}`}>
-			<div className=" ">
-				{/* <SearchComponent /> */}
+		<div>
+			{filteredData?.length !== 0 ? (
+				<div className={`${filteredData === null ? "h-[100vh]" : "h-[100%]"}`}>
+					<div className=" ">
+						{/* <SearchComponent /> */}
 
-				<div className="">
-					{/* {filteredData &&
+						<div className="">
+							{/* {filteredData &&
 						filteredData.map((data) => {
 							return <SingleCard data={data} />;
 						})} */}
 
-					<NewsFeedCard feedData={filteredData} previousData={previousData} nextData={nextData} randomFeed={randomFeed} singleNews="true" />
+							<NewsFeedCard feedData={filteredData} previousData={previousData} nextData={nextData} randomFeed={randomFeed} singleNews="true" />
+						</div>
+						<div className="pt-[150px]">
+							<Footer />
+						</div>
+					</div>
 				</div>
-			</div>
+			) : (
+				<NotFound />
+			)}
 		</div>
 	);
 }

@@ -2,15 +2,25 @@ import React from "react";
 import GlobalSectionStarter from "../GlobalSectionStarter";
 import CaruselStructure from "../CaruselStructure";
 
-function MentorsSection() {
+async function getMentorsData() {
+	const res = await fetch(
+		`${process.env.NEXT_PUBLIC_API_URL}/api/profile?populate[0]=mentors&populate[1]=mentors.section_head&populate[2]=mentors.mentors_card.image`,
+		{
+			next: { revalidate: 10 },
+		}
+	);
+
+	const mentorsData = await res.json();
+	return mentorsData;
+}
+
+async function MentorsSection() {
+	const mentorsData = await getMentorsData();
 	return (
 		<div>
-			<div className="g__body-container ">
-				<GlobalSectionStarter
-					title="Mentors"
-					description="Everyone has the right to freedom of thought, conscience and religion freedom to change his religion or belief, and freedom, either alone. "
-				/>
-				<CaruselStructure mentor={true} />
+			<div id="mentors" className="g__body-container ">
+				<GlobalSectionStarter data={mentorsData?.data.attributes.mentors.section_head} />
+				<CaruselStructure mentor={true} data={mentorsData?.data.attributes.mentors.mentors_card} />
 			</div>
 		</div>
 	);

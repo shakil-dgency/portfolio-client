@@ -50,6 +50,19 @@ function SingleCard({ data, highlightedSearch, singleNews, previousData, nextDat
 		};
 
 		fetchLikeCount();
+
+		//if a tag has own link then load on the page otherwise new tab
+
+		if (document.querySelectorAll(".caption a").length !== 0) {
+			var aTags = document.querySelectorAll(".caption a");
+			aTags.forEach(function (aTag) {
+				if (aTag.href.split("/")[2] === "hamiduzjaman.com") {
+					console.log("on same tab");
+				} else {
+					aTag.setAttribute("target", "_blank");
+				}
+			});
+		}
 	}, []);
 
 	// Function for structure the slug
@@ -159,10 +172,17 @@ function SingleCard({ data, highlightedSearch, singleNews, previousData, nextDat
 		const highlightedNodes = Array.from(nodes).map((node, index) => {
 			if (node.nodeType === Node.TEXT_NODE) {
 				return highlightSearchKeyword(node.textContent, search);
-			} else {
-				return React.createElement(node.tagName.toLowerCase(), { key: index, ...node.attributes }, parseAndHighlightHTML(node.innerHTML, search));
+			} else if (node.nodeType === Node.ELEMENT_NODE) {
+				if (node.tagName.toLowerCase() === "a") {
+					const href = node.getAttribute("href");
+					const highlightedContent = parseAndHighlightHTML(node.innerHTML, search);
+					return React.createElement(node.tagName.toLowerCase(), { key: index, href: href, ...node.attributes }, highlightedContent);
+				} else {
+					return React.createElement(node.tagName.toLowerCase(), { key: index, ...node.attributes }, parseAndHighlightHTML(node.innerHTML, search));
+				}
 			}
 		});
+
 		return highlightedNodes;
 	};
 
@@ -177,119 +197,135 @@ function SingleCard({ data, highlightedSearch, singleNews, previousData, nextDat
 		}, 700);
 	};
 
+	console.log(data);
+
 	return (
 		<div>
-			<div className="max-w-[672px] mx-auto bg-[#ffffff] sm:rounded-md mb-7 md:mb-[30px] ">
-				<div className="px-[16px] py-[24px] sm:px-[30px] sm:py-[30px]">
-					<Link
-						href={handleSlug(data.attributes.slug, data.attributes.createdAt)}
-						className="post_title text-[18px] leading-[30.8px] md:leading-[inherit] sm:text-[22px] text-[#222222] font-[500] hover:underline"
-					>
-						{highlightSearchKeyword(data.attributes.feed_title, highlightedSearch)}
-					</Link>
-					<p className="text-[14px] text-[#ADB5BD] pt-1 font-[400]">{handleFormatedDate(data.attributes.createdAt)}</p>
-					<div className="caption my-[14px] ">
-						<div className="text-[#2C3E50] text-[14px] sm:text-[16px] font-[400]">
-							{parseAndHighlightHTML(data.attributes.feed_description, highlightedSearch)}
-						</div>
-					</div>
+			{data ? (
+				<div>
+					<div className="max-w-[672px] mx-auto bg-[#ffffff] sm:rounded-md mb-7 md:mb-[30px] ">
+						<div className="px-[16px] py-[24px] sm:px-[30px] sm:py-[30px]">
+							<Link
+								href={handleSlug(data.attributes.slug, data.attributes.createdAt)}
+								className="post_title text-[18px] leading-[30.8px] md:leading-[inherit] sm:text-[22px] text-[var(--bold-text)] font-[500] hover:underline"
+							>
+								{highlightSearchKeyword(data.attributes.feed_title, highlightedSearch)}
+							</Link>
+							<p className="text-[14px] text-[#ADB5BD] pt-1 font-[400]">{handleFormatedDate(data.attributes.createdAt)}</p>
+							<div className="caption my-[14px] ">
+								<div className="text-[var(--para-text)] text-[14px] sm:text-[16px] font-[400]">
+									{parseAndHighlightHTML(data.attributes.feed_description, highlightedSearch)}
+								</div>
+							</div>
 
-					<div className="image_video">
-						{data.attributes.image.data !== null && (
-							<Image src={data.attributes.image.data?.attributes.url} height={400} width={650} alt="" className="w-full" />
-						)}
-						{data.attributes.video_url && (
-							<iframe
-								src={data.attributes.video_url + "?rel=0&controls=0"}
-								title="YouTube video"
-								allowFullScreen
-								className="w-full h-[200px] sm:h-[350px]"
-							></iframe>
-							// <ReactPlayer
-							// 	url={data.video}
-							// 	config={{
-							// 		youtube: {
-							// 			playerVars: { showinfo: 0 },
-							// 		},
-							// 	}}
-							// />
-						)}
-
-						{data.attributes.gif_file && <img src={data.attributes.gif_file} className="w-full sm:h-[350px] object-contain bg-black" />}
-					</div>
-					<div className="">
-						<div className="flex items-center mt-[14px] gap-2">
-							{/* <BiLike /> */}
-							<Image src={like} alt="" className="w-[25px] h-[25px]" />
-							<p className="text-[14px]">
-								{likeStatus && <span>You and</span>} {likeCount} others liked it
-							</p>
-						</div>
-						<div className="h-[1px] w-[full] bg-[#ADB5BD] mt-[10px] mb-[14px]"></div>
-						<div className="flex items-center justify-between">
-							<div className={`flex items-center ${likeStatus ? "text-[#717171]" : ""}`} onClick={() => handleLike(data.id)}>
-								{/* <BiSolidLike className="text-[20px]" /> */}
-								{likeStatus ? (
-									<div className="">
-										<Image src={dolike} alt="" className={`${likeAnim ? "like_anim" : ""} w-[26px] h-[26px]`} />
-										{/* <Lottie animationData={animationData} className=" absolute top-0 left-0" loop={true} /> */}
-									</div>
-								) : (
-									// <BiSolidLike className="text-[20px]" />
-									<Image src={likeOut} alt="" className=" w-[29px] h-[26px]" />
+							<div className="image_video">
+								{data.attributes.image.data !== null && (
+									<Image src={data.attributes.image.data?.attributes.url} height={400} width={650} alt="" className="w-full" />
 								)}
-								<p className="ml-[10px] mt-1 font-[500]">Like</p>
+								{data.attributes.video_url && (
+									<iframe
+										src={data.attributes.video_url + "?rel=0&controls=0"}
+										title="YouTube video"
+										allowFullScreen
+										className="w-full h-[200px] sm:h-[350px]"
+									></iframe>
+									// <ReactPlayer
+									// 	url={data.video}
+									// 	config={{
+									// 		youtube: {
+									// 			playerVars: { showinfo: 0 },
+									// 		},
+									// 	}}
+									// />
+								)}
+
+								{data.attributes.gif_file && <img src={data.attributes.gif_file} className="w-full sm:h-[350px] object-contain bg-black" />}
 							</div>
-							<div className="flex gap-3 text-[24px]">
-								<LinkedinShareButton>
-									<Image src={linkedIn} alt="" className=" w-[20px] h-[20px]" />
-								</LinkedinShareButton>
-								<FacebookShareButton url={"https://hamiduzjaman.com/2023/12/beauty-of-eyes"}>
-									<Image src={facebook} alt="" className=" w-[20px] h-[20px]" />
-								</FacebookShareButton>
-								<TwitterShareButton>
-									<Image src={twitter} alt="" className=" w-[20px] h-[20px]" />
-								</TwitterShareButton>
-								<Image
-									src={linkCopy}
-									alt=""
-									className="link_copy w-[20px] h-[20px] rounded-tl-md rounded-br-md cursor-pointer"
-									onClick={(Event) => handleCopyUrl(Event)}
-								/>
+							{data.attributes.feed_description_down && (
+								<div className="caption my-[14px] pb-2">
+									<div className="text-[var(--para-text)] text-[14px] sm:text-[16px] font-[400]">
+										{parseAndHighlightHTML(data.attributes.feed_description_down, highlightedSearch)}
+									</div>
+								</div>
+							)}
+
+							<div className="">
+								<div className="flex items-center mt-[14px] gap-2">
+									{/* <BiLike /> */}
+									<Image src={like} alt="" className="w-[25px] h-[25px]" />
+									<p className="text-[14px] text-[var(--para-text)]">
+										{likeStatus && <span>You and</span>} {likeCount} others liked it
+									</p>
+								</div>
+								<div className="h-[1px] w-[full] bg-[#ADB5BD] mt-[10px] mb-[14px]"></div>
+								<div className="flex items-center justify-between">
+									<div className={`flex items-center ${likeStatus ? "text-[#717171]" : ""}`} onClick={() => handleLike(data.id)}>
+										{/* <BiSolidLike className="text-[20px]" /> */}
+										{likeStatus ? (
+											<div className="">
+												<Image src={dolike} alt="" className={`${likeAnim ? "like_anim" : ""} w-[26px] h-[26px]`} />
+												{/* <Lottie animationData={animationData} className=" absolute top-0 left-0" loop={true} /> */}
+											</div>
+										) : (
+											// <BiSolidLike className="text-[20px]" />
+											<Image src={likeOut} alt="" className=" w-[29px] h-[26px] hover:cursor-pointer" />
+										)}
+										<p className="ml-[10px] mt-1 font-[500] text-[var(--bold-text)]">Like</p>
+									</div>
+									<div className="flex gap-3 text-[24px]">
+										<LinkedinShareButton url={`https://hamiduzjaman.com${handleSlug(data.attributes.slug, data.attributes.createdAt)}`}>
+											<Image src={linkedIn} alt="" className=" w-[20px] h-[20px]" />
+										</LinkedinShareButton>
+										<FacebookShareButton url={`https://hamiduzjaman.com${handleSlug(data.attributes.slug, data.attributes.createdAt)}`}>
+											<Image src={facebook} alt="" className=" w-[20px] h-[20px]" />
+										</FacebookShareButton>
+										<TwitterShareButton url={`https://hamiduzjaman.com${handleSlug(data.attributes.slug, data.attributes.createdAt)}`}>
+											<Image src={twitter} alt="" className=" w-[20px] h-[20px]" />
+										</TwitterShareButton>
+										<Image
+											src={linkCopy}
+											alt=""
+											className="link_copy w-[20px] h-[20px] rounded-tl-md rounded-br-md cursor-pointer"
+											onClick={(Event) => handleCopyUrl(Event)}
+										/>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-			{singleNews && (
-				<div className="flex justify-center gap-4 sm:gap-10">
-					{previousData && (
-						<Link
-							href={handleSlug(previousData && previousData.attributes.slug, previousData && previousData.attributes.createdAt)}
-							className="flex items-center rounded-[5px] text-[14px] sm:text-[16px] border-[#495057] border-[1px] py-[7px] px-[10px] sm:py-[15px] sm:px-[25px]"
-						>
-							<BiChevronLeft className="text-2xl -ml-[6px]" />
-							Previous
-						</Link>
+					{singleNews && (
+						<div className="flex justify-center gap-4 sm:gap-10">
+							{previousData && (
+								<Link
+									href={handleSlug(previousData && previousData.attributes.slug, previousData && previousData.attributes.createdAt)}
+									className="flex items-center rounded-[5px] text-[14px] sm:text-[16px] text-[var(--bold-text)] border-[var(--para-text)] border-[1px] py-[7px] px-[10px] sm:py-[15px] sm:px-[25px]"
+								>
+									<BiChevronLeft className="text-2xl -ml-[6px]" />
+									Previous
+								</Link>
+							)}
+							<Link
+								href={handleSlug(randomFeed && randomFeed.attributes.slug, randomFeed && randomFeed.attributes.createdAt)}
+								className="flex items-center gap-2 rounded-[5px] text-[14px] sm:text-[16px] text-[var(--bold-text)] border-[var(--para-text)] border-[1px] py-[7px] px-[9px] sm:py-[15px] sm:px-[22px]"
+							>
+								{/* <LiaRandomSolid /> */}
+								<Image src={random} alt="" className=" w-[18px] h-[18px]" />
+								Random
+							</Link>
+							{nextData && (
+								<Link
+									href={handleSlug(nextData && nextData.attributes.slug, nextData && nextData.attributes.createdAt)}
+									className=" flex items-center rounded-[5px] text-[14px] sm:text-[16px] text-[var(--bold-text)] border-[var(--para-text)] border-[1px] py-[7px] px-[20px] sm:py-[15px] sm:px-[40px]"
+								>
+									Next
+									<BiChevronRight className="text-2xl -mr-[6px]" />
+								</Link>
+							)}
+						</div>
 					)}
-					<Link
-						href={handleSlug(randomFeed && randomFeed.attributes.slug, randomFeed && randomFeed.attributes.createdAt)}
-						className="flex items-center gap-2 rounded-[5px] text-[14px] sm:text-[16px] border-[#495057] border-[1px] py-[7px] px-[9px] sm:py-[15px] sm:px-[22px]"
-					>
-						{/* <LiaRandomSolid /> */}
-						<Image src={random} alt="" className=" w-[18px] h-[18px]" />
-						Random
-					</Link>
-					{nextData && (
-						<Link
-							href={handleSlug(nextData && nextData.attributes.slug, nextData && nextData.attributes.createdAt)}
-							className=" flex items-center rounded-[5px] text-[14px] sm:text-[16px] border-[#495057] border-[1px] py-[7px] px-[20px] sm:py-[15px] sm:px-[40px]"
-						>
-							Next
-							<BiChevronRight className="text-2xl -mr-[6px]" />
-						</Link>
-					)}
 				</div>
+			) : (
+				<h1>No data</h1>
 			)}
 		</div>
 	);

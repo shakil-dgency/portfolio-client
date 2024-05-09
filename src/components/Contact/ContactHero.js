@@ -5,10 +5,10 @@ import bgImg from "../../../public/contact-bg.svg";
 import Link from "next/link";
 import { BiChevronLeft } from "react-icons/bi";
 
-function ContactHero() {
+function ContactHero({ data }) {
 	return (
 		<div>
-			<div className={`bg-[#F7F9FC] relative pt-[100px] pb-[60px]`}>
+			<div className={`bg-[#F6F3FB] relative pt-[100px] pb-[60px]`}>
 				<div className="g__body-container">
 					<div className=" absolute top-[25px] ml-[16px] xl:ml-[0] z-30 ">
 						<Link
@@ -19,15 +19,13 @@ function ContactHero() {
 						</Link>
 					</div>
 				</div>
-				<div className="text-container  m-auto pb-[60px] px-[16px]">
+				<div className="text-container  m-auto pb-[10px] md:pb-[60px] px-[16px]">
 					<h1 className="text-[32px] tracking-tighter leading-[1.2] text-center font-[600] relative z-20">
-						Let's Connect
-						<br className="hidden xl:block" /> Unlock Communication
+						{data?.title_first_line}
+						<br className="hidden xl:block" />
+						{data?.title_second_line}
 					</h1>
-					<p className="relative z-20 text-center mt-[15px] max-w-[700px] mx-auto ">
-						Whether you're aiming to enhance your online presence, boost bookings, or navigate digital marketing, our expert team is ready to guide
-						you.
-					</p>
+					<p className="relative z-20 text-center mt-[15px] max-w-[700px] mx-auto ">{data?.description}</p>
 				</div>
 				<Image src={bgImg} height={300} width={600} alt="" className="absolute top-0 left-0  h-full opacity-[0.5]" />
 				<Image src={bgImg} height={300} width={600} alt="" className="absolute top-0 right-0 rotate-180 h-full opacity-[0.5]" />
