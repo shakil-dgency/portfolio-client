@@ -29,7 +29,7 @@ function SearchComponent({ search, setSearch, screen, wantToSearch, handleSearch
 								setSearch(e.target.value);
 								// setNewValue(e.target.value);
 							}}
-							className={`text-[15px] w-full sm:w-auto font-[400] outline-none px-2 py-[1px] border-b-[1px] border-[#aeaeae] bg-transparent duration-500 ${
+							className={`text-[15px] w-full sm:w-auto font-[400] outline-none px-2 py-[1px] ml-6 md:ml-0 border-b-[1px] border-[#aeaeae] bg-transparent duration-500 ${
 								wantToSearch ? "translate-x-0" : " translate-x-[150%] sm:translate-x-0"
 							}  `}
 							placeholder="Search..."
@@ -38,8 +38,8 @@ function SearchComponent({ search, setSearch, screen, wantToSearch, handleSearch
 					<button
 						onClick={handleSearch}
 						className={`${
-							wantToSearch ? "border-b-[1px] border-[#aeaeae]" : ""
-						} text-[#202020] sm:border-b-[1px] sm:border-[#aeaeae] -ml-1  md:px-0 flex justify-center items-center`}
+							wantToSearch ? "" : ""
+						} text-[#202020] sm:border-b-[1px] sm:border-[#aeaeae] -ml-1  md:px-0 flex justify-center items-center relative z-10`}
 					>
 						<IoIosSearch className="text-[24px] md:mr-1" />
 					</button>

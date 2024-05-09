@@ -88,7 +88,7 @@ function NavBar({ search, setSearch, isSearch }) {
 			<div className="max-w-[1224px] mx-auto px-2.5 sm:px-[16px] mxl:px-0 w-full flex gap-3 justify-end mb3:justify-between items-center py-3 sm:py-2.5 relative ">
 				<div
 					className={`logo ${
-						wantToSearch ? "translate-x-[-200%] sm:translate-x-0 flex-[0]" : "flex-[1.5]"
+						screen < 768 && wantToSearch ? "translate-x-[-200%] sm:translate-x-0 flex-[0]" : "flex-[1.5]"
 					} duration-500 mb3:block w-full italic font-[700] relative ${sideBarOpen ? "-z-10" : "z-[inherit]"} `}
 				>
 					<Link href={"/"}>

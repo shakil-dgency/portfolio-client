@@ -201,7 +201,6 @@ function SingleCard({ data, highlightedSearch, singleNews, previousData, nextDat
 
 	return (
 		<div>
-			(
 			<div>
 				<div className="max-w-[672px] mx-auto bg-[#ffffff] sm:rounded-md mb-7 md:mb-[30px] ">
 					<div className="px-[16px] py-[24px] sm:px-[30px] sm:py-[30px]">
@@ -324,7 +323,6 @@ function SingleCard({ data, highlightedSearch, singleNews, previousData, nextDat
 					</div>
 				)}
 			</div>
-			)
 		</div>
 	);
 }
