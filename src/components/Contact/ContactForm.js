@@ -6,6 +6,7 @@ import styles from "../../app/style/contact.module.css";
 import cornerImg from "../../../public/contact-corner.svg";
 import check from "../../../public/check-mark.svg";
 import phone from "../../../public/phone.svg";
+import stylesRtext from "../../app/style/richtext.module.css";
 
 function ContactForm({ data }) {
 	return (
@@ -101,7 +102,9 @@ function ContactForm({ data }) {
 								</div>
 							</div>
 						</div>
-						<div className="text-[var(--bold-text)] text-[14px] pt-[30px]" dangerouslySetInnerHTML={{ __html: data && data.form_note }} />
+						<div className={`${stylesRtext.text_area}`}>
+							<div className="text-[var(--bold-text)] text-[14px] pt-[30px]" dangerouslySetInnerHTML={{ __html: data && data.form_note }} />
+						</div>
 					</div>
 				</div>
 			</div>

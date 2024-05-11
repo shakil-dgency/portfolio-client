@@ -3,14 +3,10 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Lottie from "lottie-react";
 import animationData from "../../../public/newsFeed/like animation.json";
+import styles from "../../app/style/richtext.module.css";
 
-import { CiLinkedin } from "react-icons/ci";
-import { LiaFacebookSquare } from "react-icons/lia";
-import { LiaTwitterSquare } from "react-icons/lia";
 import { FacebookShareButton, TwitterShareButton, LinkedinShareButton } from "react-share";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
-import { LiaRandomSolid } from "react-icons/lia";
-import { FaRandom } from "react-icons/fa";
 import Link from "next/link";
 import like from "../../../public/newsFeed/like.svg";
 import dolike from "../../../public/newsFeed/dolike.svg";
@@ -40,12 +36,12 @@ function SingleCard({ data, highlightedSearch, singleNews, previousData, nextDat
 	useEffect(() => {
 		const fetchLikeCount = async () => {
 			try {
-				const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/news-feeds/${data.id}`);
+				const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/news-feeds/${data?.attributes.slug}`);
 				const like = await res.json();
 
 				setLikeCount(like.data.attributes.like_count);
 
-				console.log();
+				// console.log(likeCount);
 			} catch (error) {}
 		};
 
@@ -57,13 +53,13 @@ function SingleCard({ data, highlightedSearch, singleNews, previousData, nextDat
 			var aTags = document.querySelectorAll(".caption a");
 			aTags.forEach(function (aTag) {
 				if (aTag.href.split("/")[2] === "hamiduzjaman.com") {
-					console.log("on same tab");
+					// console.log("on same tab");
 				} else {
 					aTag.setAttribute("target", "_blank");
 				}
 			});
 		}
-	}, []);
+	}, [likeCount]);
 
 	// Function for structure the slug
 	const handleSlug = (title, date) => {
@@ -107,7 +103,7 @@ function SingleCard({ data, highlightedSearch, singleNews, previousData, nextDat
 	};
 
 	//Function for count the like and update the like count
-	async function handleLike(id) {
+	async function handleLike(id, slug) {
 		let isLike = localStorage.getItem("likeId");
 		// const likeBtn = document.querySelector(".like_btn");
 
@@ -129,6 +125,8 @@ function SingleCard({ data, highlightedSearch, singleNews, previousData, nextDat
 				},
 			};
 
+			console.log(count);
+
 			const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/news-feeds/${id}`, {
 				method: "PUT",
 				headers: {
@@ -143,10 +141,8 @@ function SingleCard({ data, highlightedSearch, singleNews, previousData, nextDat
 				console.error("Failed to update data:", response.statusText);
 				return;
 			}
-
-			console.log("Data updated successfully");
 		}
-		console.log(id);
+		// console.log();
 	}
 
 	//Function for highlight the text which is searched
@@ -197,7 +193,7 @@ function SingleCard({ data, highlightedSearch, singleNews, previousData, nextDat
 		}, 700);
 	};
 
-	console.log(data);
+	// console.log(data);
 
 	return (
 		<div>
@@ -212,8 +208,10 @@ function SingleCard({ data, highlightedSearch, singleNews, previousData, nextDat
 						</Link>
 						<p className="text-[14px] text-[#ADB5BD] pt-1 font-[400]">{handleFormatedDate(data.attributes.createdAt)}</p>
 						<div className="caption my-[14px] ">
-							<div className="text-[var(--para-text)] text-[14px] sm:text-[16px] font-[400]">
-								{parseAndHighlightHTML(data.attributes.feed_description, highlightedSearch)}
+							<div className={`${styles.text_area}`}>
+								<div className="text-[var(--para-text)] text-[14px] sm:text-[16px] font-[400]">
+									{parseAndHighlightHTML(data.attributes.feed_description, highlightedSearch)}
+								</div>
 							</div>
 						</div>
 
@@ -242,8 +240,10 @@ function SingleCard({ data, highlightedSearch, singleNews, previousData, nextDat
 						</div>
 						{data.attributes.feed_description_down && (
 							<div className="caption my-[14px] pb-2">
-								<div className="text-[var(--para-text)] text-[14px] sm:text-[16px] font-[400]">
-									{parseAndHighlightHTML(data.attributes.feed_description_down, highlightedSearch)}
+								<div className={`${styles.text_area}`}>
+									<div className="text-[var(--para-text)] text-[14px] sm:text-[16px] font-[400]">
+										{parseAndHighlightHTML(data.attributes.feed_description_down, highlightedSearch)}
+									</div>
 								</div>
 							</div>
 						)}
@@ -258,7 +258,7 @@ function SingleCard({ data, highlightedSearch, singleNews, previousData, nextDat
 							</div>
 							<div className="h-[1px] w-[full] bg-[#ADB5BD] mt-[10px] mb-[14px]"></div>
 							<div className="flex items-center justify-between">
-								<div className={`flex items-center ${likeStatus ? "text-[#717171]" : ""}`} onClick={() => handleLike(data.id)}>
+								<div className={`flex items-center ${likeStatus ? "text-[#717171]" : ""}`} onClick={() => handleLike(data.id, data?.attributes.slug)}>
 									{/* <BiSolidLike className="text-[20px]" /> */}
 									{likeStatus ? (
 										<div className="">
