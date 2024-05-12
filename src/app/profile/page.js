@@ -19,6 +19,21 @@ import ServicesSection from "@/components/Profile/Services/ServicesSection";
 import TestimonialsSection from "@/components/Profile/Testimonials/TestimonialsSection";
 import Tools from "@/components/Profile/ToolsSection/ToolsSection";
 import React from "react";
+import StructureData from "@/components/StructureData";
+
+export async function generateMetadata() {
+	const product = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/profile?populate[0]=seo.metaImage`).then((res) => res.json());
+	// console.log(product);
+	const data = product?.data?.attributes.seo;
+	return {
+		title: data?.metaTitle,
+		description: data?.metaDescription,
+		canonical: data?.canonicalURL ? data.canonicalURL : "https://hamiduzjaman.com/",
+		openGraph: {
+			images: data?.metaImage?.data?.attributes.url,
+		},
+	};
+}
 
 async function getHeroData() {
 	const res = await fetch(
@@ -58,8 +73,20 @@ async function page() {
 	const heroData = await getHeroData();
 	const expertiseData = await getExpertiseData();
 	const industriesData = await getIndustriesData();
+
+	//to set meta structure Data
+	const product = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/profile?populate[0]=seo.metaImage`).then((res) => res.json());
+	const jsonLd = product?.data?.attributes.seo;
+
 	return (
 		<div className="">
+			{/* Add JSON-LD to your page */}
+			{jsonLd &&
+				jsonLd.structuredData?.map((item, i) => {
+					return <StructureData data={item} key={i} />;
+				})}
+			{/* ... */}
+
 			<NavBar />
 			<div className="bg-[#FDFDFD] max-w-[1224px] mx-auto pb-[180px] ">
 				<Hero data={heroData} />

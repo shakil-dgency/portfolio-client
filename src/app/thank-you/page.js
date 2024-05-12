@@ -1,18 +1,16 @@
 import Footer from "@/components/Footer";
 import NavBar from "@/components/NavBar";
-import Body from "@/components/notFound/Body";
+import ThankYou from "@/components/ThankYou/ThankYou";
 import React from "react";
 
-function NotFound() {
+function page() {
 	return (
 		<div>
 			<NavBar />
-			<div className="pb-[80px]">
-				<Body />
-			</div>
+			<ThankYou />
 			<Footer />
 		</div>
 	);
 }
 
-export default NotFound;
+export default page;

@@ -88,7 +88,7 @@ function NavBar({ search, setSearch, isSearch }) {
 			<div className="max-w-[1224px] mx-auto px-2.5 sm:px-[16px] mxl:px-0 w-full flex gap-3 justify-end mb3:justify-between items-center py-3 sm:py-2.5 relative ">
 				<div
 					className={`logo ${
-						screen < 768 && wantToSearch ? "translate-x-[-200%] sm:translate-x-0 flex-[0]" : "flex-[1.5]"
+						screen < 640 && wantToSearch ? "translate-x-[-200%] sm:translate-x-0 flex-[0]" : "flex-[1.5]"
 					} duration-500 mb3:block w-full italic font-[700] relative ${sideBarOpen ? "-z-10" : "z-[inherit]"} `}
 				>
 					<Link href={"/"}>
@@ -97,16 +97,16 @@ function NavBar({ search, setSearch, isSearch }) {
 				</div>
 
 				<div
-					className={`${screen < 768 && screen !== null ? "" : ""} flex-[1] w-full sm:w-auto flex justify-end items-center gap-6 ${
+					className={`${screen < 640 && screen !== null ? "" : ""} flex-[1] w-full sm:w-auto flex justify-end items-center gap-6 ${
 						sideBarOpen ? "-z-10" : "z-[inherit]"
 					}`}
 				>
 					{isSearch && (
-						<div className={`${screen > 767 && screen !== null ? "block" : ""} w-full sm:w-auto`}>
+						<div className={`${screen > 640 && screen !== null ? "block" : ""} w-full sm:w-auto`}>
 							<SearchComponent search={search} setSearch={setSearch} screen={screen} wantToSearch={wantToSearch} handleSearch={handleSearch} />
 						</div>
 					)}
-					<button onClick={handleOpenSideBar} className={` flex justify-center items-center`}>
+					<button onClick={handleOpenSideBar} className={`py-[6px] flex justify-center items-center`}>
 						<FaBars className="mr-1 text-[var(--bold-text)] text-[24px] cursor-pointer" />
 					</button>
 				</div>
@@ -157,7 +157,9 @@ function NavBar({ search, setSearch, isSearch }) {
 							/>
 							<button className=" bg-[#222222] text-white px-[15px] rounded-r-[5px] text-[13px]  ml-[-10px] ">Subscribe</button>
 						</div>
-						<p className="text-[14px] text-[#ADB5BD]  pt-2 sm:pt-1">Email Terms & Privacy</p>
+						<p className="text-[14px] text-[#ADB5BD]  pt-2 sm:pt-1">
+							Email <Link href={"/privacy-policy"}>Terms & Privacy</Link>
+						</p>
 					</div>
 				)}
 				<RxCross2

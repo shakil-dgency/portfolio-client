@@ -13,9 +13,9 @@ function FooterItem({ data }) {
 				<div className="">
 					<div className="bg-[#E9EBEF] pt-16 pb-14  w-full block px-[16px]">
 						<div className=" g__body-container ">
-							<div className="flex md:justify-between flex-col md:flex-row items-center  gap-8 bg-[#fff] shadow rounded-md py-[30px] sm:py-[50px] px-[16px] sm:px-[50px] -mt-[150px] mb-[50px] sm:mb-[80px]">
+							<div className="relative z-20 flex md:justify-between flex-col md:flex-row items-center  gap-8 bg-[#fff] shadow rounded-md py-[30px] sm:py-[50px] px-[16px] sm:px-[50px] -mt-[150px] mb-[50px] sm:mb-[80px]">
 								<div className="max-w-[420px]  md:max-w-[348px] md:flex-1">
-									<p className="text-[16px] text-[var(--bold-text)] font-[500]">{data?.card_title}</p>
+									<p className="text-[20px] text-[var(--bold-text)] font-[500]">{data?.card_title}</p>
 									<p className="text-[14px] text-[var(--para-text)] mt-2">{data?.card_description}</p>
 								</div>
 								<div className="w-full  max-w-[420px] md:flex-1">
@@ -27,7 +27,9 @@ function FooterItem({ data }) {
 										/>
 										<button className=" bg-[#222222] text-white px-3 sm:px-[25px] rounded-r-[5px] text-[13px]  ml-[-10px] ">Subscribe</button>
 									</div>
-									<p className="text-[14px] text-[var(--para-text)] pt-2 sm:pt-1">Email Terms & Privacy</p>
+									<p className="text-[14px] text-[var(--para-text)] pt-2 sm:pt-1">
+										Email <Link href={"/privacy-policy"}>Terms & Privacy</Link>
+									</p>
 								</div>
 							</div>
 							<div className="flex flex-col md:flex-row gap-[50px] md:gap-[60px]">

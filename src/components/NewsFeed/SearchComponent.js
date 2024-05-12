@@ -19,22 +19,22 @@ function SearchComponent({ search, setSearch, screen, wantToSearch, handleSearch
 	return (
 		<div>
 			<div className="">
-				<div className="relative flex md:w-[300px] md:ml-3 overflow-hidden">
-					<form action="" id="myForm" className={`${wantToSearch ? "w-full sm:w-auto" : ""} `}>
+				<div className="relative flex sm:w-[270px] md:w-[300px] md:ml-3 overflow-hidden">
+					<div className={`${screen < 640 && wantToSearch ? "w-full md:w-auto" : "w-full"} `}>
 						<input
 							id="search"
 							type="text"
 							// value={newValue}
 							onChange={(e) => {
 								setSearch(e.target.value);
-								// setNewValue(e.target.value);
 							}}
-							className={`text-[15px] w-full sm:w-auto font-[400] outline-none px-2 py-[1px] ml-6 md:ml-0 border-b-[1px] border-[#aeaeae] bg-transparent duration-500 ${
+							className={`w-full  font-[400] outline-none rounded-none px-2 py-[1px] ml-6 md:ml-0 border-b-[1px] border-b-[#aeaeae] bg-transparent duration-500 ${
 								wantToSearch ? "translate-x-0" : " translate-x-[150%] sm:translate-x-0"
 							}  `}
 							placeholder="Search..."
 						/>
-					</form>
+						{/* <input id="search" type="text" className="outline-none border-b-[1px] border-b-[#aeaeae] rounded-none" /> */}
+					</div>
 					<button
 						onClick={handleSearch}
 						className={`${

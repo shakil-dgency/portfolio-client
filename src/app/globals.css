@@ -148,7 +148,7 @@ h3 {
 .input-field {
 	width: 100%;
 	height: 50px;
-	font-size: 14px;
+	font-size: 16px;
 	background: transparent;
 	/* color: #ffffff; */
 	padding-inline: 20px 20px;
@@ -159,7 +159,7 @@ h3 {
 }
 .input-field-area {
 	width: 100%;
-	font-size: 14px;
+	font-size: 16px;
 	background: transparent;
 	/* color: #ffffff; */
 	padding: 15px 50px 10px 20px;
@@ -186,9 +186,13 @@ h3 {
 	left: 20px;
 	font-size: 16px;
 	background-color: #fcfcfc;
-	/* border-radius: 30px; */
+
 	color: var(--bold-text);
 	padding: 0px 10px;
+}
+
+input {
+	font-size: 16px;
 }
 
 /* .popup {
@@ -476,6 +480,22 @@ h3 {
 	display: none;
 }
 
+/* --------------thank you----------------------- */
+.thankyou {
+	stroke-dasharray: 11000;
+	stroke-dashoffset: 0;
+	-webkit-animation: dash 6s linear forwards;
+	animation: dash 6s linear forwards;
+}
+
+@keyframes dash {
+	from {
+		stroke-dashoffset: 11000;
+	}
+	to {
+		stroke-dashoffset: 0;
+	}
+}
 /* --------------mobile responsive----------------- */
 
 @media only screen and (max-width: 640px) {

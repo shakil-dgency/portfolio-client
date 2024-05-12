@@ -37,7 +37,7 @@ function Card({ data }) {
 						);
 					})}
 
-					<p className="text-[12px] mb1:text-[14px] mb2:text-[16px] text-[#555555]">20 + more...</p>
+					<p className="text-[12px] mb1:text-[14px] mb2:text-[16px] text-[#555555]">{data?.no_of_industries}</p>
 				</div>
 			</div>
 		</div>

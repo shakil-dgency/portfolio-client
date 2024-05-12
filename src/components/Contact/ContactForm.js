@@ -64,7 +64,7 @@ function ContactForm({ data }) {
 									</div> */}
 									<div className="flex flex-col sm:flex-row sm:gap-7">
 										<div className="input_box flex-1">
-											<input type="text" id="user" className="input-field" required placeholder="" />
+											<input type="text" id="user" autoFocus={false} className="input-field" required placeholder="" />
 											<label htmlFor="user" className="label">
 												Name*
 											</label>

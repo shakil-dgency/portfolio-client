@@ -57,7 +57,7 @@ function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed
 
 	return (
 		<div className="  mb-10">
-			<NavBar search={search} setSearch={setSearch} isSearch={true} />
+			<NavBar search={search} setSearch={setSearch} isSearch={singleNews ? false : true} />
 			{/* <SearchComponent search={search} setSearch={setSearch} /> */}
 			<div className="g__body-container g__mobile-container">
 				<div className=" max-w-[672px] mx-auto sm:pt-16  sm:pb-[50px] flex flex-col sm:flex-row items-center sm:justify-between">
@@ -83,11 +83,13 @@ function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed
 							<input
 								type="email"
 								placeholder="Type your email...."
-								className="outline-none px-2 py-[10px] sm:py-[7px] w-full rounded-l-[5px] border-[1px] border-[#222222] bg-transparent text-[14px]"
+								className="outline-none px-2 py-[10px] sm:py-[7px] w-full rounded-l-[5px] border-[1px] border-[#222222] bg-transparent"
 							/>
 							<button className=" bg-[#222222] text-white px-[15px] rounded-r-[5px] text-[13px]  ml-[-10px] ">Subscribe</button>
 						</div>
-						<p className="text-[14px] text-[var(--para-text)] text-center pt-2 sm:pt-1">Email Terms & Privacy</p>
+						<p className="text-[14px] text-[var(--para-text)] text-center pt-2 sm:pt-1">
+							Email <Link href={"/privacy-policy"}>Terms & Privacy</Link>
+						</p>
 					</div>
 				</div>
 				{noData !== 0 ? (
