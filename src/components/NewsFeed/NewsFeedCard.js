@@ -10,6 +10,7 @@ import { BiChevronLeft } from "react-icons/bi";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Spinner from "../Spinner";
 import { usePathname } from "next/navigation";
+import EmailSubscribe from "../EmailSubscribe";
 
 function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed }) {
 	const [sortedData, setSortedData] = useState();
@@ -103,19 +104,7 @@ function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed
 							<p className="text-[14px] font-[400] text-[ #2C3E50]">Cutting-edge trends and timeless truths.</p>
 						</div>
 					)}
-					<div className={`subscribe h-[inherit] sm:h-[68px] mr-2.5 md:mr-0 ${singleNews ? "pb-[15px] sm:pb-0" : "pb-[25px] sm:pb-0"}`}>
-						<div className="relative flex max-w-[330px] sm:max-w-[250px]">
-							<input
-								type="email"
-								placeholder="Type your email...."
-								className="outline-none px-2 py-[10px] sm:py-[7px] w-full rounded-l-[5px] border-[1px] border-[#222222] bg-transparent"
-							/>
-							<button className=" bg-[#222222] text-white px-[15px] rounded-r-[5px] text-[13px]  ml-[-10px] ">Subscribe</button>
-						</div>
-						<p className="text-[14px] text-[var(--para-text)] text-center pt-2 sm:pt-1">
-							Email <Link href={"/privacy-policy"}>Terms & Privacy</Link>
-						</p>
-					</div>
+					<EmailSubscribe component = "newsfeed" singleNews={singleNews} />
 				</div>
 				{noData !== 0 ? (
 					<InfiniteScroll dataLength={count} next={handleLoad} hasMore={count <= dataLength} loader={<Spinner />}>

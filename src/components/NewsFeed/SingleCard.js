@@ -209,10 +209,10 @@ function SingleCard({ data, highlightedSearch, singleNews, previousData, nextDat
 								{highlightSearchKeyword(data.attributes.feed_title, highlightedSearch)}
 							</Link>
 							{data?.attributes?.pin_post === true && (
-							<button className="bg-[#f7f7f7] flex items-center gap-2 px-[12px] py-1 text-[12px] font-[600] rounded">
+							<button className=" text-[#ADB5BD] flex items-center gap-1 py-1 text-[12px] font-[500] rounded">
 								{" "}
-								<Image src={pin} height={30} width={20} alt="" className=" " />
-								<p>Pinned post</p>
+								<Image src={pin} height={30} width={15} alt="" className=" " />
+								<p>Pinned</p>
 							</button>
 						)}
 						</div>
