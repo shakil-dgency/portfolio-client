@@ -42,7 +42,7 @@ const sendAutoReply = async (recipientEmail, isForm, name) => {
 		from: `"Hamid Shawon" <${process.env.EMAIL}>`,
 		to: recipientEmail,
 		subject: `
-		${isForm === "contact" ? "Thank you for contacting with H M Hamiduzjaman" : ""}
+		${isForm === "contact" ? "Thank You for Reaching Out!" : ""}
 	  `,
 		html: autoReplyMessage,
 	};
