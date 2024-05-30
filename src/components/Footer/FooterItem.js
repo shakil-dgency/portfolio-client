@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import icon from "../../../public/fb_social.svg";
 import Image from "next/image";
 import Link from "next/link";
+import EmailSubscribe from "../EmailSubscribe";
 
 function FooterItem({ data }) {
 	const navigate = usePathname();
@@ -18,19 +19,7 @@ function FooterItem({ data }) {
 									<p className="text-[20px] text-[var(--bold-text)] font-[500]">{data?.card_title}</p>
 									<p className="text-[14px] text-[var(--para-text)] mt-2">{data?.card_description}</p>
 								</div>
-								<div className="w-full  max-w-[420px] md:flex-1">
-									<div className="relative flex  ">
-										<input
-											type="email"
-											placeholder="Type your email...."
-											className="outline-none px-2 py-[10px] sm:py-[15px] w-full rounded-l-[5px] border-[1px] border-[#222222] bg-transparent text-[14px]"
-										/>
-										<button className=" bg-[#222222] text-white px-3 sm:px-[25px] rounded-r-[5px] text-[13px]  ml-[-10px] ">Subscribe</button>
-									</div>
-									<p className="text-[14px] text-[var(--para-text)] pt-2 sm:pt-1">
-										Email <Link href={"/privacy-policy"}>Terms & Privacy</Link>
-									</p>
-								</div>
+								<EmailSubscribe component='footer' />
 							</div>
 							<div className="flex flex-col md:flex-row gap-[50px] md:gap-[60px]">
 								<div className="flex-[2] md:flex-1">
@@ -43,7 +32,7 @@ function FooterItem({ data }) {
 										<div className="text-[var(--para-text)] text-[14px] pt-[15px] flex flex-col gap-[15px]">
 											{data?.links.map((item) => {
 												return (
-													<Link href={`${item.url}`} target="_blank" className="" key={item.id}>
+													<Link href={`${item.url}`} className="" key={item.id}>
 														{item.link_name}
 													</Link>
 												);

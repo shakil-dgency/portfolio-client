@@ -16,6 +16,7 @@ import facebook from "../../../public/newsFeed/facebook.svg";
 import twitter from "../../../public/newsFeed/twitter.svg";
 import linkCopy from "../../../public/newsFeed/link.svg";
 import random from "../../../public/Random.svg";
+import pin from "../../../public/pin.svg";
 
 function SingleCard({ data, highlightedSearch, singleNews, previousData, nextData, randomFeed }) {
 	const [likeCount, setLikeCount] = useState();
@@ -193,19 +194,29 @@ function SingleCard({ data, highlightedSearch, singleNews, previousData, nextDat
 		}, 700);
 	};
 
-	// console.log(data);
+	console.log(data);
 
 	return (
 		<div>
 			<div>
-				<div className="max-w-[672px] mx-auto bg-[#ffffff] sm:rounded-md mb-7 md:mb-[30px] ">
+				<div className="max-w-[672px] mx-auto bg-[#ffffff] sm:rounded-md mb-7 md:mb-[30px] relative">
 					<div className="px-[16px] py-[24px] sm:px-[30px] sm:py-[30px]">
-						<Link
-							href={handleSlug(data.attributes.slug, data.attributes.createdAt)}
-							className="post_title text-[18px] leading-[30.8px] md:leading-[inherit] sm:text-[22px] text-[var(--bold-text)] font-[500] hover:underline"
-						>
-							{highlightSearchKeyword(data.attributes.feed_title, highlightedSearch)}
-						</Link>
+						<div className="flex justify-between gap-12">
+							<Link
+								href={handleSlug(data.attributes.slug, data.attributes.createdAt)}
+								className="post_title text-[18px] leading-[30.8px] md:leading-[inherit] sm:text-[22px] text-[var(--bold-text)] font-[500] hover:underline"
+							>
+								{highlightSearchKeyword(data.attributes.feed_title, highlightedSearch)}
+							</Link>
+							{data?.attributes?.pin_post === true && (
+							<button className="bg-[#f7f7f7] flex items-center gap-2 px-[12px] py-1 text-[12px] font-[600] rounded">
+								{" "}
+								<Image src={pin} height={30} width={20} alt="" className=" " />
+								<p>Pinned post</p>
+							</button>
+						)}
+						</div>
+
 						<p className="text-[14px] text-[#ADB5BD] pt-1 font-[400]">{handleFormatedDate(data.attributes.createdAt)}</p>
 						<div className="caption my-[14px] ">
 							<div className={`${styles.text_area}`}>

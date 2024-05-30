@@ -9,6 +9,7 @@ import { BiChevronLeft } from "react-icons/bi";
 
 import InfiniteScroll from "react-infinite-scroll-component";
 import Spinner from "../Spinner";
+import { usePathname } from "next/navigation";
 
 function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed }) {
 	const [sortedData, setSortedData] = useState();
@@ -17,6 +18,8 @@ function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed
 	const [dataLength, setdataLength] = useState(1);
 	const [noData, setNoData] = useState();
 
+	const navigate = usePathname();
+
 	// console.log(newFunction);
 
 	useEffect(() => {
@@ -24,17 +27,39 @@ function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed
 			let finalData = feedData.reduce(function (accumulator, currentValue) {
 				if (typeof currentValue.id === "number") {
 					// Insert currentValue into the correct position in the accumulator array
-					const index = accumulator.findIndex((item) => item.id <= currentValue.id);
-					if (index === -1) {
-						accumulator.push(currentValue);
+					if (navigate === "/") {
+						// Check if pin_post is true
+						if (currentValue.attributes.pin_post === true) {
+							// Insert at the beginning
+							accumulator.unshift(currentValue);
+							console.log(accumulator);
+						} else {
+							const index = accumulator.findIndex((item) => item.id <= currentValue.id);
+
+							if (index === -1) {
+								accumulator.push(currentValue);
+							} else {
+								accumulator.splice(index, 0, currentValue);
+							}
+						}
+
+						
 					} else {
-						accumulator.splice(index, 0, currentValue);
+						const index = accumulator.findIndex((item) => item.id <= currentValue.id);
+
+						if (index === -1) {
+							accumulator.push(currentValue);
+						} else {
+							accumulator.splice(index, 0, currentValue);
+						}
 					}
+
 				}
 				return accumulator;
 			}, []);
 			setSortedData(finalData);
 			setdataLength(feedData.length);
+			console.log(sortedData);
 		}
 
 		const foundData = sortedData?.filter((item) => {
@@ -62,7 +87,7 @@ function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed
 			<div className="g__body-container g__mobile-container">
 				<div className=" max-w-[672px] mx-auto sm:pt-16  sm:pb-[50px] flex flex-col sm:flex-row items-center sm:justify-between">
 					{singleNews ? (
-						<div className="h-[inherit] sm:h-[68px] self-start sm:self-auto sm:flex sm:items-center pt-[15px] sm:pt-0 ml-2.5 md:ml-0 mb-[20px] sm:mb-0">
+						<div className="h-[inherit] sm:h-[68px] self-start sm:self-auto sm:flex sm:items-center pt-[25px] sm:pt-0 ml-2.5 md:ml-0 mb-[30px] sm:mb-0">
 							<Link
 								href="/"
 								className="text-[var(--bold-text)] text-center font-[500] text-[12px] md:text-[14px] flex items-center decoration-[1px]  underline underline-offset-4 "

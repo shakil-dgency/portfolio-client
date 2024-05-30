@@ -8,6 +8,8 @@ function ThankYou() {
 				id="thankyou"
 				xmlns="http://www.w3.org/2000/svg"
 				xmlnsXlink="http://www.w3.org/1999/xlink"
+				height="100%"
+				width="100%"
 				x="0px"
 				y="0px"
 				viewBox="0 0 2400 402.2353"

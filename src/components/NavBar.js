@@ -9,11 +9,14 @@ import SearchComponent from "./NewsFeed/SearchComponent";
 import { HiMiniBars3BottomLeft } from "react-icons/hi2";
 import { RxCross2 } from "react-icons/rx";
 import { FaBars } from "react-icons/fa6";
+import EmailSubscribe from "./EmailSubscribe";
 
 function NavBar({ search, setSearch, isSearch }) {
 	const [screen, setScreen] = useState(null);
 	const [sideBarOpen, setSideBarOpen] = useState(false);
 	const [wantToSearch, setWantToSearch] = useState(false);
+	const [toggle, setToggle] = useState(false);
+
 	const sidebarRef = useRef();
 
 	useEffect(() => {
@@ -28,6 +31,33 @@ function NavBar({ search, setSearch, isSearch }) {
 				if (e.target.classList.contains("nav_cover")) {
 					handleClose();
 				}
+			});
+		}
+
+		// Navbar OnScroll functionality
+
+		if (screenSize.width < 768) {
+			var lastScrollTop = 0;
+			let navbar = document.querySelector(".navbar");
+
+			window.addEventListener("scroll", function () {
+				let scrollTop = window.scrollY || document.documentElement.scrollTop;
+				if (scrollTop > 300) {
+					if (scrollTop > lastScrollTop) {
+						setToggle(false);
+						if (toggle == true) {
+							navbar.style.top = "0";
+						} else {
+							navbar.style.top = "-120px";
+						}
+					} else if (lastScrollTop > scrollTop + 20) {
+						navbar.style.top = "0";
+					}
+				}else{
+					navbar.style.top = "0";
+				}
+
+				lastScrollTop = scrollTop;
 			});
 		}
 	});
@@ -47,6 +77,7 @@ function NavBar({ search, setSearch, isSearch }) {
 		};
 
 		document.body.classList.add("overflow-y-hidden");
+		document.body.classList.add("body_cover");
 		setTimeout(() => {
 			navBar.classList.remove("right-[-120%]");
 			navBar.classList.add("right-[0]");
@@ -65,6 +96,7 @@ function NavBar({ search, setSearch, isSearch }) {
 			// 	document.body.classList.remove("mr-[0.560rem]");
 			// }
 			document.body.classList.remove("overflow-y-hidden");
+			document.body.classList.remove("body_cover");
 			// navBar.classList.add("hidden");
 			// setSearch("");
 		}, 100);
@@ -79,12 +111,13 @@ function NavBar({ search, setSearch, isSearch }) {
 			// setWantToSearch(true);
 		} else {
 			setWantToSearch(!wantToSearch);
+			setToggle(true);
 		}
 		console.log(search);
 	};
 
 	return (
-		<div className="navbar bg-[#ffffff] backdrop-blur-[25px] text-[#222222] fixed z-40  top-0 w-full shadow-sm">
+		<div className="navbar bg-[#ffffff] duration-500 text-[#222222] fixed z-40  top-0 w-full shadow-md md:shadow-sm">
 			<div className="max-w-[1224px] mx-auto px-2.5 sm:px-[16px] mxl:px-0 w-full flex gap-3 justify-end mb3:justify-between items-center py-3 sm:py-2.5 relative ">
 				<div
 					className={`logo ${
@@ -103,7 +136,15 @@ function NavBar({ search, setSearch, isSearch }) {
 				>
 					{isSearch && (
 						<div className={`${screen > 640 && screen !== null ? "block" : ""} w-full sm:w-auto`}>
-							<SearchComponent search={search} setSearch={setSearch} screen={screen} wantToSearch={wantToSearch} handleSearch={handleSearch} />
+							<SearchComponent
+								search={search}
+								setSearch={setSearch}
+								screen={screen}
+								setWantToSearch={setWantToSearch}
+								toggle={toggle}
+								wantToSearch={wantToSearch}
+								handleSearch={handleSearch}
+							/>
 						</div>
 					)}
 					<button onClick={handleOpenSideBar} className={`py-[6px] flex justify-center items-center`}>
@@ -147,26 +188,14 @@ function NavBar({ search, setSearch, isSearch }) {
 						</div>
 					)} */}
 				</ul>
-				{!isSearch && (
-					<div className={``}>
-						<div className="relative flex max-w-[330px] sm:max-w-[250px] mt-10">
-							<input
-								type="email"
-								placeholder="Type your email...."
-								className="outline-none px-2 py-[10px] sm:py-[7px] w-full rounded-l-[5px] border-[1px] border-[#222222] bg-transparent text-[14px]"
-							/>
-							<button className=" bg-[#222222] text-white px-[15px] rounded-r-[5px] text-[13px]  ml-[-10px] ">Subscribe</button>
-						</div>
-						<p className="text-[14px] text-[#ADB5BD]  pt-2 sm:pt-1">
-							Email <Link href={"/privacy-policy"}>Terms & Privacy</Link>
-						</p>
-					</div>
-				)}
+				{
+					<EmailSubscribe />
+				}
 				<RxCross2
 					onClick={handleClose}
 					className={`${screen < 768 && screen !== null ? "" : ""} absolute right-5 top-4 text-[28px] cursor-pointer hover:animate-spin`}
 				/>
-				<Link href={"/"} className="absolute left-5 top-6 sm:hidden">
+				<Link href={"/"} onClick={handleClose} className="absolute left-5 top-6 sm:hidden">
 					<Image src={logo} alt="" className="w-[180px] sm:w-[250px]" />
 				</Link>
 			</div>

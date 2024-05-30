@@ -8,6 +8,7 @@ import Head from "next/head";
 
 import Image from "next/image";
 import RocketTop from "@/components/RocketTop";
+import Scroll from "@/components/Scroll";
 
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -38,10 +39,13 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang="en">
 			<body className={poppins.className} suppressHydrationWarning={true}>
-				{/* {<NavBar />} */}
-				{children}
-				{/* <Footer /> */}
-				<RocketTop />
+				
+					<Scroll />
+					{/* {<NavBar />} */}
+					{children}
+					{/* <Footer /> */}
+					<RocketTop />
+				
 			</body>
 		</html>
 	);

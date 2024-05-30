@@ -36,6 +36,7 @@ function Hero({ data }) {
 								alt="this is img"
 								height={523}
 								width={1000}
+								priority
 								className="h-[280px] md:h-[390px] w-full scale-[2] md:scale-[1.6] translate-x-[120px] sm:translate-x-[150px] object-cover "
 							/>
 						</div>
@@ -58,6 +59,7 @@ function Hero({ data }) {
 										height={200}
 										width={200}
 										alt="this is img"
+										priority
 										className="h-[150px] w-[150px] lg:h-[183px] lg:w-[183px] rounded-full object-cover "
 									/>
 									{/* </div> */}
