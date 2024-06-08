@@ -39,13 +39,13 @@ function SiteMapBody({ feedData }) {
 			<h1 className="text-[30px] md:text-[32px] lg:text-[40px] font-[600] pt-24 pb-8">Site Map</h1>
 			<ul className="flex flex-col gap-4 text-[20px] text-[#1A0DAB] list-inside list-disc font-[600]">
 				<li>
-					<Link href={"/pricing"}>Author's Profile</Link>
+					<Link href={"/profile"}>Author's Profile</Link>
 				</li>
 				<li>
-					<Link href={"/"}>Contact</Link>
+					<Link href={"/contact"}>Contact</Link>
 				</li>
 				<li>
-					<Link href={"/pricing"}>Schedule a Call</Link>
+					<Link href={"/schedule-call"}>Schedule a Call</Link>
 				</li>
 				<li>
 					<Link href={"/"}>Daily Digest</Link>

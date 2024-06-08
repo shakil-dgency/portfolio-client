@@ -37,7 +37,8 @@ function Hero({ data }) {
 								height={523}
 								width={1000}
 								priority
-								className="h-[280px] md:h-[390px] w-full scale-[2] md:scale-[1.6] translate-x-[120px] sm:translate-x-[150px] object-cover "
+								className=" h-[280px] md:h-[390px] w-full scale-[2] md:scale-[1.6] translate-x-[120px] sm:translate-x-[150px] object-cover "
+								
 							/>
 						</div>
 						<div className=" absolute top-[25px] ml-[16px] md:ml-[30px] lg:ml-[50px] z-10">

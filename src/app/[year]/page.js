@@ -2,7 +2,9 @@ import SearchComponent from "@/components/NewsFeed/SearchComponent";
 import YearlyPost from "@/components/NewsFeed/YearlyPost";
 import React from "react";
 
-async function getNewsFeeds() {
+async function getNewsFeeds(year) {
+	console.log(year);
+	
 	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/news-feeds?populate=*`, {
 		next: { revalidate: 10 },
 	});
@@ -11,8 +13,10 @@ async function getNewsFeeds() {
 	return newsfeeds;
 }
 
-export default async function page() {
-	const newsFeeds = await getNewsFeeds();
+export default async function page({params:{year}}) {
+	const newsFeeds = await getNewsFeeds(year);
+
+	
 
 	return (
 		<div>

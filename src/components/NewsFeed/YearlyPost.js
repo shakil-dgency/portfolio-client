@@ -16,6 +16,8 @@ function YearlyPost({ postData }) {
 			return createdAtDate.getFullYear().toString() === navigate.replace("/", "");
 		});
 
+		console.log(newData);
+
 		setFilteredData(newData);
 	}, []);
 

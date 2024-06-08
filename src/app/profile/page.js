@@ -37,10 +37,8 @@ export async function generateMetadata() {
 
 async function getHeroData() {
 	const res = await fetch(
-		`${process.env.NEXT_PUBLIC_API_URL}/api/profile?populate[0]=hero&populate[1]=hero.profile_image&populate[2]=hero.cover_image&populate[3]=hero.tags`,
-		{
-			next: { revalidate: 10 },
-		}
+		`${process.env.NEXT_PUBLIC_API_URL}/api/profile?populate[0]=hero&populate[1]=hero.profile_image&populate[2]=hero.cover_image&populate[3]=hero.tags`
+
 	);
 
 	const heroData = await res.json();

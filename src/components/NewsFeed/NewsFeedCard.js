@@ -15,7 +15,7 @@ import EmailSubscribe from "../EmailSubscribe";
 function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed }) {
 	const [sortedData, setSortedData] = useState();
 	const [search, setSearch] = useState("");
-	const [count, setCount] = useState(2);
+	const [count, setCount] = useState(10);
 	const [dataLength, setdataLength] = useState(1);
 	const [noData, setNoData] = useState();
 
@@ -43,8 +43,6 @@ function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed
 								accumulator.splice(index, 0, currentValue);
 							}
 						}
-
-						
 					} else {
 						const index = accumulator.findIndex((item) => item.id <= currentValue.id);
 
@@ -54,7 +52,6 @@ function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed
 							accumulator.splice(index, 0, currentValue);
 						}
 					}
-
 				}
 				return accumulator;
 			}, []);
@@ -77,7 +74,7 @@ function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed
 
 	const handleLoad = () => {
 		setTimeout(() => {
-			setCount(count + 1);
+			setCount(count + 10);
 		}, 1500);
 	};
 
@@ -104,10 +101,19 @@ function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed
 							<p className="text-[14px] font-[400] text-[ #2C3E50]">Cutting-edge trends and timeless truths.</p>
 						</div>
 					)}
-					<EmailSubscribe component = "newsfeed" singleNews={singleNews} />
+					<EmailSubscribe component="newsfeed" singleNews={singleNews} />
 				</div>
 				{noData !== 0 ? (
-					<InfiniteScroll dataLength={count} next={handleLoad} hasMore={count <= dataLength} loader={<Spinner />}>
+					<InfiniteScroll
+						dataLength={count}
+						next={handleLoad}
+						hasMore={count <= dataLength}
+						loader={
+							<div className="flex flex-col justify-center">
+								<Spinner /> <span className="text-center pt-2 pl-2 text-[#8f8f8f]">Loading...</span>
+							</div>
+						}
+					>
 						{sortedData &&
 							sortedData
 								.filter((item) => {

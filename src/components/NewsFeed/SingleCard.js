@@ -17,11 +17,14 @@ import twitter from "../../../public/newsFeed/twitter.svg";
 import linkCopy from "../../../public/newsFeed/link.svg";
 import random from "../../../public/Random.svg";
 import pin from "../../../public/pin.svg";
+import { usePathname } from "next/navigation";
 
 function SingleCard({ data, highlightedSearch, singleNews, previousData, nextData, randomFeed }) {
 	const [likeCount, setLikeCount] = useState();
 	const [likeStatus, setLikeStatus] = useState(false);
 	const [likeAnim, setLikeAnim] = useState(false);
+
+	const navigate = usePathname();
 
 	useEffect(() => {
 		const handleStorage = (id) => {
@@ -126,7 +129,7 @@ function SingleCard({ data, highlightedSearch, singleNews, previousData, nextDat
 				},
 			};
 
-			console.log(count);
+			// console.log(count);
 
 			const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/news-feeds/${id}`, {
 				method: "PUT",
@@ -194,7 +197,7 @@ function SingleCard({ data, highlightedSearch, singleNews, previousData, nextDat
 		}, 700);
 	};
 
-	console.log(data);
+	// console.log(data);
 
 	return (
 		<div>
@@ -208,12 +211,12 @@ function SingleCard({ data, highlightedSearch, singleNews, previousData, nextDat
 							>
 								{highlightSearchKeyword(data.attributes.feed_title, highlightedSearch)}
 							</Link>
-							{data?.attributes?.pin_post === true && (
-							<button className=" text-[#ADB5BD] flex items-center gap-1 py-1 text-[12px] font-[500] rounded">
+							{data?.attributes?.pin_post === true && navigate =='/' && (
+							<span className=" text-[#ADB5BD] flex items-center gap-1 py-1 text-[12px] font-[500] rounded">
 								{" "}
 								<Image src={pin} height={30} width={15} alt="" className=" " />
 								<p>Pinned</p>
-							</button>
+							</span>
 						)}
 						</div>
 

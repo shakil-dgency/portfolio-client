@@ -64,7 +64,7 @@ function FooterItem({ data }) {
 								</a>
 							</p>
 							<div className="text-[14px] text-[var(--bold-text)] pt-1">
-								<Link href="/privacy-policy">Privacy policy</Link> • <Link href="/terms-of-service">Terms of service</Link>
+								<Link href="/privacy-policy">Privacy policy</Link> • <Link href="/terms-of-service">Terms of service</Link> • <Link href="/site-map">Site map</Link>
 							</div>
 						</div>
 					</div>
