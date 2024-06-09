@@ -30,14 +30,14 @@ function Hero({ data }) {
 			<div className="">
 				<div className="g__body-containe">
 					<div className="relative">
-						<div className="h-[200px] md:h-[370px] overflow-hidden lg:rounded-b-lg ">
+						<div className="h-[200px] md:h-[370px] overflow-hidden lg:rounded-b-lg bg-[#313a43]">
 							<Image
 								src={data?.data?.attributes?.hero.cover_image?.data?.attributes?.url}
 								alt="this is img"
 								height={523}
 								width={1000}
 								priority
-								className=" h-[280px] md:h-[390px] w-full scale-[2] md:scale-[1.6] translate-x-[120px] sm:translate-x-[150px] object-cover "
+								className="h-[280px] md:h-[390px] w-full scale-[2] md:scale-[1.6] translate-x-[120px] sm:translate-x-[150px] object-cover "
 								
 							/>
 						</div>
