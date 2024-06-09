@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import SingleImage from "./SingleImage";
 
@@ -22,10 +22,12 @@ function GalleryItem({ data }) {
 	const [view, setView] = useState(2);
 	const [totalView, setTotalView] = useState();
 
-	const handleLoadMore = () => {
-		setImageCount(imageCount + 343);
+	const gRef = useRef()
 
-		setView(view + 1);
+	const handleLoadMore = () => {
+		setImageCount(imageCount + 686);
+
+		setView(view + 2);
 	};
 	const handleLoadLess = () => {
 		setImageCount(686);
@@ -35,6 +37,7 @@ function GalleryItem({ data }) {
 	// console.log(image);
 
 	useEffect(() => {
+
 		data?.forEach((item, i) => {
 			if (item.attributes.height < item.attributes.width) {
 				coverImage.push(i);
@@ -54,7 +57,7 @@ function GalleryItem({ data }) {
 	}, [data]);
 
 	return (
-		<div className="">
+		<div ref={gRef} className="">
 			<div className="hidden sm:block">
 				<div style={{ height: imageCount }} className={`grid mb1:grid-cols-2 sm:grid-cols-3 gap-5 mb1:gap-3 mb3:gap-5 overflow-hidden`}>
 					{data &&

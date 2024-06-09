@@ -12,7 +12,7 @@ import Spinner from "../Spinner";
 import { usePathname } from "next/navigation";
 import EmailSubscribe from "../EmailSubscribe";
 
-function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed }) {
+function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed,categorySection }) {
 	const [sortedData, setSortedData] = useState();
 	const [search, setSearch] = useState("");
 	const [count, setCount] = useState(10);
@@ -79,7 +79,7 @@ function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed
 	};
 
 	return (
-		<div className="  mb-10">
+		<div className="">
 			<NavBar search={search} setSearch={setSearch} isSearch={singleNews ? false : true} />
 			{/* <SearchComponent search={search} setSearch={setSearch} /> */}
 			<div className="g__body-container g__mobile-container">

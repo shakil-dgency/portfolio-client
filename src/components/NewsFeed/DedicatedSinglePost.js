@@ -78,11 +78,11 @@ function DedicatedSinglePost({ feedData }) {
 	return (
 		<div>
 			{filteredData?.length !== 0 ? (
-				<div className={`${filteredData === null ? "h-[100vh]" : "h-[100%]"}`}>
+				<div className={``}>
 					<div className=" ">
 						{/* <SearchComponent /> */}
 
-						<div className="">
+						<div className={`min-h-[1000px]`}>
 							{/* {filteredData &&
 						filteredData.map((data) => {
 							return <SingleCard data={data} />;
@@ -90,7 +90,7 @@ function DedicatedSinglePost({ feedData }) {
 
 							<NewsFeedCard feedData={filteredData} previousData={previousData} nextData={nextData} randomFeed={randomFeed} singleNews="true" />
 						</div>
-						<div className="pt-[150px]">
+						<div className="pt-[170px]">
 							<Footer />
 						</div>
 					</div>
