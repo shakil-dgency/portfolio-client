@@ -12,7 +12,7 @@ import Spinner from "../Spinner";
 import { usePathname } from "next/navigation";
 import EmailSubscribe from "../EmailSubscribe";
 
-function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed,categorySection }) {
+function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed, categorySection }) {
 	const [sortedData, setSortedData] = useState();
 	const [search, setSearch] = useState("");
 	const [count, setCount] = useState(10);
@@ -29,17 +29,31 @@ function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed
 				if (typeof currentValue.id === "number") {
 					// Insert currentValue into the correct position in the accumulator array
 					if (navigate === "/") {
+
+						// const index = accumulator.findIndex((item) => item.attributes.pin_post !== true && item.id <= currentValue.id);
+
+						// if (index === -1) {
+						// 	accumulator.push(currentValue);
+						// } else {
+						// 	accumulator.splice(index, 0, currentValue);
+						// }
+
 						// Check if pin_post is true
 						if (currentValue.attributes.pin_post === true) {
-							// Insert at the beginning
+							// Place the pinned post at the beginning of the array
 							accumulator.unshift(currentValue);
-							console.log(accumulator);
 						} else {
-							const index = accumulator.findIndex((item) => item.id <= currentValue.id);
+							// Find the first non-pinned item with an id greater than the current value's id
+							const pinnedCount = accumulator.filter((item) => item.attributes.pin_post === true).length;
+							const index = accumulator.findIndex((item, idx) => idx >= pinnedCount && item.id <= currentValue.id);
+
+							console.log(index);
 
 							if (index === -1) {
+								// If no larger id is found among non-pinned items, push the currentValue to the end
 								accumulator.push(currentValue);
 							} else {
+								// Insert the currentValue at the found index
 								accumulator.splice(index, 0, currentValue);
 							}
 						}
