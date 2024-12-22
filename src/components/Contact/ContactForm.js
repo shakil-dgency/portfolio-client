@@ -156,11 +156,11 @@ function ContactForm({ data }) {
 							<button className=" border-[1px] border-[#633ABD] px-[20px] py-[10px] rounded-md text-[#633ABD] text-[16px]  mt-5">
 								Schedule a Call
 							</button>
-							<div className="h-[1px] max-w-[390px] bg-[#00000010] mt-[30px] mb-[20px]"></div>
+							{/* <div className="h-[1px] max-w-[390px] bg-[#00000010] mt-[30px] mb-[20px]"></div>
 							<p className="text-[24px] font-[500]">CALL NOW</p>
 							<a href={`tel:${"+8801722510266"}`} className="text-[#633ABD] text-[16px] font-[400] tracking-[0.9px] cursor-pointer">
 								{data?.phone_number}
-							</a>
+							</a> */}
 						</div>
 					</div>
 					<div

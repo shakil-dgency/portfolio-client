@@ -30,9 +30,9 @@ const sendAutoReply = async (recipientEmail, isForm, name) => {
 	const autoReplyMessage = `
 	  ${
 			isForm === "contact"
-				? `<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>Document</title> <style> body { font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif; } .para_body p { margin-bottom: 30px; color: #2a2a2a; } .conclusion { line-height: 12px; color: #2a2a2a; } .name { font-weight: 600; } .designation { color: #9a9a9a; } </style> </head> <body> <div class=""> <div class="para_body"> <p>Dear ${
+				? `<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>Document</title> <style> body { font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif; } .para_body p { margin-bottom: 25px; color: #2a2a2a; } .conclusion { line-height: 8px; color: #2a2a2a; } .name { font-weight: 600; } .designation { color: #9a9a9a; } </style> </head> <body> <div class=""> <div class="para_body"> <p>Dear ${
 						name.split(" ")[0].charAt(0).toUpperCase() + name.split(" ")[0].slice(1)
-				  },</p> <p> Thank you for contacting me through my personal site, hamiduzjaman.com. I appreciate you taking the time to get in touch. Your message is important to me, and I will get back to you as soon as possible. </p> <p> As the founder and chief digital marketer of dgency.com, I am dedicated to providing top-notch digital marketing services. Whether you have questions, need assistance, or are interested in our services, I'm here to help. </p> <p> Looking forward to connecting with you soon. </p>  </div> <div class="conclusion"> <p>Best regards,</p> <p class="name">H M Hamiduzjaman</p> <p class="designation">Founder & Chief Digital Marketer</p><p class="designation">dgency.com</p> </div> </div> </body> </html>`
+				  },</p> <p> Thank you for reaching out through my personal site, HAMIDUZJAMAN. I truly appreciate your time and interest! </p> <p> At DGENCY, my team and I are passionate about delivering results-driven digital marketing solutions, including Google Ads, Meta Ads, Microsoft Ads, UI/UX Design, Web Development, Conversion Optimization, and more. </p> <p> If you have any questions or need assistance, feel free to reply directly to this email—I manage it personally. </p> <p> I’ll respond as soon as I can and look forward to connecting with you soon! </p>  </div> <div class="conclusion"> <p>Best regards,</p> <p class="name">H M Hamiduzjaman</p> <p class="designation">Founder & Chief Digital Marketer, DGENCY</p> </div> </div> </body> </html>`
 				: ""
 		}
 	`;
@@ -42,7 +42,7 @@ const sendAutoReply = async (recipientEmail, isForm, name) => {
 		from: `"Hamid Shawon" <${process.env.EMAIL}>`,
 		to: recipientEmail,
 		subject: `
-		${isForm === "contact" ? "Thank You for Reaching Out!" : ""}
+		${isForm === "contact" ? "Thank You for Reaching Out [HAMIDUZJAMAN]" : ""}
 	  `,
 		html: autoReplyMessage,
 	};

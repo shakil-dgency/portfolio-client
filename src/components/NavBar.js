@@ -156,16 +156,17 @@ function NavBar({ search, setSearch, isSearch }) {
 			>
 				<ul className="flex flex-col-reverse gap-6 font-[500] mt-8 md:mt-0">
 					<div className="flex flex-col gap-4">
+					<li className="">
+							<Link href={"/profile"} onClick={handleClose} className="hover:text-[#8C00BF]">
+								Author's Profile
+							</Link>
+						</li>
 						<li className=" cursor-pointer">
 							<Link href={"/"} onClick={handleClose} className="hover:text-[#9900CC]">
 								Daily Digest
 							</Link>
 						</li>
-						<li className="">
-							<Link href={"/profile"} onClick={handleClose} className="hover:text-[#8C00BF]">
-								Author's Profile
-							</Link>
-						</li>
+						
 						<li className="">
 							<Link href={"/blog"} onClick={handleClose} className="hover:text-[#8C00BF]">
 								Blog
