@@ -20,6 +20,7 @@ import TestimonialsSection from "@/components/Profile/Testimonials/TestimonialsS
 import Tools from "@/components/Profile/ToolsSection/ToolsSection";
 import React from "react";
 import StructureData from "@/components/StructureData";
+import FadeInUpSection from "@/components/FadeInUpSection";
 
 export async function generateMetadata() {
 	const product = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/profile?populate[0]=seo.metaImage`).then((res) => res.json());
@@ -38,7 +39,6 @@ export async function generateMetadata() {
 async function getHeroData() {
 	const res = await fetch(
 		`${process.env.NEXT_PUBLIC_API_URL}/api/profile?populate[0]=hero&populate[1]=hero.profile_image&populate[2]=hero.cover_image&populate[3]=hero.tags`
-
 	);
 
 	const heroData = await res.json();
@@ -90,8 +90,12 @@ async function page() {
 				<Hero data={heroData} />
 				<div className="px-[16px] xl:px-0">
 					<Expertise data={expertiseData} />
-					<IndustriesExpertise data={industriesData} />
-					<Tools />
+					<FadeInUpSection>
+						<IndustriesExpertise data={industriesData} />
+					</FadeInUpSection>
+					<FadeInUpSection>
+						<Tools />
+					</FadeInUpSection>
 					<ExperienceSection />
 					<ServicesSection />
 					<HighlightsSection />

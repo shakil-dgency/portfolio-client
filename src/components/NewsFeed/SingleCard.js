@@ -18,6 +18,7 @@ import linkCopy from "../../../public/newsFeed/link.svg";
 import random from "../../../public/Random.svg";
 import pin from "../../../public/pin.svg";
 import { usePathname } from "next/navigation";
+import FadeInUpSection from "../FadeInUpSection";
 
 function SingleCard({ data, highlightedSearch, singleNews, previousData, nextData, randomFeed }) {
 	const [likeCount, setLikeCount] = useState();
@@ -201,7 +202,7 @@ function SingleCard({ data, highlightedSearch, singleNews, previousData, nextDat
 
 	return (
 		<div>
-			<div>
+			{/* <FadeInUpSection> */}
 				<div className="max-w-[672px] mx-auto bg-[#ffffff] sm:rounded-md mb-7 md:mb-[30px] relative">
 					<div className="px-[16px] py-[24px] sm:px-[30px] sm:py-[30px]">
 						<div className="flex justify-between gap-12">
@@ -211,13 +212,13 @@ function SingleCard({ data, highlightedSearch, singleNews, previousData, nextDat
 							>
 								{highlightSearchKeyword(data.attributes.feed_title, highlightedSearch)}
 							</Link>
-							{data?.attributes?.pin_post === true && navigate =='/' && (
-							<span className=" text-[#ADB5BD] flex items-center gap-1 py-1 text-[12px] font-[500] rounded">
-								{" "}
-								<Image src={pin} height={30} width={15} alt="" className=" " />
-								<p>Pinned</p>
-							</span>
-						)}
+							{data?.attributes?.pin_post === true && navigate == "/" && (
+								<span className=" text-[#ADB5BD] flex items-center gap-1 py-1 text-[12px] font-[500] rounded">
+									{" "}
+									<Image src={pin} height={30} width={15} alt="" className=" " />
+									<p>Pinned</p>
+								</span>
+							)}
 						</div>
 
 						<p className="text-[14px] text-[#ADB5BD] pt-1 font-[400]">{handleFormatedDate(data.attributes.createdAt)}</p>
@@ -306,37 +307,37 @@ function SingleCard({ data, highlightedSearch, singleNews, previousData, nextDat
 						</div>
 					</div>
 				</div>
-				{singleNews && (
-					<div className="flex justify-center gap-4 sm:gap-10">
-						{previousData && (
-							<Link
-								href={handleSlug(previousData && previousData.attributes.slug, previousData && previousData.attributes.createdAt)}
-								className="flex items-center rounded-[5px] text-[14px] sm:text-[16px] text-[var(--bold-text)] border-[var(--para-text)] border-[1px] py-[7px] px-[10px] sm:py-[15px] sm:px-[25px]"
-							>
-								<BiChevronLeft className="text-2xl -ml-[6px]" />
-								Previous
-							</Link>
-						)}
+			{/* </FadeInUpSection> */}
+			{singleNews && (
+				<div className="flex justify-center gap-4 sm:gap-10">
+					{previousData && (
 						<Link
-							href={handleSlug(randomFeed && randomFeed.attributes.slug, randomFeed && randomFeed.attributes.createdAt)}
-							className="flex items-center gap-2 rounded-[5px] text-[14px] sm:text-[16px] text-[var(--bold-text)] border-[var(--para-text)] border-[1px] py-[7px] px-[9px] sm:py-[15px] sm:px-[22px]"
+							href={handleSlug(previousData && previousData.attributes.slug, previousData && previousData.attributes.createdAt)}
+							className="flex items-center rounded-[5px] text-[14px] sm:text-[16px] text-[var(--bold-text)] border-[var(--para-text)] border-[1px] py-[7px] px-[10px] sm:py-[15px] sm:px-[25px]"
 						>
-							{/* <LiaRandomSolid /> */}
-							<Image src={random} alt="" className=" w-[18px] h-[18px]" />
-							Random
+							<BiChevronLeft className="text-2xl -ml-[6px]" />
+							Previous
 						</Link>
-						{nextData && (
-							<Link
-								href={handleSlug(nextData && nextData.attributes.slug, nextData && nextData.attributes.createdAt)}
-								className=" flex items-center rounded-[5px] text-[14px] sm:text-[16px] text-[var(--bold-text)] border-[var(--para-text)] border-[1px] py-[7px] px-[20px] sm:py-[15px] sm:px-[40px]"
-							>
-								Next
-								<BiChevronRight className="text-2xl -mr-[6px]" />
-							</Link>
-						)}
-					</div>
-				)}
-			</div>
+					)}
+					<Link
+						href={handleSlug(randomFeed && randomFeed.attributes.slug, randomFeed && randomFeed.attributes.createdAt)}
+						className="flex items-center gap-2 rounded-[5px] text-[14px] sm:text-[16px] text-[var(--bold-text)] border-[var(--para-text)] border-[1px] py-[7px] px-[9px] sm:py-[15px] sm:px-[22px]"
+					>
+						{/* <LiaRandomSolid /> */}
+						<Image src={random} alt="" className=" w-[18px] h-[18px]" />
+						Random
+					</Link>
+					{nextData && (
+						<Link
+							href={handleSlug(nextData && nextData.attributes.slug, nextData && nextData.attributes.createdAt)}
+							className=" flex items-center rounded-[5px] text-[14px] sm:text-[16px] text-[var(--bold-text)] border-[var(--para-text)] border-[1px] py-[7px] px-[20px] sm:py-[15px] sm:px-[40px]"
+						>
+							Next
+							<BiChevronRight className="text-2xl -mr-[6px]" />
+						</Link>
+					)}
+				</div>
+			)}
 		</div>
 	);
 }

@@ -21,7 +21,7 @@ function Footer() {
 			.then((res) => res.json())
 			.then((data) => setFooterData(data))
 			.catch((error) => console.log(error));
-	});
+	},[]);
 
 	return (
 		<div>

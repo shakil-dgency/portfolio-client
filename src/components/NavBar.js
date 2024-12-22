@@ -53,7 +53,7 @@ function NavBar({ search, setSearch, isSearch }) {
 					} else if (lastScrollTop > scrollTop + 20) {
 						navbar.style.top = "0";
 					}
-				}else{
+				} else {
 					navbar.style.top = "0";
 				}
 
@@ -64,13 +64,13 @@ function NavBar({ search, setSearch, isSearch }) {
 
 	const handleOpenSideBar = (e) => {
 		e.preventDefault();
+		let sideBar = document.querySelector(".sidebar");
+		let navbar = document.querySelector(".navbar");
 
-		let navBar = document.querySelector(".sidebar");
-		// navBar.classList.remove("hidden");
+		// for adjustment of scrollbar width
+		// document.body.classList.add("mr-[0.560rem]");
+
 		setSideBarOpen(true);
-		// if (screen > 768) {
-		// 	document.body.classList.add("mr-[0.560rem]");
-		// }
 
 		window.onscroll = function () {
 			window.scrollTo(0, 0);
@@ -79,26 +79,23 @@ function NavBar({ search, setSearch, isSearch }) {
 		document.body.classList.add("overflow-y-hidden");
 		document.body.classList.add("body_cover");
 		setTimeout(() => {
-			navBar.classList.remove("right-[-120%]");
-			navBar.classList.add("right-[0]");
-			// document.body.classList.add("sidebar_shadow");
+			sideBar.classList.remove("right-[-120%]");
+			sideBar.classList.add("right-[0]");
 		}, 50);
 	};
 
 	const handleClose = () => {
-		let navBar = document.querySelector(".sidebar");
-		navBar.classList.remove("right-[0]");
-		navBar.classList.add("right-[-120%]");
+		let sideBar = document.querySelector(".sidebar");
+		let navbar = document.querySelector(".navbar");
+
+		sideBar.classList.remove("right-[0]");
+		sideBar.classList.add("right-[-120%]");
 		setSideBarOpen(false);
 		window.onscroll = function () {};
 		setTimeout(() => {
-			// if (screen > 768) {
-			// 	document.body.classList.remove("mr-[0.560rem]");
-			// }
+			// document.body.classList.remove("mr-[0.560rem]");
 			document.body.classList.remove("overflow-y-hidden");
 			document.body.classList.remove("body_cover");
-			// navBar.classList.add("hidden");
-			// setSearch("");
 		}, 100);
 	};
 
@@ -117,7 +114,7 @@ function NavBar({ search, setSearch, isSearch }) {
 	};
 
 	return (
-		<div className="navbar bg-[#ffffff] duration-500 text-[#222222] fixed z-40  top-0 w-full shadow-md md:shadow-sm">
+		<div className="navbar bg-[#ffffff] duration-500 text-[#222222] fixed  z-40  top-0 w-full shadow-md md:shadow-sm ">
 			<div className="max-w-[1224px] mx-auto px-2.5 sm:px-[16px] mxl:px-0 w-full flex gap-3 justify-end mb3:justify-between items-center py-3 sm:py-2.5 relative ">
 				<div
 					className={`logo ${
@@ -169,6 +166,11 @@ function NavBar({ search, setSearch, isSearch }) {
 								Author's Profile
 							</Link>
 						</li>
+						<li className="">
+							<Link href={"/blog"} onClick={handleClose} className="hover:text-[#8C00BF]">
+								Blog
+							</Link>
+						</li>
 						{/* <li className="cursor-pointer">About</li> */}
 						<li className="">
 							<Link href={"/contact"} onClick={handleClose} className="hover:text-[#8C00BF]">
@@ -188,9 +190,7 @@ function NavBar({ search, setSearch, isSearch }) {
 						</div>
 					)} */}
 				</ul>
-				{
-					<EmailSubscribe />
-				}
+				{<EmailSubscribe />}
 				<RxCross2
 					onClick={handleClose}
 					className={`${screen < 768 && screen !== null ? "" : ""} absolute right-5 top-4 text-[28px] cursor-pointer hover:animate-spin`}

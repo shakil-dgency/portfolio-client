@@ -24,7 +24,7 @@ async function getToolsData() {
 async function Tools() {
 	const toolsData = await getToolsData();
 	return (
-		<div id="tools">
+		<div id="tools" className="-mt-10 md:-mt-7">
 			<div className="g__body-container ">
 				<GlobalSectionStarter data={toolsData?.data?.attributes.tools.section_head} />
 				<div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-6 gap-y-[30px] sm:gap-y-[50px] gap-x-[30px] sm:gap-x-[50px] justify-items-center">

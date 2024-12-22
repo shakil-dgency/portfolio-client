@@ -17,7 +17,7 @@ function Faq({ data }) {
 	// }, []); // Run this effect only once on initial render
 	return (
 		<div className=" ">
-			<Accordion className="flex flex-col ">
+			<Accordion className="flex flex-col " >
 				{data &&
 					data.map((item) => {
 						return (

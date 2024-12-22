@@ -11,6 +11,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Spinner from "../Spinner";
 import { usePathname } from "next/navigation";
 import EmailSubscribe from "../EmailSubscribe";
+import FadeInUpSection from "../FadeInUpSection";
 
 function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed, categorySection }) {
 	const [sortedData, setSortedData] = useState();
@@ -21,7 +22,7 @@ function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed
 
 	const navigate = usePathname();
 
-	// console.log(newFunction);
+	// console.log(feedData);
 
 	useEffect(() => {
 		if (feedData) {
@@ -29,7 +30,6 @@ function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed
 				if (typeof currentValue.id === "number") {
 					// Insert currentValue into the correct position in the accumulator array
 					if (navigate === "/") {
-
 						// const index = accumulator.findIndex((item) => item.attributes.pin_post !== true && item.id <= currentValue.id);
 
 						// if (index === -1) {
@@ -89,7 +89,7 @@ function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed
 	const handleLoad = () => {
 		setTimeout(() => {
 			setCount(count + 10);
-		}, 1500);
+		}, 2500);
 	};
 
 	return (
@@ -122,6 +122,7 @@ function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed
 						dataLength={count}
 						next={handleLoad}
 						hasMore={count <= dataLength}
+						scrollThreshold={0.7}
 						loader={
 							<div className="flex flex-col justify-center">
 								<Spinner /> <span className="text-center pt-2 pl-2 text-[#8f8f8f]">Loading...</span>
@@ -139,15 +140,17 @@ function NewsFeedCard({ feedData, singleNews, previousData, nextData, randomFeed
 								.slice(0, count)
 								.map((data) => {
 									return (
-										<SingleCard
-											data={data ? data : "No data"}
-											key={data.id}
-											highlightedSearch={search.toLowerCase()}
-											singleNews={singleNews}
-											previousData={previousData}
-											nextData={nextData}
-											randomFeed={randomFeed}
-										/>
+										<FadeInUpSection>
+											<SingleCard
+												data={data ? data : "No data"}
+												key={data.id}
+												highlightedSearch={search.toLowerCase()}
+												singleNews={singleNews}
+												previousData={previousData}
+												nextData={nextData}
+												randomFeed={randomFeed}
+											/>
+										</FadeInUpSection>
 									);
 								})}
 					</InfiniteScroll>

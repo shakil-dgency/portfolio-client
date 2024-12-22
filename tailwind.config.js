@@ -36,5 +36,9 @@ module.exports = {
 			// => @media (min-width: 1536px) { ... }
 		},
 	},
+	fontFamily: {
+	
+		poppins: ["var(--font-poppins)"],
+	},
 	plugins: [],
 };
