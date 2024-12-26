@@ -8,11 +8,25 @@ import Hero from "@/components/Blog/BlogDetails/Hero";
 
 export const revalidate = 20;
 
+export async function generateMetadata({ params: { blog_details } }) {
+	const product = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs/${blog_details}?populate[0]=seo.metaImage`).then((res) => res.json());
+	// console.log(product);
+	const data = product?.data?.attributes.seo;
+	return {
+		title: data?.metaTitle,
+		description: data?.metaDescription,
+		canonical: data?.canonicalURL ? data.canonicalURL : "https://hamiduzjaman.com/",
+		openGraph: {
+			images: data?.metaImage?.data?.attributes.url,
+		},
+	};
+}
+
 export async function generateStaticParams() {
 	let blogsData = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs?fields=slug`);
 
 	let blogs = await blogsData.json();
-	console.log(blogs);
+	// console.log(blogs);
 
 	return blogs?.data?.map((blog) => ({
 		blog_details: blog?.attributes?.slug,
@@ -31,7 +45,7 @@ async function page({ params: { blog_details } }) {
 
 	return (
 		<div className="bg-white">
-		    <Hero blogData={blogData} />
+			<Hero blogData={blogData} />
 			<div className={styles.blog_details}>
 				<div className="relative max-w-[700px] lg:max-w-[800px] mx-auto lg:flex -mt-[200px] ">
 					<SocialShare blog_details={blog_details} />
@@ -58,9 +72,7 @@ async function page({ params: { blog_details } }) {
 			</div>
 			<div className="max-w-[580px] mx-8 md:mx-auto h-[1px] bg-[#633abdbd] mb-12 "></div>
 
-            <MoreBlog blog_details={blog_details} />
-
-			
+			<MoreBlog blog_details={blog_details} />
 		</div>
 	);
 }

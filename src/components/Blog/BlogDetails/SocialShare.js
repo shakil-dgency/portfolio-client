@@ -19,13 +19,13 @@ function SocialShare({ blog_details }) {
 	return (
 		<>
 			<div className="absolute bottom-6 right-10 lg:sticky lg:top-[150px] mt-0 lg:h-[120px] flex flex-row lg:flex-col gap-3 text-[24px]">
-				<LinkedinShareButton url={`https://escaperoommarketer.com/blog/${blog_details}`}>
+				<LinkedinShareButton url={`https://hamiduzjaman.com/blog/${blog_details}`}>
 					<Image src={linkedIn} alt="" className=" w-[20px] h-[20px]" />
 				</LinkedinShareButton>
-				<FacebookShareButton url={`https://escaperoommarketer.com/blog/${blog_details}`}>
+				<FacebookShareButton url={`https://hamiduzjaman.com/blog/${blog_details}`}>
 					<Image src={facebook} alt="" className=" w-[20px] h-[20px]" />
 				</FacebookShareButton>
-				<TwitterShareButton url={`https://escaperoommarketer.com/blog/${blog_details}`}>
+				<TwitterShareButton url={`https://hamiduzjaman.com/blog/${blog_details}`}>
 					<Image src={twitter} alt="" className=" w-[20px] h-[20px]" />
 				</TwitterShareButton>
 				<Image

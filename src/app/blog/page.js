@@ -2,7 +2,6 @@ import Header from "@/components/Blog/Header";
 import PinnedBlogCard from "@/components/Blog/PinnedBlogCard";
 import React from "react";
 
-
 async function getBlogs() {
 	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs?populate=*`, {
 		next: { revalidate: 10 },

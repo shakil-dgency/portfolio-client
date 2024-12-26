@@ -16,7 +16,7 @@ import { phoneSchema } from "@/validation/PhoneNumberValidation";
 function ContactForm({ data }) {
 	const [phoneState, setPhoneState] = useState(false);
 	const [phoneCountryCode, setPhoneCountryCode] = useState("+1");
-	const [isPhoneValid, setIsphoneValid] = useState("");
+	const [isPhoneValid, setIsphoneValid] = useState(true);
 	const [isPhoneempty, setPhoneempty] = useState(true);
 	const [formSubmit, setFormSubmit] = useState(false);
 	const [state, setState] = useState({
@@ -99,8 +99,8 @@ function ContactForm({ data }) {
 			let phone = state.phone;
 
 			try {
-				await phoneSchema.validate({ phone });
-				console.log("Phone number is valid");
+				 await phoneSchema.validate({ phone });
+				
 
 				if (state.name !== "" && state.email.includes("@") && state.website !== "" ) {
 					e.preventDefault();
@@ -120,9 +120,9 @@ function ContactForm({ data }) {
 				}
 			} catch (error) {
 				console.error(error.errors[0]);
-				setIsphoneValid(error.errors[0]);
+				setIsphoneValid(false);
 				setTimeout(() => {
-					setIsphoneValid("");
+					setIsphoneValid(true);
 				}, 800);
 			}
 		}
@@ -256,7 +256,7 @@ function ContactForm({ data }) {
 											>
 												Phone number*
 											</label>
-											{isPhoneempty === false && (
+											{(isPhoneempty === false || isPhoneValid === false) && (
 												<p className="text-[12px] rounded absolute bottom-[-45px] left-[10%] px-[10px] py-[8px] z-10 bg-[#f1f1f1] before:content-[''] before:absolute before:left-[15%] before:top-[-50%] before:rotate-180  before:border-[10px] before:border-solid before:border-[#f1f1f1] before:border-r-[#0000] before:border-b-[#0000] before:border-l-[#0000]">
 													⚠️ Please enter a valid number
 												</p>
