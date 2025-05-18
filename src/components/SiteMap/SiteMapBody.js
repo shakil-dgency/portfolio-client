@@ -2,8 +2,10 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-function SiteMapBody({ feedData }) {
+function SiteMapBody({ feedData, blogData }) {
 	const [sortedData, setSortedData] = useState();
+	console.log(blogData);
+
 	useEffect(() => {
 		if (feedData) {
 			let finalData = feedData.reduce(function (accumulator, currentValue) {
@@ -48,6 +50,19 @@ function SiteMapBody({ feedData }) {
 					<Link href={"/schedule-call"}>Schedule a Call</Link>
 				</li>
 				<li>
+					<Link href={"/schedule-call"}>Blog</Link>
+				</li>
+				
+				<div className="ml-14 mt-0 list-none text-[18px] leading-[1.5] flex flex-col gap-3 font-[500]">
+					{blogData &&
+						blogData.data.map((data, i) => (
+							<li key={i}>
+								<Link href={`${data?.attributes.slug}`}>{data?.attributes.title}</Link>
+							</li>
+						))}
+				</div>
+
+				<li>
 					<Link href={"/"}>Daily Digest</Link>
 				</li>
 
@@ -61,7 +76,7 @@ function SiteMapBody({ feedData }) {
 							);
 						})}
 				</div>
-                <li>
+				<li>
 					<Link href={"/privacy-policy"}>Privacy policy</Link>
 				</li>
 				<li>

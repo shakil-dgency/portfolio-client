@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
+
+    const blog = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs?fields=slug&fields=updatedAt`);
+	const blogData = await blog.json();
     
 
     const newsfeedData = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/news-feeds?populate=*`);
@@ -18,7 +21,7 @@ export async function GET() {
         return accumulator;
     }, []);
 
-    const xml = generateSitemap(sortedData);
+    const xml = generateSitemap(sortedData,blogData);
 
     return new NextResponse(xml, {
         headers: {
@@ -37,7 +40,7 @@ const handleSlug = (title, date) => {
     return `${formattedDate}/${title}`;
 };
 
-function generateSitemap(sortedData) {
+function generateSitemap(sortedData,blogData) {
     return `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
         <url>
@@ -56,6 +59,12 @@ function generateSitemap(sortedData) {
             <loc>https://hamiduzjaman.com/schedule-call</loc>
             <lastmod>2024-04-01</lastmod>
         </url>
+        ${blogData?.data.map((item, index) => `
+            <url>
+                <loc>https://hamiduzjaman.com/blog/${item.attributes.slug}</loc>
+                <lastmod>${new Date(item.attributes.updatedAt).toISOString().slice(0, 10)}</lastmod>
+            </url>
+        `).join('')}
         ${sortedData.map((d, index) => `
             <url>
                 <loc>https://hamiduzjaman.com${handleSlug(d.attributes.slug,d.attributes.createdAt)}</loc>

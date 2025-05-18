@@ -11,13 +11,17 @@ import { RxCross2 } from "react-icons/rx";
 import { FaBars } from "react-icons/fa6";
 import EmailSubscribe from "./EmailSubscribe";
 
+import { usePathname } from "next/navigation";
+
 function NavBar({ search, setSearch, isSearch }) {
 	const [screen, setScreen] = useState(null);
 	const [sideBarOpen, setSideBarOpen] = useState(false);
 	const [wantToSearch, setWantToSearch] = useState(false);
 	const [toggle, setToggle] = useState(false);
+	const [isNavButton, setIsNavButton] = useState(false);
 
 	const sidebarRef = useRef();
+	const navigate = usePathname();
 
 	useEffect(() => {
 		let screenSize = window.screen;
@@ -34,12 +38,22 @@ function NavBar({ search, setSearch, isSearch }) {
 			});
 		}
 
+		let navbar = document.querySelector(".navbar");
+		var lastScrollTop = 0;
+
+		//for button visibility
+		window.addEventListener("scroll", function () {
+			let scrollTop = window.scrollY || document.documentElement.scrollTop;
+			if (scrollTop > 400) {
+				setIsNavButton(true);
+			} else {
+				setIsNavButton(false);
+			}
+		});
+
 		// Navbar OnScroll functionality
 
 		if (screenSize.width < 768) {
-			var lastScrollTop = 0;
-			let navbar = document.querySelector(".navbar");
-
 			window.addEventListener("scroll", function () {
 				let scrollTop = window.scrollY || document.documentElement.scrollTop;
 				if (scrollTop > 300) {
@@ -115,22 +129,18 @@ function NavBar({ search, setSearch, isSearch }) {
 
 	return (
 		<div className="navbar bg-[#ffffff] duration-500 text-[#222222] fixed  z-40  top-0 w-full shadow-md md:shadow-sm ">
-			<div className="max-w-[1224px] mx-auto px-2.5 sm:px-[16px] mxl:px-0 w-full flex gap-3 justify-end mb3:justify-between items-center py-3 sm:py-2.5 relative ">
+			<div className="max-w-[1224px] mx-auto px-2.5 sm:px-[16px] mxl:px-0 w-full flex gap-3 justify-between items-center py-3 sm:py-3 relative ">
 				<div
 					className={`logo ${
-						screen < 640 && wantToSearch ? "translate-x-[-200%] sm:translate-x-0 flex-[0]" : "flex-[1.5]"
-					} duration-500 mb3:block w-full italic font-[700] relative ${sideBarOpen ? "-z-10" : "z-[inherit]"} `}
+						screen < 640 && wantToSearch ? "translate-x-[-200%] sm:translate-x-0 flex-[0]" : ""
+					} duration-500 mb3:block italic font-[700] relative ${sideBarOpen ? "-z-10" : "z-[inherit]"} `}
 				>
 					<Link href={"/"}>
-						<Image src={logo} alt="" className="w-[180px] sm:w-[250px]" />
+						<Image src={logo} alt="" className="w-[130px] mb2:w-[180px] sm:w-[250px]" />
 					</Link>
 				</div>
 
-				<div
-					className={`${screen < 640 && screen !== null ? "" : ""} flex-[1] w-full sm:w-auto flex justify-end items-center gap-6 ${
-						sideBarOpen ? "-z-10" : "z-[inherit]"
-					}`}
-				>
+				<div className={`${screen < 640 && screen !== null ? "" : ""}  flex justify-end items-center gap-3 sm2:gap-6 ${sideBarOpen ? "-z-10" : "z-[inherit]"}`}>
 					{isSearch && (
 						<div className={`${screen > 640 && screen !== null ? "block" : ""} w-full sm:w-auto`}>
 							<SearchComponent
@@ -144,6 +154,15 @@ function NavBar({ search, setSearch, isSearch }) {
 							/>
 						</div>
 					)}
+
+					{!isSearch && isNavButton && navigate === "/profile" && (
+						<div className="flex  ">
+							<Link href={`/schedule-call`} className=" bg-[#633ABD] text-white font-[500] text-[11px] mb1:text-[12px] mb2:text-[14px] px-3 md:px-8 py-3 lg:px-[25px] rounded-md ">
+								Schedule a Call
+							</Link>
+						</div>
+					)}
+
 					<button onClick={handleOpenSideBar} className={`py-[6px] flex justify-center items-center`}>
 						<FaBars className="mr-1 text-[var(--bold-text)] text-[24px] cursor-pointer" />
 					</button>
@@ -156,7 +175,7 @@ function NavBar({ search, setSearch, isSearch }) {
 			>
 				<ul className="flex flex-col-reverse gap-6 font-[500] mt-8 md:mt-0">
 					<div className="flex flex-col gap-4">
-					<li className="">
+						<li className="">
 							<Link href={"/profile"} onClick={handleClose} className="hover:text-[#8C00BF]">
 								Author's Profile
 							</Link>
@@ -166,7 +185,7 @@ function NavBar({ search, setSearch, isSearch }) {
 								Daily Digest
 							</Link>
 						</li>
-						
+
 						<li className="">
 							<Link href={"/blog"} onClick={handleClose} className="hover:text-[#8C00BF]">
 								Blog

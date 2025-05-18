@@ -13,13 +13,23 @@ async function getNewsFeeds() {
 
 	return newsfeeds;
 }
+async function getBlog() {
+	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs?fields=slug&fields=title`, {
+		next: { revalidate: 30 },
+	});
+	const blogData = await res.json();
+
+	return blogData;
+}
 
 async function page() {
     const newsFeeds = await getNewsFeeds();
+
+	const blogData =  await getBlog()
 	return (
 		<div>
 			<NavBar />
-			<SiteMapBody feedData={newsFeeds.data} />
+			<SiteMapBody feedData={newsFeeds.data} blogData={blogData} />
 			<Footer />
 		</div>
 	);

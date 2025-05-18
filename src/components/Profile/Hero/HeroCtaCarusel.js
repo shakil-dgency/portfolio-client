@@ -135,7 +135,7 @@ function HeroCtaCarusel() {
 			<div
 				style={{ maxWidth: `${resize < 1220 ? resize + "px" : "1224px"}` }}
 				className={`under_profile-pic  ${
-					heroCta ? `  md:py-4 md:fixed z-30 top-12 bg-[#FDFDFD] md:shadow-sm pl-5` : "ml-[16px] md:ml-[30px] lg:ml-[50px] pt-4 relative z-10"
+					heroCta ? `  md:py-4 md:fixed z-30 top-[68px] bg-[#FDFDFD] md:shadow-sm pl-5` : "ml-[16px] md:ml-[30px] lg:ml-[50px] pt-4 relative z-10"
 				}  `}
 			>
 				<div className="">
